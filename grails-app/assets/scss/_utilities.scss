@@ -1,0 +1,19 @@
+@import "basic/mixin";
+.pull-right {
+  float: right!important;
+}
+.pull-left {
+  float: left!important;
+}
+.hide {
+  display: none;
+}
+.show {
+  display: block;
+}
+.invisible {
+  visibility: hidden;
+}
+.box-shadow-bottom{
+  @include box-shadow(top, #ddd);
+}

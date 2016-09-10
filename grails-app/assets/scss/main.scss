@@ -1,0 +1,16 @@
+@import "variables";
+@import "basic/normalize";
+@import "styles";
+@import "components/layout";
+@import "components/navs";
+@import "components/product";
+@import "components/swiper";
+@import "components/modal";
+@import "components/pagination";
+@import "utilities";
+@import "basic/themes";
+
+//quick test
+.border{
+  border: 1px solid red;
+}

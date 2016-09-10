@@ -1,0 +1,10 @@
+@import "../variables";
+a{
+  color: #999;
+}
+a:hover{
+  color: #FF5113;
+}
+.error{
+  color: $error-color;
+}
