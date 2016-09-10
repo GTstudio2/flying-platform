@@ -1,0 +1,46 @@
+
+/*pagination*/
+.pagination{
+  margin: 0;
+}
+.pagination > *:first-child,
+.pagination > *:first-child {
+  border-radius: 4px 0 0 4px;
+}
+
+.pagination > *:last-child,
+.pagination > *:last-child {
+  border-radius: 0 4px 4px 0;
+}
+
+.pagination > a,
+.pagination > span {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  color: #428bca;
+  float: left;
+  line-height: 1.42857;
+  margin-left: -1px;
+  padding: 6px 12px;
+  position: relative;
+  text-decoration: none;
+}
+
+.pagination > a.active,
+.pagination > .currentStep,
+.pagination a:hover,
+.pagination a:focus,
+.pagination span:focus {
+  background-color: #428bca;
+  border-color: #428bca;
+  color: #fff;
+  cursor: default;
+  z-index: 2;
+}
+
+.pagination > a:hover {
+  cursor: pointer;
+  background-color: #ddd;
+  border: 1px solid #ddd;
+  color: #428bca;
+}

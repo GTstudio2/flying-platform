@@ -1,0 +1,12 @@
+.navbar-default+.banner-box{
+  margin-top:-20px;
+}
+.flip-opt {
+  display: none;
+}
+.swiper-container:hover .flip-opt {
+  display: block;
+}
+.swiper-slide{
+  height: 720px;
+}

@@ -1,0 +1,27 @@
+@import "../variables";
+@import "../basic/mixin";
+/*keep footer always on bottom*/
+$footer-height: 140px;
+html,
+body {
+  height: 100%;
+}
+
+#container {
+  min-height: 100%;
+  position: relative;
+}
+
+#body {
+  padding-bottom: $footer-height+20; /* Height of the footer */
+}
+
+#footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 20px;
+  height: $footer-height; /* Height of the footer */
+  background-color: $color-grey-lighter;
+  @include box-shadow(top, #ddd);
+}
