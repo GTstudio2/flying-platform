@@ -126,6 +126,12 @@ body {
   border-radius: 0;
   z-index: 2; }
 
+.img-link {
+  min-height: 160px; }
+
+.img-link img {
+  border: none; }
+
 .classify-videos a {
   position: relative; }
 

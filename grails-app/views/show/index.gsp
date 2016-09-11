@@ -31,7 +31,7 @@
             <g:each var="r" in="${photoRecommends}">
                 <div class="col-md-3 col-sm-6">
                     <div class="pro-box">
-                        <g:link controller="show" action="photoDetail" id="${r.product.id}">
+                        <g:link class="img-link" controller="show" action="photoDetail" id="${r.product.id}">
                             <img src="/show/showImg?img=${r.product.folder}/${r.product.coverImg}">
                         </g:link>
                         <h5><g:link controller="show" action="photoDetail" id="${r.product.id}">${r.product?.name}</g:link></h5>
@@ -45,7 +45,7 @@
             <g:each var="r" in="${videoRecommends}">
                 <div class="col-md-3 col-sm-6">
                     <div class="pro-box">
-                        <g:link controller="show" action="videoDetail" id="${r.product.id}">
+                        <g:link class="img-link" controller="show" action="videoDetail" id="${r.product.id}">
                             <div class="play-mask"></div>
                             <img src="/show/showImg?img=${r.product.folder}/${r.product.coverImg}">
                         </g:link>
@@ -57,8 +57,12 @@
     </div>
     <content tag="footer">
         <asset:javascript src="swiper/js/swiper.jquery.min.js"/>
+        <asset:javascript src="jquery-match-height/jquery.matchHeight.js"/>
         <script>
             $(function() {
+                $('.img-link').matchHeight({
+                    property: 'min-height'
+                })
                 var swiper = new Swiper('.swiper-container', {
                     pagination: '.swiper-pagination',
                     paginationClickable: true,

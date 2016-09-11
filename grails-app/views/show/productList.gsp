@@ -20,7 +20,7 @@
             <g:each var="p" in="${products}">
                 <div class="col-md-3 col-sm-6">
                     <div class="pro-box">
-                        <g:link controller="show" action="photoDetail" id="${p.id}">
+                        <g:link class="img-link" controller="show" action="photoDetail" id="${p.id}">
                             <img src="/show/showImg?img=${p.folder}/${p.coverImg}">
                         </g:link>
                         <h5><g:link controller="show" action="photoDetail" id="${p.id}">${p?.name}</g:link></h5>
@@ -32,7 +32,7 @@
             <g:each var="p" in="${products}">
                 <div class="col-md-3 col-sm-6">
                     <div class="pro-box">
-                        <g:link controller="show" action="videoDetail" id="${p.id}">
+                        <g:link class="img-link" controller="show" action="videoDetail" id="${p.id}">
                             <div class="play-mask"></div>
                             <img src="/show/showImg?img=${p.folder}/${p.coverImg}">
                         </g:link>
@@ -88,6 +88,17 @@
     <div class="pagination">
         <g:paginate controller="show" action="productList" params="[type: 'photo']" total="${productsCount}"/>
     </div>
+
+    <content tag="footer">
+        <asset:javascript src="jquery-match-height/jquery.matchHeight.js"/>
+        <script>
+            $(function () {
+                $('.img-link').matchHeight({
+                    property: 'min-height'
+                })
+            })
+        </script>
+    </content>
 </div>
 </body>
 </html>
