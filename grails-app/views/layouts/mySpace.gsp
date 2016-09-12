@@ -11,30 +11,6 @@
     <meta name="description" content="${description}">
     <asset:stylesheet src="application.css"/>
     %{--<asset:stylesheet src="app/mySpace/mySpace.css"/>--}%
-    <script>
-        var _hmt = _hmt || [];
-        (function () {
-            var hm = document.createElement("script");
-            hm.src = "//hm.baidu.com/hm.js?2ca3989fd156bb938c5f88cef61a8612";
-            var s = document.getElementsByTagName("script")[0];
-            s.parentNode.insertBefore(hm, s);
-        })();
-        (function (i, s, o, g, r, a, m) {
-            i['GoogleAnalyticsObject'] = r;
-            i[r] = i[r] || function () {
-                        (i[r].q = i[r].q || []).push(arguments)
-                    }, i[r].l = 1 * new Date();
-            a = s.createElement(o),
-                    m = s.getElementsByTagName(o)[0];
-            a.async = 1;
-            a.src = g;
-            m.parentNode.insertBefore(a, m)
-        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
-
-        ga('create', 'UA-78763561-1', 'auto');
-        ga('send', 'pageview');
-
-    </script>
     <g:layoutHead/>
 </head>
 
@@ -56,13 +32,13 @@
                 </div>
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav">
-                        <li ${params.action == "index" && params.type == "" ? "class=active" : ""}><a
-                                href="/index">最新</a></li>
-                        <li ${params.action == "index" && params.type == "Gif" ? "class=active" : ""}><a
-                                href="/indexGif">动图</a></li>
-                        <li><a href="/photoVs">起飞表情</a></li>
-                    </ul>
+                    %{--<ul class="nav navbar-nav">--}%
+                        %{--<li ${params.action == "index" && params.type == "" ? "class=active" : ""}><a--}%
+                                %{--href="/index">最新</a></li>--}%
+                        %{--<li ${params.action == "index" && params.type == "Gif" ? "class=active" : ""}><a--}%
+                                %{--href="/indexGif">动图</a></li>--}%
+                        %{--<li><a href="/photoVs">起飞表情</a></li>--}%
+                    %{--</ul>--}%
                     <ul class="nav navbar-nav navbar-right">
                         <g:if test="${session.user}">
                             <li class="dropdown ${params.action == "post" ? "active" : ""}">
@@ -118,18 +94,21 @@
                             <asset:image class="big-thumb" src="apple-touch-icon-retina.png"/>
                         </a>
                     </div>
-
                     <div class="media-body">
                         <h4 class="media-heading">${user?.username}</h4>
                         <g:if test="${user?.intro}">
                             ${user?.intro}
                         </g:if>
                         <g:else>
-                            介绍
+                            介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍
                         </g:else>
                     </div>
+                    <div class="media-right text-right">
+                        <a class="btn btn-default btn-sm margin-bottom-xs" href="http://www.baidu.com" title="个人设置"><span class="glyphicon glyphicon-cog"></span> 个人设置</a>
+                        <a class="btn btn-default btn-sm" href="http://www.baidu.com"><span class="glyphicon glyphicon-inbox"></span> 作品管理</a>
+                    </div>
                 </div>
-                <ul class="nav nav-tabs bottom-nav">
+                <ul class="nav nav-tabs bottom-nav margin-bottom">
                     <li role="presentation" ${params.action == "home" ? "class=active" : ""}><g:link
                             controller="mySpace" action="home">个人主页</g:link></li>
                     <li role="presentation" ${params.classify == "photo" ? "class=active" : ""}><g:link

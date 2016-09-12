@@ -1,4 +1,10 @@
 @import "basic/mixin";
+.text-left{
+  text-align: left;
+}
+.text-right{
+  text-align: right;
+}
 .pull-right {
   float: right!important;
 }
@@ -13,6 +19,18 @@
 }
 .invisible {
   visibility: hidden;
+}
+.margin-top{
+  margin-top:20px;
+}
+.margin-bottom{
+  margin-bottom: 20px;
+}
+.margin-bottom-sm{
+  margin-bottom: 10px;
+}
+.margin-bottom-xs{
+  margin-bottom: 5px;
 }
 .box-shadow-bottom{
   @include box-shadow(top, #ddd);

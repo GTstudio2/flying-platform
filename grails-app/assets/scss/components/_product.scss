@@ -1,4 +1,8 @@
 @import "../basic/mixin";
+.match-height-mask{
+  opacity: 0;
+  transition: ease-in .2s;
+}
 .classify-pro img{
   width: 100%;
   border: 1px solid #EFEFEF;

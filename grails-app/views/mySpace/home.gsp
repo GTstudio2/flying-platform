@@ -14,7 +14,7 @@
 </head>
 
 <body>
-<div class="container">
+<div class="container match-height-mask">
     <div class="panel panel-default">
         <div class="panel-heading">作品</div>
 
@@ -25,13 +25,13 @@
                         <div class="pro-box">
                             <span class="label label-${product.type=="photo"?"success":"danger"}">${product.type}</span>
                             <g:if test="${product.type=="photo"}">
-                                <g:link controller="show" action="photoDetail" id="${product.id}">
+                                <g:link class="img-link" controller="show" action="photoDetail" id="${product.id}">
                                     <g:if test="${product.type=="video"}"><div class="play-mask"></div></g:if>
                                     <img src="/show/showImg?img=${product.folder}/${product.coverImg}">
                                 </g:link>
                             </g:if>
                             <g:if test="${product.type=="video"}">
-                                <g:link controller="show" action="videoDetail" id="${product.id}">
+                                <g:link class="img-link" controller="show" action="videoDetail" id="${product.id}">
                                     <div class="play-mask"></div>
                                     <img src="/show/showImg?img=${product.folder}/${product.coverImg}">
                                 </g:link>
@@ -83,5 +83,18 @@
     </div>
 
 </div>
+<content tag="footer">
+    <asset:javascript src="jquery-match-height/jquery.matchHeight.js"/>
+    <script>
+        $(function () {
+            $('.img-link').matchHeight({
+                property: 'min-height'
+            })
+            $.fn.matchHeight._afterUpdate = function(event, groups) {
+                $('.match-height-mask').css('opacity', 1)
+            }
+        })
+    </script>
+</content>
 </body>
 </html>

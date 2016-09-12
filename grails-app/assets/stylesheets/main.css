@@ -96,6 +96,10 @@ body {
         font-size: 16px;
         line-height: 45px; }
 
+.match-height-mask {
+  opacity: 0;
+  transition: ease-in .2s; }
+
 .classify-pro img {
   width: 100%;
   border: 1px solid #EFEFEF;
@@ -204,6 +208,12 @@ body {
   border: 1px solid #ddd;
   color: #428bca; }
 
+.text-left {
+  text-align: left; }
+
+.text-right {
+  text-align: right; }
+
 .pull-right {
   float: right !important; }
 
@@ -218,6 +228,18 @@ body {
 
 .invisible {
   visibility: hidden; }
+
+.margin-top {
+  margin-top: 20px; }
+
+.margin-bottom {
+  margin-bottom: 20px; }
+
+.margin-bottom-sm {
+  margin-bottom: 10px; }
+
+.margin-bottom-xs {
+  margin-bottom: 5px; }
 
 .box-shadow-bottom {
   -webkit-box-shadow: 0 -2px 2px #ddd;

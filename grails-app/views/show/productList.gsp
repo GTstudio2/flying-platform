@@ -14,7 +14,7 @@
 </head>
 
 <body>
-<div class="container">
+<div class="container match-height-mask">
     <div class="row margin-top classify-pro${params.type=="video"?" classify-videos":""}" id="layer-images">
         <g:if test="${params.type=="photo"}">
             <g:each var="p" in="${products}">
@@ -96,6 +96,9 @@
                 $('.img-link').matchHeight({
                     property: 'min-height'
                 })
+                $.fn.matchHeight._afterUpdate = function(event, groups) {
+                    $('.match-height-mask').css('opacity', 1)
+                }
             })
         </script>
     </content>
