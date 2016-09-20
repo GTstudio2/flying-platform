@@ -241,6 +241,11 @@ body {
 .margin-bottom-xs {
   margin-bottom: 5px; }
 
+.box-shadow {
+  -webkit-box-shadow: 0 2px 2px 2px #F3F3F3;
+  -moz-box-shadow: 0 2px 2px 2px #F3F3F3;
+  box-shadow: 0 2px 2px 2px #F3F3F3; }
+
 .box-shadow-bottom {
   -webkit-box-shadow: 0 -2px 2px #ddd;
   -moz-box-shadow: 0 -2px 2px #ddd;

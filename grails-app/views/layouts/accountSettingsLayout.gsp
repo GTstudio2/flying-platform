@@ -6,7 +6,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <asset:link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
-    <title><g:layoutTitle/>  空间</title>
+    <title><g:layoutTitle/>  安全设置</title>
     <meta name="keywords" content="${keywords}">
     <meta name="description" content="${description}">
     <asset:stylesheet src="application.css"/>
@@ -86,42 +86,25 @@
             </div>
         </nav>
 
-        <div class="user-brief-box">
-            <div class="container">
-                <div class="media">
-                    <div class="media-left media-middle">
-                        <a href="#">
-                            <asset:image class="big-thumb" src="apple-touch-icon-retina.png"/>
-                        </a>
-                    </div>
-                    <div class="media-body">
-                        <h4 class="media-heading">${user?.username}</h4>
-                        <g:if test="${user?.intro}">
-                            ${user?.intro}
-                        </g:if>
-                        <g:else>
-                            介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍介绍
-                        </g:else>
-                    </div>
-                    <div class="media-right text-right">
-                        <g:link class="btn btn-default btn-sm margin-bottom-xs" controller="accountSettings" action="basicInfo" title="个人设置"><span class="glyphicon glyphicon-cog"></span> 个人设置</g:link>
-                        %{--<a class="btn btn-default btn-sm margin-bottom-xs" href="http://www.baidu.com" title="个人设置"></a>--}%
-                        <a class="btn btn-default btn-sm" href="http://www.baidu.com"><span class="glyphicon glyphicon-inbox"></span> 作品管理</a>
+        <div class="container">
+            <h2>设置</h2>
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="list-group box-shadow">
+                        <g:link action="basicInfo" class="list-group-item ${params.action=="basicInfo"?"active":""}">基本信息</g:link>
+                        <g:link action="security" class="list-group-item ${params.action=="security"?"active":""}">安全设置</g:link>
+                        <g:link action="homeDisplayWay" class="list-group-item ${params.action=="homeDisplayWay"?"active":""}">主页展示</g:link>
                     </div>
                 </div>
-                <ul class="nav nav-tabs bottom-nav margin-bottom">
-                    <li role="presentation" ${params.action == "home" ? "class=active" : ""}><g:link
-                            controller="mySpace" action="home">个人主页</g:link></li>
-                    <li role="presentation" ${params.classify == "photo" ? "class=active" : ""}><g:link
-                            controller="mySpace" action="products" params="[classify: 'photo']">照片</g:link></li>
-                    <li role="presentation" ${params.classify == "video" ? "class=active" : ""}><g:link
-                            controller="mySpace" action="products" params="[classify: 'video']">视频</g:link></li>
-                    %{--<li role="presentation"><a href="#" data-toggle="tab">讨论区</a></li>--}%
-                    %{--<li role="presentation"><a href="#" data-toggle="tab">讨论区</a></li>--}%
-                </ul>
+                <div class="col-md-10">
+                    <div class="panel panel-default box-shadow">
+                        <div class="panel-body">
+                            <g:layoutBody/>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <g:layoutBody/>
     </div>
 
     <div class="footer" id="footer">

@@ -10,7 +10,7 @@
 <head>
     <meta name="layout" content="mySpace">
     <asset:stylesheet src="main.css"/>
-    <title></title>
+    <title>TTG的主页</title>
 </head>
 
 <body>
