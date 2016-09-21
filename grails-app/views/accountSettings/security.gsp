@@ -23,7 +23,7 @@
                 </div>
                 <div class="form-group">
                     <label for="birthday">新密码</label>
-                    <input class="form-control" id="birthday" readonly>
+                    <input class="form-control" id="birthday">
                 </div>
                 <div class="form-group">
                     <label for="addr">再次输入新密码</label>
