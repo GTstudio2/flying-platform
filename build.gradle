@@ -63,6 +63,7 @@ dependencies {
     compile 'org.grails.plugins:spring-security-shiro:3.0.0'
     runtime 'mysql:mysql-connector-java:5.1.22'
     compile files('lib/im4java-1.4.0-1.5.jar')
+
 }
 
 assets {
