@@ -10,7 +10,7 @@ class AccountController {
 
     def login() {
         //test2222
-        def m = [:]
+        def m = [:] 
         if (params.username != null && params.pwd != null) {
             params.pwd = MD5.encode(params.pwd)
             def u = User.find{username==params.username&&pwd==params.pwd}
