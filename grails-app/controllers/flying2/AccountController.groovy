@@ -9,7 +9,7 @@ class AccountController {
     def accountService
 
     def login() {
-        //test2222
+        //te
         def m = [:] 
         if (params.username != null && params.pwd != null) {
             params.pwd = MD5.encode(params.pwd)
