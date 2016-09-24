@@ -41,8 +41,6 @@ dependencyManagement {
 }
 
 dependencies {
-
-    
     compile "org.springframework.boot:spring-boot-starter-logging"
     compile "org.springframework.boot:spring-boot-autoconfigure"
     compile "org.grails:grails-core"
