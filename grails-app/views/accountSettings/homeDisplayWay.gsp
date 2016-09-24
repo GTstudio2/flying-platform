@@ -10,11 +10,18 @@
 <head>
     <meta name="layout" content="accountSettingsLayout">
     <asset:stylesheet src="main.css"/>
-    <asset:stylesheet src="jquery-ui-1.12.1/jquery-ui.css"/>
+    %{--<asset:stylesheet src="jquery-ui-1.12.1/jquery-ui.css"/>--}%
     <title>主页展示方式</title>
+    <style>
+        #sortable,
+        #sortable>div{
+            border: 1px solid transparent;
+        }
+    </style>
 </head>
 
 <body>
+
     <div class="btn-group" data-toggle="buttons">
         <label class="btn btn-success" data-toggle="tab" href="#tab1">
             <input type="radio" name="options" id="option1" checked> 时间展示
@@ -28,22 +35,22 @@
             个人主页展示已设置为时间展示，展示作品以时间从最近到以前的顺序排列
         </div>
         <div class="tab-pane" id="tab2">
-            <div class="clearfix">
+            <p class="clearfix">
                 <button class="btn btn-default btn-xs pull-right" data-toggle="tooltip" data-placement="left" title="自定义展示为用户可以对进行上传后的作品选择指定的位置进行展示">?</button>
-            </div>
+            </p>
             <div class="row classify-pro classify-videos" id="sortable">
                 <g:each var="product" in="${products}">
                     <div class="col-md-3 col-sm-6">
                         <div class="pro-box">
                             <span class="label label-${product.type=="photo"?"success":"danger"}">${product.type}</span>
                             <g:if test="${product.type=="photo"}">
-                                <g:link class="img-link" controller="show" action="photoDetail" id="${product.id}">
+                                <g:link class="img-link" controller="show" action="photoDetail" id="${product.id}" target="_blanck">
                                     <g:if test="${product.type=="video"}"><div class="play-mask"></div></g:if>
                                     <img src="/show/showImg?img=${product.folder}/${product.coverImg}">
                                 </g:link>
                             </g:if>
                             <g:if test="${product.type=="video"}">
-                                <g:link class="img-link" controller="show" action="videoDetail" id="${product.id}">
+                                <g:link class="img-link" controller="show" action="videoDetail" id="${product.id}" target="_blanck">
                                     <div class="play-mask"></div>
                                     <img src="/show/showImg?img=${product.folder}/${product.coverImg}">
                                 </g:link>
@@ -74,6 +81,7 @@
                         console.log('beforeStop')
                     }
                 });
+                $("#sortable2").sortable()
             })
             function buttonsInit(){
                 $('.btn-group input[type="radio"]:checked').parent().addClass('active')
