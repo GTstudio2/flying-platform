@@ -67,6 +67,13 @@ class AccountController {
 
     }
 
+    /**
+     * 忘记密码
+     */
+    def resetPwd() {
+
+    }
+
     def isRepeat() {
         def isRepeat = accountService.isRepeat(params.str, params.type)
         def isSuccess = true
@@ -86,7 +93,6 @@ class AccountController {
             }
         }
     }
-
 
     def register() {
         def locale = RequestContextUtils.getLocale(request) as String

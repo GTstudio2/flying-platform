@@ -10,6 +10,7 @@
 <head>
     <meta name="layout" content="accountSettingsLayout">
     <asset:stylesheet src="main.css"/>
+    <asset:stylesheet src="jquery-dataTables/jquery.dataTables.min.css"/>
     %{--<asset:stylesheet src="jquery-ui-1.12.1/jquery-ui.css"/>--}%
     <title>主页展示方式</title>
     <style>
@@ -36,6 +37,7 @@
         </div>
         <div class="tab-pane" id="tab2">
             <p class="clearfix">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">选择作品</button>
                 <button class="btn btn-default btn-xs pull-right" data-toggle="tooltip" data-placement="left" title="自定义展示为用户可以对进行上传后的作品选择指定的位置进行展示">?</button>
             </p>
             <div class="row classify-pro classify-videos" id="sortable">
@@ -62,9 +64,38 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalLabel">选择作品</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="allProductsTable">
+                            <tr>
+                                <th>名称</th>
+                                <th>描述</th>
+                                <th>发布时间</th>
+                                <th>操作</th>
+                            </tr>
+                        </table>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <content tag="footer">
         <asset:javascript src="jquery-match-height/jquery.matchHeight.js"/>
         <asset:javascript src="jquery-ui-1.12.1/jquery-ui.js"/>
+        <asset:javascript src="jquery-dataTables/jquery.dataTables.min.js"/>
         <script>
             $(function () {
                 $('.img-link').matchHeight({
@@ -82,6 +113,80 @@
                     }
                 });
                 $("#sortable2").sortable()
+                $('#myModal').modal()
+//                $.ajax({
+//                    url: '/accountSettings/allProducts',
+//                    dataType: 'json',
+//                    success: function (d) {
+//                        console.log(d)
+//                    }
+//                })
+                $('#allProductsTable').DataTable({
+                    "searching": false,
+////                    "order": [[ 1, 'asc' ]],
+//                    "paging": true,
+//                    "pageLength": 10,
+                    "processing": true,
+                    "serverSide": true,
+                    "ajax": {
+                        "url": "/accountSettings/allProducts",
+                        "type": "POST",
+                        "data": function ( d ) {
+                            var p = {p: JSON.stringify(d)}
+                            return p
+                        }
+                    },
+                    "columns": [
+                        {
+                            "data": null,
+                            "render": function ( data, type, full, meta ) {
+////                                $.each(data.intro, function(i, o){
+////                                    console.log(o)
+////                                })
+                                return '<input type="checkbox">'
+                            }
+                        },
+                        { "data": "name" },
+                        { "data": "name" },
+                        { "data": "name" }
+                    ]
+                });
+//                var expressionsTable = $('#allProductsTable').DataTable({
+//                    "searching": false,
+//                    "order": [[ 1, 'asc' ]],
+//                    "paging": true,
+//                    "pageLength": 10,
+//                    "processing": true,
+//                    "serverSide": true,
+//                    "ajax": {
+//                        "url": "/accountSettings/allProducts",
+//                        "type": "POST",
+//                        "data": function ( d ) {
+//                            var p = {p: JSON.stringify(d)}
+//                            return p
+//                        }
+//                    },
+//                    "columns": [
+//                        {
+//                            "data": null,
+//                            "orderable": false,
+//                            "render": function ( data, type, full, meta ) {
+////                                $.each(data.intro, function(i, o){
+////                                    console.log(o)
+////                                })
+//                                return data.expressionIntro;
+//                            }
+//                        },
+//                        {"data": "createDate"},
+//                        {
+//                            "data": null,
+//                            "orderable": false,
+//                            "render": function ( data, type, full, meta ) {
+//                                return '<button class="btn btn-danger publish" pId="'+data.id+'">发布</button>';
+//                            }
+//                        }
+//                    ]
+//                });
             })
             function buttonsInit(){
                 $('.btn-group input[type="radio"]:checked').parent().addClass('active')

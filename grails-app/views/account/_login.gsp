@@ -11,6 +11,7 @@
                 <input name="pwd" type="password" class="form-control" id="password">
             </div>
             <div class="checkbox">
+                <g:link class="pull-right" controller="account" action="resetPwd">忘记密码？</g:link>
                 <label>
                     <input type="checkbox" name="isAutoLogin"> 自动登录
                 </label>

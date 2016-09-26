@@ -15,15 +15,8 @@
 <body>
     <div class="container">
         <div class="row">
-            <div class="col-md-4"></div>
-            <div class="col-md-4">
-                <g:if test="${status}">
-                    <div class="alert alert-danger margin-top">
-                        ${tip}
-                    </div>
-                </g:if>
-                <g:render template="login"/>
-
+            <div class="col-md-offset-4 col-md-4">
+                tarek
             </div>
         </div>
     </div>
