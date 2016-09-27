@@ -11,6 +11,7 @@
     <meta name="layout" content="accountSettingsLayout">
     <asset:stylesheet src="main.css"/>
     <asset:stylesheet src="jquery-dataTables/jquery.dataTables.min.css"/>
+    <asset:stylesheet src="jquery-dataTables/dataTables.bootstrap4.min.css"/>
     %{--<asset:stylesheet src="jquery-ui-1.12.1/jquery-ui.css"/>--}%
     <title>主页展示方式</title>
     <style>
@@ -73,17 +74,17 @@
                     <h4 class="modal-title" id="myModalLabel">选择作品</h4>
                 </div>
                 <div class="modal-body">
-                    <div class="table-responsive">
                         <table class="table table-bordered" id="allProductsTable">
+                            <thead>
                             <tr>
-                                <th>名称</th>
+                                <th></th>
+                                <th width="100">名称</th>
                                 <th>描述</th>
-                                <th>发布时间</th>
-                                <th>操作</th>
+                                <th width="80">发布时间</th>
+                                <th width="100">操作</th>
                             </tr>
+                            </thead>
                         </table>
-
-                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
@@ -96,7 +97,9 @@
         <asset:javascript src="jquery-match-height/jquery.matchHeight.js"/>
         <asset:javascript src="jquery-ui-1.12.1/jquery-ui.js"/>
         <asset:javascript src="jquery-dataTables/jquery.dataTables.min.js"/>
+        %{--<asset:javascript src="jquery-dataTables/dataTables.bootstrap4.min.js"/>--}%
         <script>
+            var allProductsTable
             $(function () {
                 $('.img-link').matchHeight({
                     property: 'min-height'
@@ -121,9 +124,47 @@
 //                        console.log(d)
 //                    }
 //                })
-                $('#allProductsTable').DataTable({
+                $('#myModal').on('shown.bs.modal', function () {
+                    if(!allProductsTable) {
+                        modalInit()
+                    }
+                })
+                $('#allProductsTable').delegate('.btnAdd', 'click', function () {
+                    var $btnAdd = $(this)
+                    var shown = false
+                    if($btnAdd.hasClass('shown')){
+                        shown = true
+                    }
+                    var pId = $btnAdd.parents('tr').find('.pId').val()
+                    $.post(
+                            '/accountSettings/updateUserHomeShow',
+                            {pId: pId, shown: shown},
+                            function (d) {
+                                if(d.status=='success') {
+                                    console.log(shown)
+                                    if(shown) {
+                                        $btnAdd.removeClass('shown')
+                                                .addClass('btn-default')
+                                                .removeClass('btn-success')
+                                                .text('展示')
+                                    }else{
+                                        $btnAdd.addClass('shown')
+                                                .addClass('btn-success')
+                                                .removeClass('btn-default')
+                                                .text('展示中')
+                                    }
+                                }else{
+                                    alert(d.msg)
+                                }
+                            }
+                    )
+                })
+            })
+            function modalInit() {
+                allProductsTable = $('#allProductsTable').DataTable({
+                    "lengthChange": false,
                     "searching": false,
-////                    "order": [[ 1, 'asc' ]],
+                    "order": [[ 3, 'desc' ]],
 //                    "paging": true,
 //                    "pageLength": 10,
                     "processing": true,
@@ -139,55 +180,54 @@
                     "columns": [
                         {
                             "data": null,
+                            "orderable": false,
                             "render": function ( data, type, full, meta ) {
-////                                $.each(data.intro, function(i, o){
-////                                    console.log(o)
-////                                })
-                                return '<input type="checkbox">'
+                                var str =
+                                        '<input type="checkbox">' +
+                                        '<input class="pId" type="hidden" value="'+data.id+'">'
+                                return str
                             }
                         },
-                        { "data": "name" },
-                        { "data": "name" },
-                        { "data": "name" }
-                    ]
-                });
-//                var expressionsTable = $('#allProductsTable').DataTable({
-//                    "searching": false,
-//                    "order": [[ 1, 'asc' ]],
-//                    "paging": true,
-//                    "pageLength": 10,
-//                    "processing": true,
-//                    "serverSide": true,
-//                    "ajax": {
-//                        "url": "/accountSettings/allProducts",
-//                        "type": "POST",
-//                        "data": function ( d ) {
-//                            var p = {p: JSON.stringify(d)}
-//                            return p
-//                        }
-//                    },
-//                    "columns": [
-//                        {
-//                            "data": null,
-//                            "orderable": false,
-//                            "render": function ( data, type, full, meta ) {
+                        {
+                            "orderable": false,
+                            "data": "name"
+                        },
+                        {
+                            "orderable": false,
+                            "data": "intro"
+                        },
+                        {
+                            "data": "createDate",
+                            "render": function (data, type, full, meta) {
 ////                                $.each(data.intro, function(i, o){
 ////                                    console.log(o)
 ////                                })
-//                                return data.expressionIntro;
-//                            }
-//                        },
-//                        {"data": "createDate"},
-//                        {
-//                            "data": null,
-//                            "orderable": false,
-//                            "render": function ( data, type, full, meta ) {
-//                                return '<button class="btn btn-danger publish" pId="'+data.id+'">发布</button>';
-//                            }
-//                        }
-//                    ]
-//                });
-            })
+                                var date = new Date(data)
+                                return date.getFullYear()+'-'+date.getMonth()+'-'+date.getDate()
+                            }
+                        },
+                        {
+                            "data": null,
+                            "orderable": false,
+                            "render": function (data, type, full, meta) {
+                                var str = ''
+                                var isHomeShow = '',
+                                        showText = ''
+                                if(data.homeShow){
+                                    isHomeShow = 'btn-success shown'
+                                    showText = '展示中'
+                                }else{
+                                    isHomeShow = 'btn-default'
+                                    showText = '展示'
+                                }
+                                str +=
+                                        '<button type="button" class="btn btn-xs btnAdd '+isHomeShow+'">'+showText+'</button>'
+                                return str
+                            }
+                        }
+                    ]
+                })
+            }
             function buttonsInit(){
                 $('.btn-group input[type="radio"]:checked').parent().addClass('active')
             }

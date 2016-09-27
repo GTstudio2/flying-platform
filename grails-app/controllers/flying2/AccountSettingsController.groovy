@@ -24,10 +24,43 @@ class AccountSettingsController {
         [products: products, user: u]
     }
 
+    def updateUserHomeShow() {
+        def product = Product.get(params.pId)
+        def m = [:]
+        if (params.shown!="true") {
+            def count = UserHomeShow.countByProduct(product)
+            if (!count) {
+                new UserHomeShow(product: product).save()
+                product.homeShow = 1
+                m.status = "success"
+            }else{
+                def show = UserHomeShow.findByProduct(product)
+                show.delete()
+                product.homeShow = 0
+                m.status = "success"
+            }
+        }else{
+            def show = UserHomeShow.findByProduct(product)
+            if (show) {
+                show.delete()
+                product.homeShow = 0
+                m.status = "success"
+            }else{
+                m.stauts = "failed"
+                m.msg = "未找到作品！"
+            }
+        }
+        render m as JSON
+    }
+
     def allProducts() {
-        println 234
-        def products = Product.list()
-        def recordsTotal = products.size()
+        def tableParams = JSON.parse(params.p)
+        def createDateSort = "asc"
+        if(tableParams.columns[3].orderable){
+            createDateSort = tableParams.order[0].dir
+        }
+        def products = Product.findAllByStatus(1, [offset: tableParams.start, max: tableParams.length, sort: "createDate", order: createDateSort])
+        def recordsTotal = Product.countByStatus(1)
         def m = [:]
         m.recordsTotal = recordsTotal
         m.recordsFiltered = recordsTotal

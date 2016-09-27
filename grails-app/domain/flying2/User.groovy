@@ -9,7 +9,7 @@ class User {
     String intro
     String headImg
     String witchUser
-    static hasMany = [productions: Product]
+    static hasMany = [productions: Product, audits: Audit]
     static constraints = {
         username unique: true
         sex nullable:true
