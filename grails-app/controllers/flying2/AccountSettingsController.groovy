@@ -24,6 +24,19 @@ class AccountSettingsController {
         [products: products, user: u]
     }
 
+    def userHomeShow() {
+        def u = User.get(session.user?.id)
+        def userHomeShowList = UserHomeShow.findAllByUser(User.get(session.user?.id))
+        def show = userHomeShowList.collect{ show->
+            return [product: show.product]
+        }
+//        JSON.use('deep'){
+//            render product as JSON
+//        }
+//        JSON.registerObjectMarshaller(UserHomeShow){ return Product of product}
+        render show as JSON
+    }
+
     def updateUserHomeShow() {
         def product = Product.get(params.pId)
         def m = [:]
