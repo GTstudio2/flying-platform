@@ -11,7 +11,8 @@
     <meta name="layout" content="accountSettingsLayout">
     <asset:stylesheet src="main.css"/>
     <asset:stylesheet src="jquery-dataTables/jquery.dataTables.min.css"/>
-    <asset:stylesheet src="jquery-dataTables/dataTables.bootstrap4.min.css"/>
+    <asset:stylesheet src="jquery-dataTables/dataTables.bootstrap.min.csss"/>
+    %{--<asset:stylesheet src="jquery-dataTables/responsive.bootstrap.css"/>--}%
     %{--<asset:stylesheet src="jquery-ui-1.12.1/jquery-ui.css"/>--}%
     <title>主页展示方式</title>
     <style>
@@ -74,17 +75,19 @@
                     <h4 class="modal-title" id="myModalLabel">选择作品</h4>
                 </div>
                 <div class="modal-body">
-                        <table class="table table-bordered" id="allProductsTable">
-                            <thead>
-                            <tr>
-                                <th></th>
-                                <th width="100">名称</th>
-                                <th>描述</th>
-                                <th width="80">发布时间</th>
-                                <th width="100">操作</th>
-                            </tr>
-                            </thead>
-                        </table>
+                        %{--<div class="table-responsive">--}%
+                            <table class="table table-bordered" id="allProductsTable">
+                                <thead>
+                                <tr>
+                                    <th></th>
+                                    <th width="100">名称</th>
+                                    <th>描述</th>
+                                    <th width="80">发布时间</th>
+                                    <th width="100">操作</th>
+                                </tr>
+                                </thead>
+                            </table>
+                        %{--</div>--}%
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
@@ -97,7 +100,8 @@
         <asset:javascript src="jquery-match-height/jquery.matchHeight.js"/>
         <asset:javascript src="jquery-ui-1.12.1/jquery-ui.js"/>
         <asset:javascript src="jquery-dataTables/jquery.dataTables.min.js"/>
-        %{--<asset:javascript src="jquery-dataTables/dataTables.bootstrap4.min.js"/>--}%
+        <asset:javascript src="jquery-dataTables/dataTables.responsive.js"/>
+        %{--<asset:javascript src="jquery-dataTables/responsive.bootstrap.min.js"/>--}%
         <script>
             var allProductsTable
             $(function () {
@@ -162,6 +166,7 @@
             })
             function modalInit() {
                 allProductsTable = $('#allProductsTable').DataTable({
+                    responsive: true,
                     "lengthChange": false,
                     "searching": false,
                     "order": [[ 3, 'desc' ]],
