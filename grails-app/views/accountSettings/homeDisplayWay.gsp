@@ -10,8 +10,7 @@
 <head>
     <meta name="layout" content="accountSettingsLayout">
     <asset:stylesheet src="main.css"/>
-    <asset:stylesheet src="jquery-dataTables/jquery.dataTables.min.css"/>
-    <asset:stylesheet src="jquery-dataTables/dataTables.bootstrap.min.csss"/>
+    <asset:stylesheet src="jquery-dataTables/dataTables.bootstrap.css"/>
     %{--<asset:stylesheet src="jquery-dataTables/responsive.bootstrap.css"/>--}%
     %{--<asset:stylesheet src="jquery-ui-1.12.1/jquery-ui.css"/>--}%
     <title>主页展示方式</title>
@@ -75,6 +74,7 @@
                     <h4 class="modal-title" id="myModalLabel">选择作品</h4>
                 </div>
                 <div class="modal-body">
+                    <h4>已选择<span class="text-success" id="selectedShow"></span></h4>
                         %{--<div class="table-responsive">--}%
                             <table class="table table-bordered" id="allProductsTable">
                                 <thead>
@@ -100,10 +100,13 @@
         <asset:javascript src="jquery-match-height/jquery.matchHeight.js"/>
         <asset:javascript src="jquery-ui-1.12.1/jquery-ui.js"/>
         <asset:javascript src="jquery-dataTables/jquery.dataTables.min.js"/>
-        <asset:javascript src="jquery-dataTables/dataTables.responsive.js"/>
-        %{--<asset:javascript src="jquery-dataTables/responsive.bootstrap.min.js"/>--}%
+        <asset:javascript src="jquery-dataTables/dataTables.bootstrap.js"/>
+        %{--<asset:javascript src="jquery-dataTables/dataTables.responsive.js"/>--}%
+        <asset:javascript src="layer/layer.js"/>
         <script>
             var allProductsTable
+            var selectedShow = {},
+                    selectedShowSize = 0
             $(function () {
                 $('.img-link').matchHeight({
                     property: 'min-height'
@@ -167,6 +170,7 @@
             function modalInit() {
                 allProductsTable = $('#allProductsTable').DataTable({
                     responsive: true,
+                    info: false,
                     "lengthChange": false,
                     "searching": false,
                     "order": [[ 3, 'desc' ]],
@@ -182,10 +186,19 @@
                             return p
                         }
                     },
+                    language: {
+                        paginate: {
+                            previous: "上一页",
+                            next: "下一页",
+                            first: "第一页",
+                            last: "最后"
+                        }
+                    },
                     "columns": [
                         {
                             "data": null,
                             "orderable": false,
+                            className: "row-select",
                             "render": function ( data, type, full, meta ) {
                                 var str =
                                         '<input type="checkbox">' +
@@ -231,7 +244,37 @@
                             }
                         }
                     ]
-                })
+                }).on( 'click', '.row-select', function () {
+                        var $curRow = $(this).parent('tr')
+                        var pId = $curRow.find('.pId').val()
+                        if ($curRow.hasClass('selected') ) {
+                            $curRow.removeClass('selected');
+                            $curRow.find('input:checkbox').prop('checked', false)
+                            delete selectedShow['pId'+pId]
+                            selectedShowSize--
+                        }else {
+                            if(selectedShowSize!=20){
+                                $curRow.addClass('selected');
+                                $curRow.find('input:checkbox').prop('checked', true)
+                                selectedShow['pId'+pId] = pId
+                                selectedShowSize++
+                            }else{
+                                layer.msg('首页最多展示20个')
+                            }
+                        }
+                        $('#selectedShow').text(selectedShow.length)
+                        $('#selectedShow').text(selectedShowSize)
+
+                });
+
+                allProductsTable.on( 'draw', function ( e, settings, json ) {
+                    console.log( 'Ajax event occurred. Returned data: ', json );
+                    $.each(selectedShow, function (k, pId) {
+                        var $curRow = $('#allProductsTable').find('.pId[value="'+pId+'"]').parents('tr')
+                        $curRow.find('input:checkbox').prop('checked', true)
+                        $curRow.addClass('selected')
+                    })
+                } );
             }
             function buttonsInit(){
                 $('.btn-group input[type="radio"]:checked').parent().addClass('active')

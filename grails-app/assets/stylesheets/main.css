@@ -163,7 +163,12 @@ body {
 
 .swiper-slide {
   height: 720px; }
-
+.table .row-select{
+    cursor: pointer;
+}
+table.dataTable tbody tr.selected {
+    background-color: #B0BED9;
+}
 .modal-body img {
   width: 100%; }
 

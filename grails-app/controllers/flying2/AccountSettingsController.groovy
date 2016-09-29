@@ -26,7 +26,7 @@ class AccountSettingsController {
 
     def userHomeShow() {
         def u = User.get(session.user?.id)
-        def userHomeShowList = UserHomeShow.findAllByUser(User.get(session.user?.id))
+        def userHomeShowList = UserHomeShow.findAllByUser(u)
         def show = userHomeShowList.collect{ show->
             return [product: show.product]
         }
