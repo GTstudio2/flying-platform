@@ -23,6 +23,7 @@
 </head>
 
 <body>
+<div id="tmplContent">2</div>
 
     <div class="btn-group" data-toggle="buttons">
         <label class="btn btn-success" data-toggle="tab" href="#tab1">
@@ -96,6 +97,20 @@
         </div>
     </div>
 
+    <script id="firstTmpl" type="text/x-jquery-tmpl">
+        %{--<div class="col-md-3 col-sm-6 ui-sortable-handle" style="position: relative;">--}%
+            %{--<div class="pro-box">--}%
+                %{--<span class="label label-success">photo</span>--}%
+
+                %{--<a href="/show/photoDetail/12" class="img-link" target="_blanck">--}%
+
+                    %{--<img src="/show/showImg?img=nick_photo_1463818150241/c_1463818167768.JPG">--}%
+                %{--</a>--}%
+
+                %{--<h5><a href="/show/photoDetail/12">月亮村</a></h5>--}%
+            %{--</div>--}%
+        %{--</div>--}%
+    </script>
     <content tag="footer">
         <asset:javascript src="jquery-match-height/jquery.matchHeight.js"/>
         <asset:javascript src="jquery-ui-1.12.1/jquery-ui.js"/>
@@ -103,11 +118,14 @@
         <asset:javascript src="jquery-dataTables/dataTables.bootstrap.js"/>
         %{--<asset:javascript src="jquery-dataTables/dataTables.responsive.js"/>--}%
         <asset:javascript src="layer/layer.js"/>
+        <asset:javascript src="jquery-tmpl/jquery.tmpl.js"/>
         <script>
             var allProductsTable
             var selectedShow = {},
                     selectedShowSize = 0
             $(function () {
+//                console.log($('#firstTmpl').tmpl(movie).appendTo('#tmplContent'))
+                $('#tmplContent').html($('#firstTmpl').tmpl({title: 'biggg'}))
                 $('.img-link').matchHeight({
                     property: 'min-height'
                 })
