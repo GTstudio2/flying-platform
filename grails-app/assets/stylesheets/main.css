@@ -163,12 +163,7 @@ body {
 
 .swiper-slide {
   height: 720px; }
-.table .row-select{
-    cursor: pointer;
-}
-table.dataTable tbody tr.selected {
-    background-color: #B0BED9;
-}
+
 .modal-body img {
   width: 100%; }
 
@@ -212,6 +207,12 @@ table.dataTable tbody tr.selected {
   background-color: #ddd;
   border: 1px solid #ddd;
   color: #428bca; }
+
+.table .row-select {
+  cursor: pointer; }
+
+table.dataTable tbody tr.selected {
+  background-color: #B0BED9; }
 
 .text-left {
   text-align: left; }
