@@ -30,20 +30,32 @@ class AccountSettingsController {
         def show = userHomeShowList.collect{ show->
             return [product: show.product]
         }
+        def products = []
+        show.each {
+            products << it.product
+        }
+        println products
 //        JSON.use('deep'){
 //            render product as JSON
 //        }
 //        JSON.registerObjectMarshaller(UserHomeShow){ return Product of product}
-        render show as JSON
+        render products as JSON
     }
 
     def updateUserHomeShow() {
-        def product = Product.get(params.pId)
+        def user = User.get(session.user?.id)
         def m = [:]
+        if(!user){
+            m.status = "failed"
+            m.msg = "noUser"
+            render m as JSON
+            return
+        }
+        def product = Product.get(params.pId)
         if (params.shown!="true") {
             def count = UserHomeShow.countByProduct(product)
             if (!count) {
-                new UserHomeShow(product: product).save()
+                new UserHomeShow(product: product, user: user).save()
                 product.homeShow = 1
                 m.status = "success"
             }else{

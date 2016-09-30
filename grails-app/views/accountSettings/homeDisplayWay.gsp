@@ -23,7 +23,7 @@
 </head>
 
 <body>
-<div id="tmplContent">2</div>
+%{--<div id="tmplContent">2</div>--}%
 
     <div class="btn-group" data-toggle="buttons">
         <label class="btn btn-success" data-toggle="tab" href="#tab1">
@@ -43,26 +43,26 @@
                 <button class="btn btn-default btn-xs pull-right" data-toggle="tooltip" data-placement="left" title="自定义展示为用户可以对进行上传后的作品选择指定的位置进行展示">?</button>
             </p>
             <div class="row classify-pro classify-videos" id="sortable">
-                <g:each var="product" in="${products}">
-                    <div class="col-md-3 col-sm-6">
-                        <div class="pro-box">
-                            <span class="label label-${product.type=="photo"?"success":"danger"}">${product.type}</span>
-                            <g:if test="${product.type=="photo"}">
-                                <g:link class="img-link" controller="show" action="photoDetail" id="${product.id}" target="_blanck">
-                                    <g:if test="${product.type=="video"}"><div class="play-mask"></div></g:if>
-                                    <img src="/show/showImg?img=${product.folder}/${product.coverImg}">
-                                </g:link>
-                            </g:if>
-                            <g:if test="${product.type=="video"}">
-                                <g:link class="img-link" controller="show" action="videoDetail" id="${product.id}" target="_blanck">
-                                    <div class="play-mask"></div>
-                                    <img src="/show/showImg?img=${product.folder}/${product.coverImg}">
-                                </g:link>
-                            </g:if>
-                            <h5><g:link controller="show" action="photoDetail" id="${product.id}">${product?.name}</g:link></h5>
-                        </div>
-                    </div>
-                </g:each>
+                %{--<g:each var="product" in="${products}">--}%
+                    %{--<div class="col-md-3 col-sm-6">--}%
+                        %{--<div class="pro-box">--}%
+                            %{--<span class="label label-${product.type=="photo"?"success":"danger"}">${product.type}</span>--}%
+                            %{--<g:if test="${product.type=="photo"}">--}%
+                                %{--<g:link class="img-link" controller="show" action="photoDetail" id="${product.id}" target="_blanck">--}%
+                                    %{--<g:if test="${product.type=="video"}"><div class="play-mask"></div></g:if>--}%
+                                    %{--<img src="/show/showImg?img=${product.folder}/${product.coverImg}">--}%
+                                %{--</g:link>--}%
+                            %{--</g:if>--}%
+                            %{--<g:if test="${product.type=="video"}">--}%
+                                %{--<g:link class="img-link" controller="show" action="videoDetail" id="${product.id}" target="_blanck">--}%
+                                    %{--<div class="play-mask"></div>--}%
+                                    %{--<img src="/show/showImg?img=${product.folder}/${product.coverImg}">--}%
+                                %{--</g:link>--}%
+                            %{--</g:if>--}%
+                            %{--<h5><g:link controller="show" action="photoDetail" id="${product.id}">${product?.name}</g:link></h5>--}%
+                        %{--</div>--}%
+                    %{--</div>--}%
+                %{--</g:each>--}%
             </div>
         </div>
     </div>
@@ -80,8 +80,8 @@
                             <table class="table table-bordered" id="allProductsTable">
                                 <thead>
                                 <tr>
-                                    <th></th>
-                                    <th width="100">名称</th>
+                                    %{--<th></th>--}%
+                                    <th width="120">名称</th>
                                     <th>描述</th>
                                     <th width="80">发布时间</th>
                                     <th width="100">操作</th>
@@ -91,25 +91,37 @@
                         %{--</div>--}%
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
                 </div>
             </div>
         </div>
     </div>
 
     <script id="firstTmpl" type="text/x-jquery-tmpl">
-        %{--<div class="col-md-3 col-sm-6 ui-sortable-handle" style="position: relative;">--}%
-            %{--<div class="pro-box">--}%
-                %{--<span class="label label-success">photo</span>--}%
-
-                %{--<a href="/show/photoDetail/12" class="img-link" target="_blanck">--}%
-
-                    %{--<img src="/show/showImg?img=nick_photo_1463818150241/c_1463818167768.JPG">--}%
-                %{--</a>--}%
-
-                %{--<h5><a href="/show/photoDetail/12">月亮村</a></h5>--}%
-            %{--</div>--}%
-        %{--</div>--}%
+        %{--<%='${products}'%>--}%
+        {%each(i,product) products%}
+            <div class="col-md-3 col-sm-6">
+                <div class="pro-box">
+                    {%if product.type=='photo'%}
+                        <span class="label label-success">photo</span>
+                    {%else%}
+                        <span class="label label-danger">video</span>
+                    {%/if%}
+                    {%if product.type=='photo'%}
+                        <a href="/show/photoDetail/12" class="img-link" target="_blanck">
+                            <img src="/show/showImg?img=<%='${product.folder}'%>/<%='${product.coverImg}'%>">
+                        </a>
+                        <h5><a href="/show/photoDetail/12"><%='${product.name}'%></a></h5>
+                    {%elseif product.type=='video'%}
+                        <a href="/show/photoDetail/12" class="img-link" target="_blanck">
+                            <div class="play-mask"></div>
+                            <img src="/show/showImg?img=<%='${product.folder}'%>/<%='${product.coverImg}'%>">
+                        </a>
+                        <h5><a href="/show/photoDetail/12"><%='${product.name}'%></a></h5>
+                    {%/if%}
+                </div>
+            </div>
+        {%/each%}
     </script>
     <content tag="footer">
         <asset:javascript src="jquery-match-height/jquery.matchHeight.js"/>
@@ -121,11 +133,13 @@
         <asset:javascript src="jquery-tmpl/jquery.tmpl.js"/>
         <script>
             var allProductsTable
-            var selectedShow = {},
-                    selectedShowSize = 0
+            var shownItem = 0
+//            var selectedShow = {},
+//                    selectedShowSize = 0
             $(function () {
 //                console.log($('#firstTmpl').tmpl(movie).appendTo('#tmplContent'))
-                $('#tmplContent').html($('#firstTmpl').tmpl({title: 'biggg'}))
+//                $('#tmplContent').html($('#firstTmpl').tmpl({title: 'biggg'}))
+
                 $('.img-link').matchHeight({
                     property: 'min-height'
                 })
@@ -141,7 +155,8 @@
                     }
                 });
                 $("#sortable2").sortable()
-                $('#myModal').modal()
+//                $('#myModal').modal()
+                userHomeShow()
 //                $.ajax({
 //                    url: '/accountSettings/allProducts',
 //                    dataType: 'json',
@@ -153,12 +168,18 @@
                     if(!allProductsTable) {
                         modalInit()
                     }
+                }).on('hide.bs.modal', function () {
+                    userHomeShow()
                 })
                 $('#allProductsTable').delegate('.btnAdd', 'click', function () {
                     var $btnAdd = $(this)
                     var shown = false
                     if($btnAdd.hasClass('shown')){
                         shown = true
+                    }
+                    if(!shown&&shownItem>=20){
+                        layer.msg('做多展示20个作品')
+                        return
                     }
                     var pId = $btnAdd.parents('tr').find('.pId').val()
                     $.post(
@@ -172,11 +193,13 @@
                                                 .addClass('btn-default')
                                                 .removeClass('btn-success')
                                                 .text('展示')
+                                        shownItem--
                                     }else{
                                         $btnAdd.addClass('shown')
                                                 .addClass('btn-success')
                                                 .removeClass('btn-default')
                                                 .text('展示中')
+                                        shownItem++
                                     }
                                 }else{
                                     alert(d.msg)
@@ -185,6 +208,19 @@
                     )
                 })
             })
+            function userHomeShow() {
+                $.ajax({
+                    url: '/accountSettings/userHomeShow',
+                    dataType: 'json',
+                    success: function (d) {
+//                        $.each(d, function (i, v) {
+//                            console.log(v.name)
+//                        })
+                        $('#sortable').html($('#firstTmpl').tmpl({products: d}))
+                        shownItem = $('#sortable .pro-box').length
+                    }
+                })
+            }
             function modalInit() {
                 allProductsTable = $('#allProductsTable').DataTable({
                     responsive: true,
@@ -213,20 +249,29 @@
                         }
                     },
                     "columns": [
+//                        {
+//                            "data": null,
+//                            "orderable": false,
+//                            className: "row-select",
+//                            "render": function ( data, type, full, meta ) {
+//                                var str =
+////                                        '<input type="checkbox">' +
+//                                        '<input class="pId" type="hidden" value="'+data.id+'">'
+//                                return str
+//                            }
+//                        },
                         {
-                            "data": null,
                             "orderable": false,
-                            className: "row-select",
+                            "data": null,
                             "render": function ( data, type, full, meta ) {
-                                var str =
-                                        '<input type="checkbox">' +
-                                        '<input class="pId" type="hidden" value="'+data.id+'">'
+                                var str = '<input class="pId" type="hidden" value="'+data.id+'">'
+                                if(data.type=='photo'){
+                                    str += '<span class="label label-success">photo</span> ' + data.name
+                                }else if(data.type=='video'){
+                                    str += '<span class="label label-danger">video</span> ' + data.name
+                                }
                                 return str
                             }
-                        },
-                        {
-                            "orderable": false,
-                            "data": "name"
                         },
                         {
                             "orderable": false,
@@ -235,9 +280,6 @@
                         {
                             "data": "createDate",
                             "render": function (data, type, full, meta) {
-////                                $.each(data.intro, function(i, o){
-////                                    console.log(o)
-////                                })
                                 var date = new Date(data)
                                 return date.getFullYear()+'-'+date.getMonth()+'-'+date.getDate()
                             }
@@ -262,37 +304,37 @@
                             }
                         }
                     ]
-                }).on( 'click', '.row-select', function () {
-                        var $curRow = $(this).parent('tr')
-                        var pId = $curRow.find('.pId').val()
-                        if ($curRow.hasClass('selected') ) {
-                            $curRow.removeClass('selected');
-                            $curRow.find('input:checkbox').prop('checked', false)
-                            delete selectedShow['pId'+pId]
-                            selectedShowSize--
-                        }else {
-                            if(selectedShowSize!=20){
-                                $curRow.addClass('selected');
-                                $curRow.find('input:checkbox').prop('checked', true)
-                                selectedShow['pId'+pId] = pId
-                                selectedShowSize++
-                            }else{
-                                layer.msg('首页最多展示20个')
-                            }
-                        }
-                        $('#selectedShow').text(selectedShow.length)
-                        $('#selectedShow').text(selectedShowSize)
+                })
+//                        .on( 'click', '.row-select', function () {
+//                        var $curRow = $(this).parent('tr')
+//                        var pId = $curRow.find('.pId').val()
+//                        if ($curRow.hasClass('selected') ) {
+//                            $curRow.removeClass('selected');
+//                            $curRow.find('input:checkbox').prop('checked', false)
+//                            delete selectedShow['pId'+pId]
+//                            selectedShowSize--
+//                        }else {
+//                            if(selectedShowSize!=20){
+//                                $curRow.addClass('selected');
+//                                $curRow.find('input:checkbox').prop('checked', true)
+//                                selectedShow['pId'+pId] = pId
+//                                selectedShowSize++
+//                            }else{
+//                                layer.msg('首页最多展示20个')
+//                            }
+//                        }
+//                        $('#selectedShow').text(selectedShow.length)
+//                        $('#selectedShow').text(selectedShowSize)
+//                });
 
-                });
-
-                allProductsTable.on( 'draw', function ( e, settings, json ) {
-                    console.log( 'Ajax event occurred. Returned data: ', json );
-                    $.each(selectedShow, function (k, pId) {
-                        var $curRow = $('#allProductsTable').find('.pId[value="'+pId+'"]').parents('tr')
-                        $curRow.find('input:checkbox').prop('checked', true)
-                        $curRow.addClass('selected')
-                    })
-                } );
+//                allProductsTable.on( 'draw', function ( e, settings, json ) {
+////                    console.log( 'Ajax event occurred. Returned data: ', json );
+////                    $.each(selectedShow, function (k, pId) {
+////                        var $curRow = $('#allProductsTable').find('.pId[value="'+pId+'"]').parents('tr')
+////                        $curRow.find('input:checkbox').prop('checked', true)
+////                        $curRow.addClass('selected')
+////                    })
+//                } );
             }
             function buttonsInit(){
                 $('.btn-group input[type="radio"]:checked').parent().addClass('active')
