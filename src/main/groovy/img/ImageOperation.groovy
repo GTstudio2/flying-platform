@@ -6,7 +6,7 @@ import org.im4java.core.IMOperation
 import org.im4java.core.Info
 
 class ImageOperation {
-    static String imageMagickPath = "C:\\Program Files\\ImageMagick-6.9.3-Q16"
+    static String imageMagickPath = "D:\\Software\\developInstalled\\ImageMagick-6.9.0-Q8"
     static {
         if (Environment.current == Environment.PRODUCTION) {
             imageMagickPath = "C:\\Program Files\\ImageMagick-6.9.3-Q16"
@@ -122,6 +122,7 @@ class ImageOperation {
         op.addImage(srcPath);
         ConvertCmd convert = new ConvertCmd();
         //linux下不要设置此值，不然会报错
+        println imageMagickPath
         convert.setSearchPath(imageMagickPath);
         convert.run(op);
         Info info = new Info(srcPath);

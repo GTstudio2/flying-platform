@@ -34,17 +34,6 @@
                             </ul>
                             <ul class="nav navbar-nav navbar-right">
                                 <g:if test="${session.user}">
-                                    <li class="dropdown ${params.action=="post"?"active":""}">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                            发布
-                                            <span class="caret"></span>
-                                        </a>
-                                        <ul class="dropdown-menu">
-                                            <li><g:link controller="user" action="post" params="[classify: 'photo']">发布图片</g:link></li>
-                                            <li class="${params.action=="post"&&params.classify=="gif"?"active":""}"><g:link controller="user" action="post" params="[classify: 'gif']"><g:message code="global.function.post.gif"/></g:link></li>
-                                            <li><g:link controller="user" action="post" params="[classify: 'text']">发布文字</g:link></li>
-                                        </ul>
-                                    </li>
                                     <li class="dropdown">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                                             ${flying2.User.get(session.user?.id).username}
@@ -52,6 +41,8 @@
                                         </a>
                                         <ul class="dropdown-menu">
                                             <li class="${params.action=="home"?"active":""}"><g:link controller="mySpace" action="home"><span class="glyphicon glyphicon-user"></span> 我的空间</g:link></li>
+                                            <li><g:link controller="creation" action="createProduct" params="[type: 'photo']"><span class="glyphicon glyphicon-picture"></span> 创建图片</g:link></li>
+                                            <li><g:link controller="creation" action="createProduct" params="[type: 'video']"><span class="glyphicon glyphicon-film"></span> 创建视频</g:link></li>
                                             <li><g:link controller="account" action="logOut"><span class="glyphicon glyphicon-log-out"></span> 退出</g:link></li>
                                         </ul>
                                     </li>

@@ -31,7 +31,7 @@ $(function () {
 //                    fileSizeLimit: 5242880,
         fileSingleSizeLimit: 5242880,
         swf: BASE_URL + '/webuploader-0.1.5/Uploader.swf',
-        server: '/backend/uploadImg',
+        server: '/creation/uploadImg',
         formData: {folder: folder},
         pick: {
             id: "#filePicker"
