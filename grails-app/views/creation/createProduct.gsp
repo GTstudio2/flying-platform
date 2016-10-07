@@ -28,10 +28,10 @@
         <input type="hidden" id="folder" name="folder" value="${folder}">
         <input type="hidden" name="type" value="${params.type}">
         <g:if test="${params.type == "photo"}">
-            <g:render template="/templates/backend/photoTemplate"/>
+            <g:render template="/templates.creation/photoTemplate"/>
         </g:if>
         <g:elseif test="${params.type == "video"}">
-            <g:render template="/templates/backend/videoTemplate"/>
+            <g:render template="/templates.creation/videoTemplate"/>
         </g:elseif>
         <button type="submit" class="btn btn-success btn-lg">提交作品</button>
     </form>
@@ -113,7 +113,7 @@
 //                    fileSizeLimit: 5242880,
                 fileSingleSizeLimit: 5242880,
                 swf: BASE_URL + '/webuploader-0.1.5/Uploader.swf',
-                server: '/backend/uploadImg',
+                server: '/creation/uploadImg',
                 formData: {folder: folder},
                 pick: {
                     id: $singlePicker,
@@ -198,7 +198,7 @@
                 //var iHeight = adjustImg.height()
                 cropParams += "&imgName=" + imgName + "&folder=" + folder + "&iWidth=" + iWidth
                 $.post(
-                        "/backend/cropCoverImg?" + cropParams,
+                        "/creation/cropCoverImg?" + cropParams,
                         function (d) {
                             $("#coverImg").attr("src", "/show/tempShowImg?img=" + folder + "/" + d)
 //                                console.log("cover img:  "+d)
