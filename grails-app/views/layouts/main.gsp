@@ -79,8 +79,7 @@
                     <div class="modal-dialog">
                         <div class="row">
                             <div class="col-md-offset-2 col-md-8">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <g:render template="/account/login"/>
+                                <g:render template="/account/modalLogin"/>
                             </div>
                         </div>
                     </div>

@@ -8,7 +8,7 @@
 <html>
 <head>
     <meta name="layout" content="main">
-    <title><g:message code="global.user.title.login"/></title>
+    <title>登录</title>
     <asset:stylesheet src="main.css"/>
 </head>
 
@@ -16,7 +16,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-offset-4 col-md-4">
-                tarek
+                <g:render template="login"/>
             </div>
         </div>
     </div>
