@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-    <meta name="layout" content="backendLayout"/>
+    <meta name="layout" content="main"/>
     <asset:stylesheet src="app/createProduct.css"/>
     <asset:stylesheet src="webuploader-0.1.5/webuploader.css"/>
     <asset:stylesheet src="Jcrop/css/jquery.Jcrop.min.css"/>
@@ -19,7 +19,7 @@
 
         <div class="cover-img-box">
             <input type="hidden" name="coverImg"/>
-            <asset:image id="coverImg" src="pic/p1.jpg"/>
+            <asset:image class="cover-img" id="coverImg" src="pic/p1.jpg"/>
             <p class="uploadStatus"></p>
 
             <div class="cover-file-picker" id="coverFilePicker">选择封面图片</div>
@@ -155,7 +155,7 @@
                     console.log(file.name + "   的尺寸不够")
                     return
                 }
-                var imgUrl = '/show/tempShowImg?img=' + folder + '/medium_' + response._raw
+                var imgUrl = '/show/showImg?img=' + folder + '/medium_' + response._raw
                 modalCut(imgUrl, response._raw)
             });
             // 文件上传失败，显示上传出错（当文件上传出错时触发）。
@@ -200,7 +200,7 @@
                 $.post(
                         "/creation/cropCoverImg?" + cropParams,
                         function (d) {
-                            $("#coverImg").attr("src", "/show/tempShowImg?img=" + folder + "/" + d)
+                            $("#coverImg").attr("src", "/show/showImg?img=" + folder + "/" + d)
 //                                console.log("cover img:  "+d)
                             $("input[name='coverImg']").val(d)
                             $(".modal").modal("hide")

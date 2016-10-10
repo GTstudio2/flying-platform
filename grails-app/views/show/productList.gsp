@@ -10,7 +10,7 @@
 <head>
     <asset:stylesheet src="main.css"/>
     <meta name="layout" content="main"/>
-    <title>${title}-</title>
+    <title>${title}</title>
 </head>
 
 <body>

@@ -14,22 +14,21 @@ class CreationController {
 
     def createProduct() {
         params.type!="photo"&&params.type!="video"?params.type="photo":""
-        String backUserName = session.user.username
+        String user = session.user.username
         String tempFolderName = System.currentTimeMillis()
-        String folder = backUserName+"_"+params.type+"_"+tempFolderName
-        String newTempFolder = tempImgPath+File.separator+folder
+        String folder = user+"_"+params.type+"_"+tempFolderName
+        String newTempFolder = showImgPath+File.separator+folder
         new File(newTempFolder).mkdir()
         [folder: folder]
 //        String tempFile = "o_1463409038736.JPG"
 //        println tempFile.substring(2, tempFile.length())
-
 //        println "tempImgPath is:"+tempImgPath
     }
 
     def uploadImg() {
         String info
-        String oImg = ImgUploader.upLoadImg(tempImgPath+File.separator+params.folder, request)
-        String upLoadedImg = tempImgPath+File.separator+params.folder+File.separator+oImg
+        String oImg = ImgUploader.upLoadImg(showImgPath+File.separator+params.folder, request)
+        String upLoadedImg = showImgPath+File.separator+params.folder+File.separator+oImg
         int oImgWidth = ImageOperation.getImgSize(upLoadedImg).width
 //        中等图片
 //        int mediumMaxWidth = 1200
@@ -38,13 +37,13 @@ class CreationController {
         if (oImgWidth > mediumMaxWidth) {
             String mediumImg = "medium_"+noDecorationImgName
             info = noDecorationImgName
-            ImageOperation.cutImage(mediumMaxWidth, upLoadedImg, tempImgPath+File.separator+params.folder+File.separator+mediumImg)
+            ImageOperation.cutImage(mediumMaxWidth, upLoadedImg, showImgPath+File.separator+params.folder+File.separator+mediumImg)
 //            大图片
 //            int largeMaxWidth = 1920
             int largeMaxWidth = 1000
             if (oImgWidth > largeMaxWidth) {
                 String largeImg = "large_"+noDecorationImgName
-                ImageOperation.cutImage(largeMaxWidth, upLoadedImg, tempImgPath+File.separator+params.folder+File.separator+largeImg)
+                ImageOperation.cutImage(largeMaxWidth, upLoadedImg, showImgPath+File.separator+params.folder+File.separator+largeImg)
             }
         }else{
             info = "sizeNotReached"
@@ -54,9 +53,9 @@ class CreationController {
 
     def cropCoverImg() {
         String coverImg = "c_"+params.imgName
-        String newImgLocation = tempImgPath+File.separator+params.folder+File.separator+coverImg
-        String imgLocation = tempImgPath+File.separator+params.folder+File.separator+"medium_"+params.imgName
-//        String newWholeImgLocation = tempImgPath+"\\"+newImgLocation
+        String newImgLocation = showImgPath+File.separator+params.folder+File.separator+coverImg
+        String imgLocation = showImgPath+File.separator+params.folder+File.separator+"medium_"+params.imgName
+//        String newWholeImgLocation = showImgPath+"\\"+newImgLocation
         int oImgWidth = ImageOperation.getImgSize(imgLocation).width
         def scaling = oImgWidth/params.iWidth.toDouble()
         ImageOperation.cropImage(
@@ -72,7 +71,7 @@ class CreationController {
     }
 //    def upLoadBeautyImg() {
 //        String fName = params.fName
-//        String imgPath = tempImgPath+File.separator+fName
+//        String imgPath = showImgPath+File.separator+fName
 //        def uploadedImgName = ImgUploader.upLoadImg(imgPath, request)
 //        String prefix = "s_"
 //        def uploadedImgLocation = imgPath+File.separator+uploadedImgName
@@ -93,7 +92,7 @@ class CreationController {
         try {
             String type = params.type
 //            new Video(params).save()
-            def imgPath = [tempImgPath: tempImgPath, showImgPath: showImgPath]
+            def imgPath = [showImgPath: showImgPath, showImgPath: showImgPath]
             def userId = session.user.id
             if (type == "photo") {
                 creationService.createPhoto(params, userId, imgPath)

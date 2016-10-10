@@ -30,7 +30,6 @@
                                 <li ${params.action=="index"?"class=active":""}><g:link controller="show" action="index">首页 <span class="sr-only">(current)</span></g:link></li>
                                 <li ${params.action=="productList"&&params.type=="photo"?"class=active":""}><g:link controller="show" action="productList" params="[type: 'photo']">图片</g:link></li>
                                 <li ${params.action=="productList"&&params.type=="video"?"class=active":""}><g:link controller="show" action="productList" params="[type: 'video']">视频</g:link></li>
-                                <li ${params.action=="contactUs"?"class=active":""}><g:link controller="show" action="contactUs">联系我们</g:link></li>
                             </ul>
                             <ul class="nav navbar-nav navbar-right">
                                 <g:if test="${session.user}">
@@ -71,6 +70,8 @@
                     Copyright © 2015,www.yizhi.com ,All rights reserved 版权所有
                     <div class="contact-us">
                         <a href="tencent://message/?uin=963008227">QQ：963008882</a>
+                <br>
+                        <g:link controller="show" action="contactUs">关于我们</g:link>
                     </div>
                 </div>
             </div>

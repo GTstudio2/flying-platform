@@ -8,14 +8,19 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-    <meta name="layout" content="backendLayout"/>
+    <meta name="layout" content="main"/>
     <asset:stylesheet src="main.css"/>
     <title>提示</title>
 </head>
 
 <body>
-        <div class="container margin-top">
-            ${tip}
-        </div>
+    <div class="container margin-top">
+        <g:if test="${tip.status=="success"}">
+            <div class="alert alert-success" role="alert">上传成功！</div>
+        </g:if>
+        <g:else>
+            <div class="alert alert-danger" role="alert">上传失败！</div>
+        </g:else>
+    </div>
 </body>
 </html>

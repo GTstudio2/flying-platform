@@ -27,13 +27,13 @@
                         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                             <ul class="nav navbar-nav">
                                 <li ${params.action=="allProductions"?"class=active":""}><g:link controller="backend" action="allProductions">所有作品</g:link></li>
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">创建作品 <span class="caret"></span></a>
-                                    <ul class="dropdown-menu">
-                                        <li ${params.action=="createProduct"&&params.type=="photo"?"class=active":""}><g:link controller="backend" action="createProduct" params="[type: 'photo']">创建图片</g:link></li>
-                                        <li ${params.action=="createProduct"&&params.type=="video"?"class=active":""}><g:link controller="backend" action="createProduct" params="[type: 'video']">创建视频</g:link></li>
-                                    </ul>
-                                </li>
+                                %{--<li class="dropdown">--}%
+                                    %{--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">创建作品 <span class="caret"></span></a>--}%
+                                    %{--<ul class="dropdown-menu">--}%
+                                        %{--<li ${params.action=="createProduct"&&params.type=="photo"?"class=active":""}><g:link controller="backend" action="createProduct" params="[type: 'photo']">创建图片</g:link></li>--}%
+                                        %{--<li ${params.action=="createProduct"&&params.type=="video"?"class=active":""}><g:link controller="backend" action="createProduct" params="[type: 'video']">创建视频</g:link></li>--}%
+                                    %{--</ul>--}%
+                                %{--</li>--}%
                                 <li ${params.action=="homeManage"?"class=active":""}><g:link controller="backend" action="homeManage">首页管理</g:link></li>
                             </ul>
                             <!--<ul class="nav navbar-nav navbar-right">-->

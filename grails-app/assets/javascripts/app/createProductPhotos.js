@@ -74,7 +74,7 @@ $(function () {
             console.log(file.name+"   的尺寸不够")
             return
         }
-        var imgUrl = '/show/tempShowImg?img='+folder+'/medium_'+response._raw
+        var imgUrl = '/show/showImg?img='+folder+'/medium_'+response._raw
         var $li = $(
             '<input type="hidden" name="stepImg" value="'+response._raw+'">' +
             '<img src="'+imgUrl+'">' +

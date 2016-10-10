@@ -13,7 +13,7 @@
     <asset:stylesheet src="main.css"/>
     <asset:stylesheet src="app/detail.css"/>
     <meta name="layout" content="main"/>
-    <title>${videoProduct.name}-</title>
+    <title>${videoProduct.name}</title>
 </head>
 
 <body>

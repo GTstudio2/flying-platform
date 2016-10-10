@@ -26,6 +26,9 @@ body {
 .btn-primary {
   background-color: #009dda; }
 
+.cover-img {
+  margin-bottom: 5px; }
+
 /*keep footer always on bottom*/
 html,
 body {

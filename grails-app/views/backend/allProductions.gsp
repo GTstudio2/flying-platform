@@ -32,9 +32,9 @@
                             </g:elseif>
                         </td>
                         <td width="20%" align="right">
-                            <button class="btn btn-danger del" pid="${p.id}">删除</button>
+                            <button class="btn btn-danger btn-xs del" pid="${p.id}">删除</button>
                             <g:if test="${!recommends.find{it.productId==p.id}}">
-                                <button class="btn btn-success addToRecommend" pid="${p.id}">加入首页推荐</button>
+                                <button class="btn btn-success btn-xs addToRecommend" pid="${p.id}">加入首页推荐</button>
                             </g:if>
 
                         </td>

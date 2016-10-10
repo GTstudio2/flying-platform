@@ -11,19 +11,19 @@
     <body>
 
     <!-- Swiper -->
-    <div class="banner-box">
-        <div class="swiper-container">
-            <div class="swiper-wrapper">
-                <div class="swiper-slide" style="background: url('${assetPath(src: 'pro/mtw.JPG')}')"></div>
-                <div class="swiper-slide" style="background: url('${assetPath(src: 'pro/yeye.JPG')}')"></div>
-                <div class="swiper-slide" style="background: url('${assetPath(src: 'pro/men.JPG')}')"></div>
-                <div class="swiper-slide" style="background: url('${assetPath(src: 'pro/night.JPG')}')"></div>
-            </div>
-            <div class="swiper-pagination"></div>
-            <div class="flip-opt swiper-button-prev"></div>
-            <div class="flip-opt swiper-button-next"></div>
-        </div>
-    </div>
+    %{--<div class="banner-box">--}%
+        %{--<div class="swiper-container">--}%
+            %{--<div class="swiper-wrapper">--}%
+                %{--<div class="swiper-slide" style="background: url('${assetPath(src: 'pro/mtw.JPG')}')"></div>--}%
+                %{--<div class="swiper-slide" style="background: url('${assetPath(src: 'pro/yeye.JPG')}')"></div>--}%
+                %{--<div class="swiper-slide" style="background: url('${assetPath(src: 'pro/men.JPG')}')"></div>--}%
+                %{--<div class="swiper-slide" style="background: url('${assetPath(src: 'pro/night.JPG')}')"></div>--}%
+            %{--</div>--}%
+            %{--<div class="swiper-pagination"></div>--}%
+            %{--<div class="flip-opt swiper-button-prev"></div>--}%
+            %{--<div class="flip-opt swiper-button-next"></div>--}%
+        %{--</div>--}%
+    %{--</div>--}%
 
     <div class="container match-height-mask">
         <h3>图片</h3>

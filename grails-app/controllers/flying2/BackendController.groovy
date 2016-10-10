@@ -3,7 +3,6 @@ package flying2
 import grails.converters.JSON
 import img.ImageOperation
 import org.springframework.beans.factory.annotation.Value
-import org.springframework.boot.actuate.health.DataSourceHealthIndicator
 import upLoad.ImgUploader
 
 class BackendController {
@@ -22,9 +21,9 @@ class BackendController {
     }
 
     def delProduct() {
-        def m = [:]
+        def m
         try {
-            def p = DataSourceHealthIndicator.Product.get(params.pid)
+            def p = Product.get(params.pid)
             def r = Recommend.findByProduct(p)
             if (r) {
                 m = [status: "recommend"]
@@ -39,7 +38,7 @@ class BackendController {
     }
 
     def addToPreRecommend() {
-        def m = [:]
+        def m
         try {
             int status = backendService.addToPreRecommend(params)
             m = [status: "ok", recommendStatus: status]
@@ -50,7 +49,7 @@ class BackendController {
     }
 
     def changeRecommendStatus() {
-        def m = [:]
+        def m
         try {
             int status = 1
             if (params.isRecommend=="true") {

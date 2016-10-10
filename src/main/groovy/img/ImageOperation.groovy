@@ -122,7 +122,6 @@ class ImageOperation {
         op.addImage(srcPath);
         ConvertCmd convert = new ConvertCmd();
         //linux下不要设置此值，不然会报错
-        println imageMagickPath
         convert.setSearchPath(imageMagickPath);
         convert.run(op);
         Info info = new Info(srcPath);

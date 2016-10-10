@@ -16,25 +16,25 @@ class CreationService {
         p.save()
         int index = stepImgList.toString().indexOf(",")
         def separator = File.separator
-        String tempImgPath = imgPath.tempImgPath
+//        String tempImgPath = imgPath.tempImgPath
         String showImgPath = imgPath.showImgPath
-        FileUtil.newFolder(showImgPath+File.separator+params.folder)
-        FileUtil.moveFile(tempImgPath+separator+params.folder+separator+params.coverImg, showImgPath+separator+params.folder+separator+params.coverImg)
+//        FileUtil.newFolder(showImgPath+File.separator+params.folder)
+//        FileUtil.moveFile(tempImgPath+separator+params.folder+separator+params.coverImg, showImgPath+separator+params.folder+separator+params.coverImg)
         if (index != -1) {
             stepImgList.each{ img->
 //            移动中图、大图、原图
-                FileUtil.moveFile(tempImgPath+separator+params.folder+separator+"o_"+img, showImgPath+separator+params.folder+separator+"o_"+img)
-                FileUtil.moveFile(tempImgPath+separator+params.folder+separator+"medium_"+img, showImgPath+separator+params.folder+separator+"medium_"+img)
-                FileUtil.moveFile(tempImgPath+separator+params.folder+separator+"large_"+img, showImgPath+separator+params.folder+separator+"large_"+img)
+//                FileUtil.moveFile(tempImgPath+separator+params.folder+separator+"o_"+img, showImgPath+separator+params.folder+separator+"o_"+img)
+//                FileUtil.moveFile(tempImgPath+separator+params.folder+separator+"medium_"+img, showImgPath+separator+params.folder+separator+"medium_"+img)
+//                FileUtil.moveFile(tempImgPath+separator+params.folder+separator+"large_"+img, showImgPath+separator+params.folder+separator+"large_"+img)
                 def imgSize = img.ImageOperation.getImgSize(showImgPath+separator+params.folder+separator+"large_"+img)
                 new Image(img: img, largeWidth: imgSize.width, largeHeight: imgSize.height, photo: photo).save()
             }
         }else{
 //            println "single"
             String img = stepImgList
-            FileUtil.moveFile(tempImgPath+separator+params.folder+separator+"o_"+img, showImgPath+separator+params.folder+separator+"o_"+img)
-            FileUtil.moveFile(tempImgPath+separator+params.folder+separator+"medium_"+img, showImgPath+separator+params.folder+separator+"medium_"+img)
-            FileUtil.moveFile(tempImgPath+separator+params.folder+separator+"large_"+img, showImgPath+separator+params.folder+separator+"large_"+img)
+//            FileUtil.moveFile(tempImgPath+separator+params.folder+separator+"o_"+img, showImgPath+separator+params.folder+separator+"o_"+img)
+//            FileUtil.moveFile(tempImgPath+separator+params.folder+separator+"medium_"+img, showImgPath+separator+params.folder+separator+"medium_"+img)
+//            FileUtil.moveFile(tempImgPath+separator+params.folder+separator+"large_"+img, showImgPath+separator+params.folder+separator+"large_"+img)
             def imgSize = img.ImageOperation.getImgSize(showImgPath+separator+params.folder+separator+"large_"+img)
             new Image(img: img, largeWidth: imgSize.width, largeHeight: imgSize.height, photo: photo).save()
         }
@@ -45,10 +45,10 @@ class CreationService {
         Video v = new Video(params)
         p.video = v
         p.save()
-        def separator = File.separator
-        String tempImgPath = imgPath.tempImgPath
-        String showImgPath = imgPath.showImgPath
-        FileUtil.newFolder(showImgPath+File.separator+params.folder)
-        FileUtil.moveFile(tempImgPath+separator+params.folder+separator+params.coverImg, showImgPath+separator+params.folder+separator+params.coverImg)
+//        def separator = File.separator
+//        String tempImgPath = imgPath.tempImgPath
+//        String showImgPath = imgPath.showImgPath
+//        FileUtil.newFolder(showImgPath+File.separator+params.folder)
+//        FileUtil.moveFile(tempImgPath+separator+params.folder+separator+params.coverImg, showImgPath+separator+params.folder+separator+params.coverImg)
     }
 }
