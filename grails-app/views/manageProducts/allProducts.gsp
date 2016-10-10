@@ -14,75 +14,28 @@
 </head>
 
 <body>
-<div class="container match-height-mask">
-    <div class="panel panel-default">
-        <div class="panel-heading">作品</div>
+<div class="panel-heading">所有作品<span class="pull-right"><label class="label label-success">photo</label> ${photoCount}个，<label class="label label-danger">video</label> ${videoCount}个
+</span></div>
+<table class="table table-stripe">
+    <g:each var="p" in="${products}">
+        <tr>
+            <td width="20%"><label class="label label-${p.type == "photo" ? "success" : "danger"}">${p.type}</label> ${p?.name}
+            </td>
+            <td>${p?.intro}</td>
+            <td>
+                <g:if test="${p.type = "photo"}">
 
-        <div class="panel-body">
-            <div class="row classify-pro classify-videos">
-                %{--<g:each var="product" in="${products}">--}%
-                    %{--<div class="col-md-3 col-sm-6">--}%
-                        %{--<div class="pro-box">--}%
-                            %{--<span class="label label-${product.type=="photo"?"success":"danger"}">${product.type}</span>--}%
-                            %{--<g:if test="${product.type=="photo"}">--}%
-                                %{--<g:link class="img-link" controller="show" action="photoDetail" id="${product.id}">--}%
-                                    %{--<g:if test="${product.type=="video"}"><div class="play-mask"></div></g:if>--}%
-                                    %{--<img src="/show/showImg?img=${product.folder}/${product.coverImg}">--}%
-                                %{--</g:link>--}%
-                            %{--</g:if>--}%
-                            %{--<g:if test="${product.type=="video"}">--}%
-                                %{--<g:link class="img-link" controller="show" action="videoDetail" id="${product.id}">--}%
-                                    %{--<div class="play-mask"></div>--}%
-                                    %{--<img src="/show/showImg?img=${product.folder}/${product.coverImg}">--}%
-                                %{--</g:link>--}%
-                            %{--</g:if>--}%
-                            %{--<h5><g:link controller="show" action="photoDetail" id="${product.id}">${product?.name}</g:link></h5>--}%
-                        %{--</div>--}%
-                    %{--</div>--}%
-                %{--</g:each>--}%
-            </div>
-            %{--<table class="table">--}%
-                %{--<tr>--}%
-                    %{--<th>中文名称</th>--}%
-                    %{--<th>英语名称</th>--}%
-                    %{--<th>创建日期</th>--}%
-                    %{--<th>作品图片数</th>--}%
-                    %{--<th>状态</th>--}%
-                %{--</tr>--}%
-                %{--<g:each var="product" in="${products}">--}%
-                    %{--<tr>--}%
-                        %{--<td width="20%">--}%
-                            %{--<g:link controller="show" action="detail" params="[id: product.id, classify: product.type]"--}%
-                                    %{--target="_blank">--}%
-                                %{--<g:each var="intro" in="${product.intro}">--}%
-                                    %{--<g:if test="${intro.lang == 'zh_CN'}">--}%
-                                        %{--${intro.name}--}%
-                                    %{--</g:if>--}%
-                                %{--</g:each>--}%
-                            %{--</g:link>--}%
-                        %{--</td>--}%
-                        %{--<td width="20%">--}%
-                            %{--<g:link controller="show" action="detail" params="[id: product.id, classify: product.type]"--}%
-                                    %{--target="_blank">--}%
-                                %{--<g:each var="intro" in="${product.intro}">--}%
-                                    %{--<g:if test="${intro.lang == 'en'}">--}%
-                                        %{--${intro.name}--}%
-                                    %{--</g:if>--}%
-                                %{--</g:each>--}%
-                            %{--</g:link>--}%
-                        %{--</td>--}%
-                        %{--<td><g:formatDate format="yyyy-MM-dd HH:mm:ss" date="${product.createDate}"/></td>--}%
-                        %{--<td>${product.photo?.images?.size()}</td>--}%
-                        %{--<td><button class="btn btn-${product.status == 0 ? "danger" : "success"} btn-xs optBtn"--}%
-                                    %{--pId="${product.id}" optType="status">${product.status == 0 ? "待发布" : "已发布"}</button>--}%
-                        %{--</td>--}%
-                    %{--</tr>--}%
-                %{--</g:each>--}%
-            %{--</table>--}%
-        </div>
-    </div>
-
-</div>
+                </g:if>
+                <g:elseif test="${p.type == "video"}">
+                    ${p.video?.url}
+                </g:elseif>
+            </td>
+            <td width="20%" align="right">
+                <button class="btn btn-danger btn-xs del" pid="${p.id}">删除</button>
+            </td>
+        </tr>
+    </g:each>
+</table>
 <content tag="footer">
     <script>
         $(function () {
