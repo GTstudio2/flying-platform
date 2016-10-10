@@ -9,6 +9,7 @@ class AccountController {
     def accountService
 
     def login() {
+        println params
 //-----------
         def m = [:] 
         if (params.username != null && params.pwd != null) {
