@@ -8,6 +8,7 @@ class AccountInterceptor {
         match(controller: "creation")
 //        match(controller: "manageProducts", action: /(index|latest|detail|post|postNow)/)
         match(controller: "manageProducts")
+        match(controller: "accountSettings")
     }
 
     boolean before() {

@@ -2,12 +2,41 @@ package flying2
 
 import grails.converters.JSON
 
+import java.text.SimpleDateFormat
+
 class AccountSettingsController {
+    def accountService
 
     /**
      * 基本信息
      */
     def basicInfo() {
+        def user = User.get(session.user.id)
+        [user: user]
+    }
+
+    def resetBasicInfo() {
+        User user = User.get(session.user.id)
+        def m = [:]
+        def birthday
+        try {
+            birthday = new SimpleDateFormat('yyyy-MM-dd').parse(params.birthday)
+        }catch (Exception e){
+            m.status = "failed"
+            m.tip = "birthday is not valid"
+        }
+        user.username = params.username
+        user.birthday = birthday
+        user.sex = Integer.parseInt(params.sex)
+        user.save()
+        if (user) {
+            m.status = "success"
+            m.tip = "修改成功"
+        }else{
+            m.status = "failed"
+            m.tip = "修改失败"
+        }
+        m
     }
 
     /**
@@ -34,7 +63,6 @@ class AccountSettingsController {
         show.each {
             products << it.product
         }
-        println products
 //        JSON.use('deep'){
 //            render product as JSON
 //        }

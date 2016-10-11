@@ -22,7 +22,7 @@
     </div>
     <content tag="footer">
         <asset:javascript src="jquery-validate-1.13.1/jquery.validate.js"/>
-        <asset:javascript src="backLogin.js"/>
+        <asset:javascript src="login.js"/>
     </content>
 </body>
 </html>

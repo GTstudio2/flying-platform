@@ -45,10 +45,10 @@
                             </div>
                             <div class="form-group">
                                 <label class="radio-inline">
-                                    <input type="radio" name="sex" id="inlineRadio1" value="option1" checked> 男
+                                    <input type="radio" name="sex" id="inlineRadio1" value="1" checked> 男
                                 </label>
                                 <label class="radio-inline">
-                                    <input type="radio" name="sex" id="inlineRadio2" value="option2"> 女
+                                    <input type="radio" name="sex" id="inlineRadio2" value="2"> 女
                                 </label>
                             </div>
                             <button type="submit" class="btn btn-info btn-block">注册</button>

@@ -127,14 +127,11 @@ class AccountController {
 //        println "yeah register................"
         def m = [:]
         params.pwd = MD5.encode(params.pwd)
-        if (new User(params).save()) {
+        if (new User(username: params.username, email: params.email, pwd: params.pwd, sex: Integer.parseInt(params.sex)).save()) {
             m.status = "success"
+            m.tip = "registration success"
         }else{
             m.status = "failed"
-        }
-        if (m.status == "success") {
-            m.tip = "registration success"
-        }else if (m.status == "failed") {
             m.tip = "registration failed"
         }
         if (locale == "zh_CN") {
