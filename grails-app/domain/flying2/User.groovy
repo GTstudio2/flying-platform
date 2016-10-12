@@ -7,6 +7,7 @@ class User {
     Integer sex
     String email
     String intro
+    String folder
     String headImg
     Date birthday
     String witchUser
@@ -16,6 +17,7 @@ class User {
         sex nullable:true
         email nullable:true
         intro nullable: true
+        folder nullable: true
         headImg nullable: true
         birthday nullable: true
 //        createDate nullable: true

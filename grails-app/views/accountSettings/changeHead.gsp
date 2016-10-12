@@ -16,17 +16,25 @@
 </head>
 
 <body>
-    <input type="hidden" id="folder" name="folder" value="${folder}">
-    <div class="cover-img-box">
-        <input type="hidden" name="coverImg"/>
-        <asset:image class="cover-img" id="coverImg" src="pic/p1.jpg"/>
-        <p class="uploadStatus"></p>
+    <form role="form" action="updateHeadImg" method="post">
+        <input type="hidden" id="folder" name="folder" value="${folder}">
+        <div class="cover-img-box text-center">
+            <input type="hidden" name="headImg"/>
+            <asset:image class="cover-img margin-bottom" id="coverImg" src="header.jpg"/>
+            <p class="uploadStatus"></p>
 
-        <div class="cover-file-picker" id="coverFilePicker">选择封面图片</div>
-    </div>
+            <div class="cover-file-picker" id="coverFilePicker">选择头像</div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-md-offset-4 col-md-4">
+                <button class="btn btn-success btn-block">确认</button>
+            </div>
+        </div>
+    </form>
 
-    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-        <div class="modal-dialog modal-lg">
+    <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+        <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span

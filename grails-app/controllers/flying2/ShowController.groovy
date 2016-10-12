@@ -10,6 +10,8 @@ class ShowController {
     String showImgPath
     @Value('${filePath.homeImgPath}')
     String homeImgPath
+    @Value('${filePath.headImgPath}')
+    String headImgPath
 
     def index() {
         def photoRecommends = Recommend.findAll{
@@ -50,5 +52,9 @@ class ShowController {
     }
     def showImg() {
         ImageTools.showImg(showImgPath+File.separator, params.img, response)
+    }
+
+    def headImg() {
+        ImageTools.showImg(headImgPath+File.separator, params.img, response)
     }
 }

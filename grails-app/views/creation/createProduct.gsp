@@ -36,7 +36,6 @@
         <button type="submit" class="btn btn-success btn-lg">提交作品</button>
     </form>
 </div>
-<!-- Large modal -->
 <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -217,7 +216,6 @@
             $('#w').val(c.w);
             $('#h').val(c.h);
         }
-        ;
         function modalCut(data, imgName) {
             $(".modal").modal({backdrop: "static"})
             $("#myModalLabel").text("裁剪图片")

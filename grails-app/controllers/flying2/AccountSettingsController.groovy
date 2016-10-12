@@ -1,10 +1,15 @@
 package flying2
 
 import grails.converters.JSON
+import img.ImageOperation
+import org.springframework.beans.factory.annotation.Value
+import upLoad.ImgUploader
 
 import java.text.SimpleDateFormat
 
 class AccountSettingsController {
+    @Value('${filePath.headImgPath}')
+    String headImgPath
     def accountService
 
     /**
@@ -40,7 +45,64 @@ class AccountSettingsController {
     }
 
     def changeHead() {
+        String user = session.user.username
+        String tempFolderName = System.currentTimeMillis()
+        String folder = user+"_"+tempFolderName
+        String newTempFolder = headImgPath+File.separator+folder
+        new File(newTempFolder).mkdir()
+        [folder: folder]
+    }
+    def uploadImg() {
+        String info
+        String oImg = ImgUploader.upLoadImg(headImgPath+File.separator+params.folder, request)
+        String upLoadedImg = headImgPath+File.separator+params.folder+File.separator+oImg
+        int oImgWidth = ImageOperation.getImgSize(upLoadedImg).width
+//        中等图片
+//        int mediumMaxWidth = 1200
+        int mediumMaxWidth = 600
+        String noDecorationImgName = oImg.substring(2, oImg.length())
+        if (oImgWidth > mediumMaxWidth) {
+            String mediumImg = "medium_"+noDecorationImgName
+            info = noDecorationImgName
+            ImageOperation.cutImage(mediumMaxWidth, upLoadedImg, headImgPath+File.separator+params.folder+File.separator+mediumImg)
+        }else{
+            info = "sizeNotReached"
+        }
+        render info
+    }
+    def cropHeadImg() {
+        String coverImg = params.imgName
+        String newImgLocation = headImgPath+File.separator+params.folder+File.separator+coverImg
+        String imgLocation = headImgPath+File.separator+params.folder+File.separator+"medium_"+params.imgName
+//        String newWholeImgLocation = showImgPath+"\\"+newImgLocation
+        int oImgWidth = ImageOperation.getImgSize(imgLocation).width
+        def scaling = oImgWidth/params.iWidth.toDouble()
+        ImageOperation.cropImage(
+                imgLocation,
+                newImgLocation,
+                100,
+                (params.x1.toDouble()*scaling).toInteger(),
+                (params.y1.toDouble()*scaling).toInteger(),
+                (params.x2.toDouble()*scaling).toInteger(),
+                (params.y2.toDouble()*scaling).toInteger()
+        )
+        render coverImg
+    }
 
+    def updateHeadImg() {
+        User user = User.get(session.user.id)
+        def m = [:]
+        user.headImg = params.headImg
+        user.folder = params.folder
+        user.save()
+        if (user) {
+            m.status = "success"
+            m.tip = "修改成功"
+        }else{
+            m.status = "failed"
+            m.tip = "修改失败"
+        }
+        m
     }
 
     /**
