@@ -217,6 +217,10 @@ body {
 table.dataTable tbody tr.selected {
   background-color: #B0BED9; }
 
+.big-thumb {
+  width: 114px;
+  height: 114px; }
+
 .text-left {
   text-align: left; }
 

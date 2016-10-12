@@ -10,6 +10,10 @@ class AccountSettingsController {
     def basicInfo() {
     }
 
+    def changeHead() {
+
+    }
+
     /**
      * 安全设置
      */
@@ -34,7 +38,6 @@ class AccountSettingsController {
         show.each {
             products << it.product
         }
-        println products
 //        JSON.use('deep'){
 //            render product as JSON
 //        }

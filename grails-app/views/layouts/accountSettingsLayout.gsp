@@ -6,7 +6,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <asset:link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
-    <title><g:layoutTitle/>  安全设置</title>
+    <title><g:layoutTitle/> - 安全设置</title>
     <meta name="keywords" content="${keywords}">
     <meta name="description" content="${description}">
     <asset:stylesheet src="application.css"/>
@@ -78,6 +78,7 @@
                 <div class="col-md-2">
                     <div class="list-group box-shadow">
                         <g:link action="basicInfo" class="list-group-item ${params.action=="basicInfo"?"active":""}">基本信息</g:link>
+                        <g:link action="changeHead" class="list-group-item ${params.action=="changeHead"?"active":""}">修改头像</g:link>
                         <g:link action="security" class="list-group-item ${params.action=="security"?"active":""}">安全设置</g:link>
                         <g:link action="homeDisplayWay" class="list-group-item ${params.action=="homeDisplayWay"?"active":""}">主页展示</g:link>
                     </div>
