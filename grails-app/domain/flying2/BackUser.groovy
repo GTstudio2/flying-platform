@@ -1,6 +1,6 @@
 package flying2
 class BackUser {
-    String createDate = new Date()
+    Date createDate = new Date()
     String username
     String pwd
     String sex

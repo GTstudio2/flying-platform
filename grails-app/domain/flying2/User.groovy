@@ -1,13 +1,14 @@
 package flying2
 
 class User {
-    String createDate = new Date()
+    Date createDate = new Date()
     String username
     String pwd
-    String sex
+    Integer sex
     String email
     String intro
     String headImg
+    Date birthday
     String witchUser
     static hasMany = [productions: Product, audits: Audit]
     static constraints = {
@@ -16,6 +17,7 @@ class User {
         email nullable:true
         intro nullable: true
         headImg nullable: true
+        birthday nullable: true
 //        createDate nullable: true
     }
 }
