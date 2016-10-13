@@ -5,6 +5,7 @@ import cookie.CookieTools
 
 class AccountInterceptor {
     AccountInterceptor() {
+        match(controller: "show", action: /(index|productList|photoDetail|videoDetail)/)
         match(controller: "creation")
 //        match(controller: "manageProducts", action: /(index|latest|detail|post|postNow)/)
         match(controller: "manageProducts")

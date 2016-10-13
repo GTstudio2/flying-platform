@@ -74,13 +74,13 @@
         <div class="user-brief-box">
             <div class="container">
                 <div class="media">
-                    <div class="media-left media-middle">
+                    <div class="media-left">
                         <a href="#">
                             <g:if test="${user.headImg}">
                                 <img class="big-thumb" src="/show/headImg?img=${user.folder}/${user.headImg}"/>
                             </g:if>
                             <g:else>
-                                <asset:image class="big-thumb" src="apple-touch-icon-retina.png"/>
+                                <asset:image class="big-thumb" src="header.jpg"/>
                             </g:else>
                         </a>
                     </div>

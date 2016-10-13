@@ -20,7 +20,12 @@
         <input type="hidden" id="folder" name="folder" value="${folder}">
         <div class="cover-img-box text-center">
             <input type="hidden" name="headImg"/>
-            <asset:image class="cover-img margin-bottom" id="coverImg" src="header.jpg"/>
+            <g:if test="${user.headImg}">
+                <img class="cover-img margin-bottom" id="coverImg" src="/show/headImg?img=${user.folder}/${user.headImg}"/>
+            </g:if>
+            <g:else>
+                <asset:image class="cover-img margin-bottom" id="coverImg" src="header.jpg"/>
+            </g:else>
             <p class="uploadStatus"></p>
 
             <div class="cover-file-picker" id="coverFilePicker">选择头像</div>

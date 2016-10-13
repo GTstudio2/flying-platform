@@ -11,49 +11,118 @@
     <asset:stylesheet src="photoSwiper/photoswipe.css"/>
     <asset:stylesheet src="photoSwiper/default-skin/default-skin.css"/>
     <asset:stylesheet src="main.css"/>
-    <asset:stylesheet src="app/detail.css"/>
+    %{--<asset:stylesheet src="app/detail.css"/>--}%
     <meta name="layout" content="main"/>
     <title>${photoProduct.name}</title>
 </head>
 
 <body>
     <div class="container">
-        <h3>${photoProduct.name}</h3>
-        <p>${photoProduct.intro}</p>
-        <div class="img-content" id="imgContent">
-            <div class="my-gallery" itemscope itemtype="http://schema.org/ImageGallery">
-                <g:each var="img" in="${photoProduct.photo.images}">
-                    <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-                            <a href="/show/showImg?img=${photoProduct.folder+"/large_"+img.img}" data-size="${img.largeWidth+"x"+img.largeHeight}" itemprop="contentUrl">
-                                <img src="/show/showImg?img=${photoProduct.folder+"/medium_"+img.img}" itemprop="thumbnail" alt="Image description" />
-                            </a>
-                            %{--<figcaption itemprop="caption description">img intro</figcaption>--}%
-                    </figure>
-                </g:each>
-                %{--<figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">--}%
+        <div class="row">
+            <div class="col-md-offset-2 col-md-8">
+                <h3>${photoProduct.name}</h3>
+                <p>${photoProduct.intro}</p>
+                <div class="img-content" id="imgContent">
+                    <div class="my-gallery" itemscope itemtype="http://schema.org/ImageGallery">
+                        <g:each var="img" in="${photoProduct.photo.images}">
+                            <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+                                <a href="/show/showImg?img=${photoProduct.folder+"/large_"+img.img}" data-size="${img.largeWidth+"x"+img.largeHeight}" itemprop="contentUrl">
+                                    <img src="/show/showImg?img=${photoProduct.folder+"/medium_"+img.img}" itemprop="thumbnail" alt="Image description" />
+                                </a>
+                            </figure>
+                        </g:each>
+                    %{--<figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">--}%
                     %{--<a href="../images/pic/detail/d2.jpg" itemprop="contentUrl">--}%
-                        %{--<img src="../images/pic/detail/d2.jpg" itemprop="thumbnail" alt="Image description" />--}%
+                    %{--<img src="../images/pic/detail/d2.jpg" itemprop="thumbnail" alt="Image description" />--}%
                     %{--</a>--}%
                     %{--<!--<figcaption itemprop="caption description">Image caption</figcaption>-->--}%
-                %{--</figure>--}%
-                %{--<figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">--}%
+                    %{--</figure>--}%
+                    %{--<figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">--}%
                     %{--<a href="../images/pic/detail/d3.jpg" itemprop="contentUrl">--}%
-                        %{--<img src="../images/pic/detail/d3.jpg" itemprop="thumbnail" alt="Image description" />--}%
+                    %{--<img src="../images/pic/detail/d3.jpg" itemprop="thumbnail" alt="Image description" />--}%
                     %{--</a>--}%
                     %{--<!--<figcaption itemprop="caption description">Image caption</figcaption>-->--}%
-                %{--</figure>--}%
-                %{--<figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">--}%
+                    %{--</figure>--}%
+                    %{--<figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">--}%
                     %{--<a href="../images/pic/detail/d4.jpg" itemprop="contentUrl">--}%
-                        %{--<img src="../images/pic/detail/d4.jpg" itemprop="thumbnail" alt="Image description" />--}%
+                    %{--<img src="../images/pic/detail/d4.jpg" itemprop="thumbnail" alt="Image description" />--}%
                     %{--</a>--}%
                     %{--<!--<figcaption itemprop="caption description">Image caption</figcaption>-->--}%
-                %{--</figure>--}%
-                %{--<figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">--}%
+                    %{--</figure>--}%
+                    %{--<figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">--}%
                     %{--<a href="../images/pic/detail/d5.jpg" itemprop="contentUrl">--}%
-                        %{--<img src="../images/pic/detail/d5.jpg" itemprop="thumbnail" alt="Image description" />--}%
+                    %{--<img src="../images/pic/detail/d5.jpg" itemprop="thumbnail" alt="Image description" />--}%
                     %{--</a>--}%
                     %{--<!--<figcaption itemprop="caption description">Image caption</figcaption>-->--}%
-                %{--</figure>--}%
+                    %{--</figure>--}%
+                    </div>
+                </div>
+
+                <div class="panel panel-default margin-top">
+                    <div class="panel-body">
+                        <div class="media">
+                            <div class="media-left">
+                                <a href="#">
+                                    <g:if test="${user?.headImg}">
+                                        <img class="middle-thumb" src="/show/headImg?img=${user.folder}/${user.headImg}"/>
+                                    </g:if>
+                                    <g:else>
+                                        <asset:image class="middle-thumb" src="header.jpg"/>
+                                    </g:else>
+                                </a>
+                            </div>
+                            <div class="media-body">
+                                <h4 class="media-heading">nick</h4>
+                                <textarea class="form-control" name="comment" id="comment" rows="3"></textarea>
+                                <div class="row margin-top5">
+                                    <div class="col-md-offset-10 col-md-2">
+                                        <button class="btn btn-primary btn-sm btn-block">发布</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="comment-list">
+                            <div class="media">
+                                <div class="media-left">
+                                    <a href="#">
+                                        <asset:image class="middle-thumb" src="header.jpg"/>
+                                    </a>
+                                </div>
+                                <div class="media-body">
+                                    <a class="pull-right" href="#">回复</a>
+                                    <h4 class="media-heading">nick</h4>
+                                    fasdfasdfsdf
+                                </div>
+                            </div>
+
+                            <div class="media">
+                                <div class="media-left">
+                                    <a href="#">
+                                        <asset:image class="middle-thumb" src="header.jpg"/>
+                                    </a>
+                                </div>
+                                <div class="media-body">
+                                    <a class="pull-right" href="#">回复</a>
+                                    <h4 class="media-heading">nick</h4>
+                                    fasdfasdfsdf
+                                </div>
+                            </div>
+                            <div class="media">
+                                <div class="media-left">
+                                    <a href="#">
+                                        <asset:image class="middle-thumb" src="header.jpg"/>
+                                    </a>
+                                </div>
+                                <div class="media-body">
+                                    <a class="pull-right" href="#">回复</a>
+                                    <h4 class="media-heading">nick</h4>
+                                    fasdfasdfsdf
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
             </div>
         </div>
     </div>

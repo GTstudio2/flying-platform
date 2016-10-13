@@ -50,7 +50,8 @@ class AccountSettingsController {
         String folder = user+"_"+tempFolderName
         String newTempFolder = headImgPath+File.separator+folder
         new File(newTempFolder).mkdir()
-        [folder: folder]
+        def u = User.get(session.user.id)
+        [folder: folder, user: u]
     }
     def uploadImg() {
         String info
