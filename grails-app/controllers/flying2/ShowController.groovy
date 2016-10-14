@@ -31,8 +31,13 @@ class ShowController {
         [products: products, productsCount: productsCount]
     }
     def photoDetail() {
-        def photoProduct = Product.findById(params.id)
-        [photoProduct: photoProduct]
+        def product = Product.findById(params.id)
+        def userId = session.user?.id
+        def user
+        if (userId) {
+            user = User.get(userId)
+        }
+        [product: product, user: user]
     }
 
     def videoDetail() {

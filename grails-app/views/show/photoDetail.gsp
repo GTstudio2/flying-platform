@@ -13,21 +13,21 @@
     <asset:stylesheet src="main.css"/>
     %{--<asset:stylesheet src="app/detail.css"/>--}%
     <meta name="layout" content="main"/>
-    <title>${photoProduct.name}</title>
+    <title>${product.name}</title>
 </head>
 
 <body>
     <div class="container">
         <div class="row">
             <div class="col-md-offset-2 col-md-8">
-                <h3>${photoProduct.name}</h3>
-                <p>${photoProduct.intro}</p>
+                <h3>${product.name}</h3>
+                <p>${product.intro}</p>
                 <div class="img-content" id="imgContent">
                     <div class="my-gallery" itemscope itemtype="http://schema.org/ImageGallery">
-                        <g:each var="img" in="${photoProduct.photo.images}">
+                        <g:each var="img" in="${product.photo.images}">
                             <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-                                <a href="/show/showImg?img=${photoProduct.folder+"/large_"+img.img}" data-size="${img.largeWidth+"x"+img.largeHeight}" itemprop="contentUrl">
-                                    <img src="/show/showImg?img=${photoProduct.folder+"/medium_"+img.img}" itemprop="thumbnail" alt="Image description" />
+                                <a href="/show/showImg?img=${product.folder+"/large_"+img.img}" data-size="${img.largeWidth+"x"+img.largeHeight}" itemprop="contentUrl">
+                                    <img src="/show/showImg?img=${product.folder+"/medium_"+img.img}" itemprop="thumbnail" alt="Image description" />
                                 </a>
                             </figure>
                         </g:each>
@@ -62,21 +62,24 @@
                     <div class="panel-body">
                         <div class="media">
                             <div class="media-left">
-                                <a href="#">
-                                    <g:if test="${user?.headImg}">
+                                <g:if test="${user?.headImg}">
+                                    <g:link controller="mySpace" action="home" id="${user.id}">
                                         <img class="middle-thumb" src="/show/headImg?img=${user.folder}/${user.headImg}"/>
-                                    </g:if>
-                                    <g:else>
+                                    </g:link>
+                                </g:if>
+                                <g:else>
+                                    <a href="javascript:void(0)">
                                         <asset:image class="middle-thumb" src="header.jpg"/>
-                                    </g:else>
-                                </a>
+                                    </a>
+                                </g:else>
                             </div>
                             <div class="media-body">
+                                <span class="comment-limit">可输入<span id="releaseCounter"></span>个字符</span>
                                 <h4 class="media-heading">nick</h4>
-                                <textarea class="form-control" name="comment" id="comment" rows="3"></textarea>
+                                <textarea class="form-control comment-area" name="comment" id="comment" rows="3" placeholder="发表评论"></textarea>
                                 <div class="row margin-top5">
                                     <div class="col-md-offset-10 col-md-2">
-                                        <button class="btn btn-primary btn-sm btn-block">发布</button>
+                                        <button class="btn btn-primary btn-sm btn-block" id="release">发布</button>
                                     </div>
                                 </div>
                             </div>
@@ -120,8 +123,11 @@
                                 </div>
                             </div>
                         </div>
-
+                        <nav class="text-center">
+                            <ul class="pagination" id="pagination"></ul>
+                        </nav>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -177,10 +183,13 @@
 <content tag="footer">
     <asset:javascript src="photoSwiper/photoswipe.min.js"/>
     <asset:javascript src="photoSwiper/photoswipe-ui-default.min.js"/>
+    <asset:javascript src="bootstrap-paginator/bootstrap-paginator.min.js"/>
+    <asset:javascript src="jquery-simply-countable/jquery.simplyCountable.js"/>
     <asset:javascript src="main.js"/>
     <script>
+    var productId = "${product.id}"
+    var commentMaxCount = 300
         $(function () {
-
             var initPhotoSwipeFromDOM = function(gallerySelector) {
                 // parse slide data (url, title, size ...) from DOM elements
                 // (children of gallerySelector)
@@ -299,7 +308,6 @@
                     options = {
                         // define gallery index (for URL)
                         galleryUID: galleryElement.getAttribute('data-pswp-uid'),
-
                         getThumbBoundsFn: function(index) {
                             // See Options -> getThumbBoundsFn section of documentation for more info
                             var thumbnail = items[index].el.getElementsByTagName('img')[0], // find thumbnail
@@ -307,7 +315,6 @@
                                     rect = thumbnail.getBoundingClientRect();
                             return {x:rect.left, y:rect.top + pageYScroll, w:rect.width};
                         }
-
                     };
                     // PhotoSwipe opened from URL
                     if(fromURL) {
@@ -350,10 +357,54 @@
                     openPhotoSwipe( hashData.pid ,  galleryElements[ hashData.gid - 1 ], true, true );
                 }
             };
-
-// execute above function
             initPhotoSwipeFromDOM('.my-gallery');
+
+            $("#comment").simplyCountable({
+                counter: '#releaseCounter',
+                maxCount:commentMaxCount,
+                strictMax: true
+            })
+
+            $('#release').click(function () {
+//                var $comments = $("#comments")
+//                publishComment($("#commentBox"), $comments)
+            })
+            paginationComment()
         })
+        function paginationComment() {
+        var commentCount = 30
+        var totalPages = commentCount % 10 == 0 ? commentCount / 10 : Math.ceil(commentCount / 10) ;
+        var options = {
+            bootstrapMajorVersion: 3,
+            currentPage:1,
+            totalPages: totalPages,
+            tooltipTitles: function() {
+                return ""
+            },
+            pageUrl: function(type, page, current){
+                return "#comment";
+            },
+            itemTexts: function (type, page, current) {
+                switch (type) {
+                    case "first":
+                        return "首页";
+                    case "prev":
+                        return "上一页";
+                    case "next":
+                        return "下一页";
+                    case "last":
+                        return "末页";
+                    case "page":
+                        return page;
+                }
+            },
+            onPageClicked: function(e,originalEvent,type,page) {
+//                    getComments(page)
+            }
+        }
+
+        $('#pagination').bootstrapPaginator(options)
+    }
     </script>
 
 </content>

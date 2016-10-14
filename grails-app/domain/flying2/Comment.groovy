@@ -5,6 +5,5 @@ class Comment {
     String content
     static belongsTo = [user: User, product: Product]
     static constraints = {
-        replyComment nullable: true
     }
 }
