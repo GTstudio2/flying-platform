@@ -87,10 +87,10 @@ environments:
         server:
             port: 9001
         filePath:
-            tempImgPath: D:\dev\WebFiles\flyingPhotos\temp
-            showImgPath: D:\dev\WebFiles\flyingPhotos\show
-            homeImgPath: D:\dev\WebFiles\flyingPhotos\home
-            headImgPath: D:\dev\WebFiles\flyingPhotos\head
+            tempImgPath: D:\360cloud\Document\Web file\flyingPhotos\temp
+            showImgPath: D:\360cloud\Document\Web file\flyingPhotos\show
+            homeImgPath: D:\360cloud\Document\Web file\flyingPhotos\home
+            headImgPath: D:\360cloud\Document\Web file\flyingPhotos\head
         imageMagick:
             path: C:\Program Files\ImageMagick-6.9.0-Q8
         dataSource:
