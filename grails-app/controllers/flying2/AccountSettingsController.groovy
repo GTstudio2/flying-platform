@@ -11,6 +11,7 @@ class AccountSettingsController {
     @Value('${filePath.headImgPath}')
     String headImgPath
     def accountService
+    def mailService
 
     /**
      * 基本信息
@@ -111,6 +112,16 @@ class AccountSettingsController {
      */
     def security() {}
 
+    def sendVerifyCodeEmail() {
+        println 'sending...'
+        mailService.sendMail {
+            to "963008227@qq.com"
+            from "tjtj54tj@163.com"
+            subject "Hello John"
+            text "this is some text"
+        }
+        println '...done'
+    }
     /**
      * 空间首页展示方式
      */
