@@ -1,5 +1,17 @@
 ---
 grails:
+    mail:
+         host: smtp.163.com
+         port: 25
+         username: 888@163.com
+         password: 123456789
+         disabled: false
+         props: [mail.smtp.auth: true,
+                               mail.smtp.socketFactory.port: 25,
+                               mail.smtp.socketFactory.class: javax.net.ssl.SSLSocketFactory,
+                               mail.smtp.socketFactory.fallback: false]
+---
+grails:
     profile: web
     codegen:
         defaultPackage: flying2
