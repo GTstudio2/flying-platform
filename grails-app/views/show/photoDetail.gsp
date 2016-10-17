@@ -378,6 +378,8 @@
             };
             initPhotoSwipeFromDOM('.my-gallery');
 
+
+            loadFirstImgHeight()
             $("#comment").simplyCountable({
                 counter: '#releaseCounter',
                 maxCount:commentMaxCount,
@@ -410,6 +412,20 @@
             })
             paginationComment()
         })
+
+        function loadFirstImgHeight() {
+            var loadWidth = $('#imgContent .my-gallery').eq(0).width()
+            var firstImgLink = $('#imgContent a').eq(0)
+            var imgSize = firstImgLink.attr('data-size').split('x')
+            var imgWidth = imgSize[0]
+            var imgHeight = imgSize[1]
+
+            var scale = imgWidth/imgHeight
+            var $firstImg = firstImgLink.find('img').height(loadWidth/scale)
+            $firstImg[0].onload = function () {
+                $firstImg.css('height', 'auto')
+            }
+        }
         function paginationComment() {
             $.get(
                     '/comment/getComments',
@@ -429,6 +445,7 @@
 
                         var commentCount = d.totalComment
                         var totalPages = commentCount % 10 == 0 ? commentCount / 10 : Math.ceil(commentCount / 10) ;
+                        if(!totalPages) totalPages = 1
                         var options = {
                             bootstrapMajorVersion: 3,
                             currentPage:1,
