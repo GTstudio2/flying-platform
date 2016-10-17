@@ -64,19 +64,19 @@
                             <div class="media-left">
                                 <g:if test="${user?.headImg}">
                                     <g:link controller="mySpace" action="home" id="${user.id}">
-                                        <img class="middle-thumb" src="/show/headImg?img=${user.folder}/${user.headImg}"/>
+                                        <img class="middle-thumb" id="userHead" src="/show/headImg?img=${user.folder}/${user.headImg}"/>
                                     </g:link>
                                 </g:if>
                                 <g:else>
                                     <a href="javascript:void(0)">
-                                        <asset:image class="middle-thumb" src="header.jpg"/>
+                                        <asset:image class="middle-thumb" id="userHead" src="header.jpg"/>
                                     </a>
                                 </g:else>
                             </div>
                             <div class="media-body">
                                 <span class="comment-limit">可输入<span id="releaseCounter"></span>个字符</span>
-                                <h4 class="media-heading">nick</h4>
-                                <textarea class="form-control comment-area" name="comment" id="comment" rows="3" placeholder="发表评论"></textarea>
+                                <h4 class="media-heading" id="userName">nick</h4>
+                                <textarea class="form-control comment-area" name="comment" id="comment" rows="3" placeholder="发表评论" maxlength="300"></textarea>
                                 <div class="row margin-top5">
                                     <div class="col-md-offset-10 col-md-2">
                                         <button class="btn btn-primary btn-sm btn-block" id="release">发布</button>
@@ -84,7 +84,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="comment-list">
+                        <div class="comment-list" id="commentList">
                             <div class="media">
                                 <div class="media-left">
                                     <a href="#">
@@ -179,12 +179,31 @@
 
     </div>
 
+
+    <script id="commentTmpl" type="text/x-jquery-tmpl">
+        {%each(i,comment) comments%}
+        <div class="media">
+            <div class="media-left">
+                <a href="#">
+                    <img class="middle-thumb" src="<%='${userHeadUrl}'%>">
+                </a>
+            </div>
+            <div class="media-body">
+                <a class="pull-right" href="#">回复</a>
+                <h4 class="media-heading"><%= '${username}' %></h4>
+                <%= '${comment}' %>
+            </div>
+        </div>
+        {%/each%}
+    </script>
 </div>
 <content tag="footer">
     <asset:javascript src="photoSwiper/photoswipe.min.js"/>
     <asset:javascript src="photoSwiper/photoswipe-ui-default.min.js"/>
     <asset:javascript src="bootstrap-paginator/bootstrap-paginator.min.js"/>
     <asset:javascript src="jquery-simply-countable/jquery.simplyCountable.js"/>
+    <asset:javascript src="layer/layer.js"/>
+    <asset:javascript src="jquery-tmpl/jquery.tmpl.js"/>
     <asset:javascript src="main.js"/>
     <script>
     var productId = "${product.id}"
@@ -366,44 +385,102 @@
             })
 
             $('#release').click(function () {
+                var comment = $('#comment').val()
+                $.post(
+                        '/comment/addComment',
+                        {productId: productId, comment: comment},
+                        function (d) {
+                            if(d.status=='success'){
+                                var content = [{
+                                    id: d.id,
+                                    username: $('#userName').text(),
+                                    userHeadUrl: $('#userHead').attr('src'),
+                                    comment: comment
+                                }]
+                                $('#commentTmpl').tmpl({comments: content}).prependTo('#commentList')
+                                $('#comment').val('')
+                                $('#releaseCounter').text(commentMaxCount)
+                            }else{
+                                alert(d.tips)
+                            }
+                        }
+                )
 //                var $comments = $("#comments")
 //                publishComment($("#commentBox"), $comments)
             })
             paginationComment()
         })
         function paginationComment() {
-        var commentCount = 30
-        var totalPages = commentCount % 10 == 0 ? commentCount / 10 : Math.ceil(commentCount / 10) ;
-        var options = {
-            bootstrapMajorVersion: 3,
-            currentPage:1,
-            totalPages: totalPages,
-            tooltipTitles: function() {
-                return ""
-            },
-            pageUrl: function(type, page, current){
-                return "#comment";
-            },
-            itemTexts: function (type, page, current) {
-                switch (type) {
-                    case "first":
-                        return "首页";
-                    case "prev":
-                        return "上一页";
-                    case "next":
-                        return "下一页";
-                    case "last":
-                        return "末页";
-                    case "page":
-                        return page;
-                }
-            },
-            onPageClicked: function(e,originalEvent,type,page) {
-//                    getComments(page)
-            }
-        }
+            $.get(
+                    '/comment/getComments',
+                    {productId: productId, pageNo: 1},
+                    function (d) {
+                        var content = []
+                        $.each(d.comments, function (i, item) {
+                            var comment = {
+                                id: d.id,
+                                username: $('#userName').text(),
+                                userHeadUrl: $('#userHead').attr('src'),
+                                comment: item.content
+                            }
+                            content.push(comment)
+                        })
+                        $('#commentList').html($('#commentTmpl').tmpl({comments: content}))
 
-        $('#pagination').bootstrapPaginator(options)
+                        var commentCount = d.totalComment
+                        var totalPages = commentCount % 10 == 0 ? commentCount / 10 : Math.ceil(commentCount / 10) ;
+                        var options = {
+                            bootstrapMajorVersion: 3,
+                            currentPage:1,
+                            totalPages: totalPages,
+                            tooltipTitles: function() {
+                                return ""
+                            },
+                            pageUrl: function(type, page, current){
+                                return "javascript:void(0)";
+                            },
+                            itemTexts: function (type, page, current) {
+                                switch (type) {
+                                    case "first":
+                                        return "首页";
+                                    case "prev":
+                                        return "上一页";
+                                    case "next":
+                                        return "下一页";
+                                    case "last":
+                                        return "末页";
+                                    case "page":
+                                        return page;
+                                }
+                            },
+                            onPageClicked: function(e,originalEvent,type,page) {
+                                getComments(page)
+                            }
+                        }
+
+                        $('#pagination').bootstrapPaginator(options)
+                    }
+            )
+    }
+
+    function getComments(pageNo) {
+        $.get(
+                '/comment/getComments',
+                {productId: productId, pageNo: pageNo},
+                function (d) {
+                    var content = []
+                    $.each(d.comments, function (i, item) {
+                        var comment = {
+                            id: d.id,
+                            username: $('#userName').text(),
+                            userHeadUrl: $('#userHead').attr('src'),
+                            comment: item.content
+                        }
+                        content.push(comment)
+                    })
+                    $('#commentList').html($('#commentTmpl').tmpl({comments: content}))
+                }
+        )
     }
     </script>
 

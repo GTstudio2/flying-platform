@@ -1,6 +1,7 @@
 package flying2
 
 import cookie.CookieTools
+import grails.converters.JSON
 
 
 class AccountInterceptor {
@@ -10,6 +11,7 @@ class AccountInterceptor {
 //        match(controller: "manageProducts", action: /(index|latest|detail|post|postNow)/)
         match(controller: "manageProducts")
         match(controller: "accountSettings")
+        match(controller: "comment", action: /(addComment)/)
     }
 
     boolean before() {
@@ -30,6 +32,12 @@ class AccountInterceptor {
                 params.controller=="manageProducts"
             ){
                 redirect(controller: 'account', action: 'login')
+                return false
+            }else if(params.controller=="comment"&&params.action=="addComment"){
+                def m = [:]
+                m.status = 'failed'
+                m.tips = 'no user'
+                render m as JSON
                 return false
             }
         }
