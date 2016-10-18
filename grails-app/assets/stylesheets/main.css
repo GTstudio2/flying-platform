@@ -231,6 +231,9 @@ table.dataTable tbody tr.selected {
   max-width: 100%; }
 
 /*comment*/
+.media-body {
+  word-break: break-all; }
+
 .media-body .comment-limit {
   float: right;
   color: #aaa; }

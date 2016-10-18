@@ -5,5 +5,6 @@ class Comment {
     String content
     static belongsTo = [user: User, product: Product]
     static constraints = {
+        content maxSize: 300
     }
 }
