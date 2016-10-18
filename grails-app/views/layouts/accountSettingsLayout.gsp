@@ -79,7 +79,7 @@
                     <div class="list-group box-shadow">
                         <g:link action="basicInfo" class="list-group-item ${params.action=="basicInfo"?"active":""}">基本信息</g:link>
                         <g:link action="changeHead" class="list-group-item ${params.action=="changeHead"?"active":""}">修改头像</g:link>
-                        <g:link action="security" class="list-group-item ${params.action=="security"?"active":""}">安全设置</g:link>
+                        <g:link action="resetPwd" class="list-group-item ${params.action=="resetPwd"?"active":""}">安全设置</g:link>
                         <g:link action="homeDisplayWay" class="list-group-item ${params.action=="homeDisplayWay"?"active":""}">主页展示</g:link>
                     </div>
                 </div>

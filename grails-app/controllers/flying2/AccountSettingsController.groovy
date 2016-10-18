@@ -2,6 +2,7 @@ package flying2
 
 import grails.converters.JSON
 import img.ImageOperation
+import main.MD5
 import org.springframework.beans.factory.annotation.Value
 import upLoad.ImgUploader
 
@@ -110,7 +111,25 @@ class AccountSettingsController {
     /**
      * 安全设置
      */
-    def security() {}
+    def resetPwd() {}
+
+    def resetPwdByOldPwd() {
+        def pwd = MD5.encode(params.oldPwd)
+        def u = User.findByPwdAndId(pwd, session.user.id)
+        def m = [:]
+        if(u){
+            def newPwd = MD5.encode(params.pwd)
+            u.pwd = newPwd
+            u.save()
+            m.status = "success"
+            m.tip = "修改成功"
+        }else{
+            m.status = "failed"
+            m.tip = "密码错误"
+            redirect(action: "resetPwd", params: m)
+        }
+        m
+    }
 
     /**
      * 空间首页展示方式

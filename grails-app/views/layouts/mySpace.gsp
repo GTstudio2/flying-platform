@@ -73,9 +73,9 @@
 
         <div class="user-brief-box">
             <div class="container">
-                <div class="media">
+                <div class="media margin-bottom">
                     <div class="media-left">
-                        <a href="#">
+                        <a href="javascript:void(0)">
                             <g:if test="${user.headImg}">
                                 <img class="big-thumb" src="/show/headImg?img=${user.folder}/${user.headImg}"/>
                             </g:if>

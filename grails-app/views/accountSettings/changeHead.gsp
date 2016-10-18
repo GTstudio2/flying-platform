@@ -21,10 +21,10 @@
         <div class="cover-img-box text-center">
             <input type="hidden" name="headImg"/>
             <g:if test="${user.headImg}">
-                <img class="cover-img margin-bottom" id="coverImg" src="/show/headImg?img=${user.folder}/${user.headImg}"/>
+                <img class="big-thumb margin-bottom" id="coverImg" src="/show/headImg?img=${user.folder}/${user.headImg}"/>
             </g:if>
             <g:else>
-                <asset:image class="cover-img margin-bottom" id="coverImg" src="header.jpg"/>
+                <asset:image class="big-thumb margin-bottom" id="coverImg" src="header.jpg"/>
             </g:else>
             <p class="uploadStatus"></p>
 
@@ -33,7 +33,7 @@
         <hr>
         <div class="row">
             <div class="col-md-offset-4 col-md-4">
-                <button class="btn btn-success btn-block">确认</button>
+                <button class="btn btn-success btn-block" id="updateBtn" disabled>确认</button>
             </div>
         </div>
     </form>

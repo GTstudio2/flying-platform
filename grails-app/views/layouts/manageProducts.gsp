@@ -83,7 +83,7 @@
                 <div class="col-md-2">
                     <div class="list-group box-shadow">
                         <g:link action="allProducts" class="list-group-item ${params.action=="allProducts"?"active":""}">所有作品</g:link>
-                        %{--<g:link action="security" class="list-group-item ${params.action=="security"?"active":""}">统计</g:link>--}%
+                        %{--<g:link action="resetPwd" class="list-group-item ${params.action=="security"?"active":""}">统计</g:link>--}%
                     </div>
                 </div>
                 <div class="col-md-10">

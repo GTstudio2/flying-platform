@@ -109,6 +109,7 @@ $(function () {
             confirm_password: {
                 required: "请输入确认密码",
                 minlength: "请输入至少6个字符",
+                maxlength: "请输入最多20个字符",
                 equalTo: "密码不一致"
             }
         },

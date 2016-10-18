@@ -46,6 +46,7 @@ $(function () {
     });
     // 文件上传成功，给item添加成功class, 用样式标记上传成功。
     uploader.on('uploadSuccess', function (file, response) {
+        $('#updateBtn').prop('disabled', false)
         uploadStatus.text('上传成功')
         setTimeout(function () {
             uploadStatus.slideUp(300)

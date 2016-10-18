@@ -19,28 +19,33 @@
         <div class="panel-heading">作品<span class="text-danger">(${productCount}个)</span></div>
 
         <div class="panel-body">
-            <div class="row classify-pro classify-videos">
-                <g:each var="product" in="${products}">
-                    <div class="col-md-3 col-sm-6">
-                        <div class="pro-box">
-                            <span class="label label-${product.type=="photo"?"success":"danger"}">${product.type}</span>
-                            <g:if test="${product.type=="photo"}">
-                                <g:link class="img-link" controller="show" action="photoDetail" id="${product.id}">
-                                    <g:if test="${product.type=="video"}"><div class="play-mask"></div></g:if>
-                                    <img src="/show/showImg?img=${product.folder}/${product.coverImg}">
-                                </g:link>
-                            </g:if>
-                            <g:if test="${product.type=="video"}">
-                                <g:link class="img-link" controller="show" action="videoDetail" id="${product.id}">
-                                    <div class="play-mask"></div>
-                                    <img src="/show/showImg?img=${product.folder}/${product.coverImg}">
-                                </g:link>
-                            </g:if>
-                            <h5><g:link controller="show" action="photoDetail" id="${product.id}">${product?.name}</g:link></h5>
+            <g:if test="${products.size() > 0}">
+                <div class="row classify-pro classify-videos">
+                    <g:each var="product" in="${products}">
+                        <div class="col-md-3 col-sm-6">
+                            <div class="pro-box">
+                                <span class="label label-${product.type == "photo" ? "success" : "danger"}">${product.type}</span>
+                                <g:if test="${product.type == "photo"}">
+                                    <g:link class="img-link" controller="show" action="photoDetail" id="${product.id}">
+                                        <g:if test="${product.type == "video"}"><div class="play-mask"></div></g:if>
+                                        <img src="/show/showImg?img=${product.folder}/${product.coverImg}">
+                                    </g:link>
+                                </g:if>
+                                <g:if test="${product.type == "video"}">
+                                    <g:link class="img-link" controller="show" action="videoDetail" id="${product.id}">
+                                        <div class="play-mask"></div>
+                                        <img src="/show/showImg?img=${product.folder}/${product.coverImg}">
+                                    </g:link>
+                                </g:if>
+                                <h5><g:link controller="show" action="photoDetail" id="${product.id}">${product?.name}</g:link></h5>
+                            </div>
                         </div>
-                    </div>
-                </g:each>
-            </div>
+                    </g:each>
+                </div>
+            </g:if>
+            <g:else>
+                <div class="text-center">还没有作品</div>
+            </g:else>
             %{--<table class="table">--}%
                 %{--<tr>--}%
                     %{--<th>中文名称</th>--}%

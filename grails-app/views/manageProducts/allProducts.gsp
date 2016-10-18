@@ -44,6 +44,7 @@
         <th width="120">名称</th>
         <th>描述</th>
         <th width="80">发布时间</th>
+        <th>状态</th>
         <th width="100">操作</th>
     </tr>
     </thead>
@@ -129,6 +130,12 @@
                         "render": function (data, type, full, meta) {
                             var date = new Date(data)
                             return date.getFullYear()+'-'+date.getMonth()+'-'+date.getDate()
+                        }
+                    },
+                    {
+                        "data": "status",
+                        "render": function (data, type, full, meta) {
+                            return data
                         }
                     },
                     {

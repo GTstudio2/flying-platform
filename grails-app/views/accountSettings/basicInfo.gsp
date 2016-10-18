@@ -38,7 +38,7 @@
                     %{--<label for="addr">所在地区</label>--}%
                     %{--<input class="form-control" id="addr">--}%
                 %{--</div>--}%
-                <button type="submit" class="btn btn-primary btn-block">确认修改</button>
+                <button type="submit" class="btn btn-primary btn-block" id="updateBtn" disabled>确认修改</button>
             </form>
         </div>
     </div>
@@ -53,7 +53,13 @@
                 autoclose: 1,
                 minView:2
             });
-    </script>
+            $('input:text').keydown(function () {
+                $('#updateBtn').prop('disabled', false)
+            })
+            $('input').change(function () {
+                $('#updateBtn').prop('disabled', false)
+            })
+        </script>
     </content>
 </body>
 </html>

@@ -13,10 +13,13 @@ class ManageProductsController {
         params.max = 8
         def tableParams = JSON.parse(params.p)
         def createDateSort = "asc"
-        if(tableParams.columns[2].orderable){
-            createDateSort = tableParams.order[0].dir
+        def sorts = []
+        tableParams.columns.each { col ->
+            sorts << col
         }
-        def products = Product.list([offset: tableParams.start, max: tableParams.length, sort: "createDate", order: createDateSort])
+        def sort = tableParams.order[0].dir
+        def orderIndex = tableParams.order[0].column
+        def products = Product.list([offset: tableParams.start, max: tableParams.length, sort: sorts[orderIndex].data, order: sort])
         def recordsTotal = Product.count()
         def m = [:]
         m.recordsTotal = recordsTotal

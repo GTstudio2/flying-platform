@@ -56,11 +56,11 @@
                         <form class="margin-top" role="form" id="form3">
                             <div class="form-group">
                                 <label for="pwd">新密码</label>
-                                <input type="password" name="pwd" class="form-control" id="pwd" placeholder="输入新密码">
+                                <input type="password" name="pwd" class="form-control" id="pwd" maxlength="20" placeholder="请输入新密码">
                             </div>
                             <div class="form-group">
                                 <label for="pwdAgain">再次输入新密码</label>
-                                <input type="password" name="confirm_password" class="form-control" id="pwdAgain" placeholder="再次输入新密码">
+                                <input type="password" name="confirm_password" class="form-control" id="pwdAgain" maxlength="20" placeholder="再次输入新密码">
                             </div>
                             <button type="submit" class="btn btn-primary btn-block">确认修改</button>
                         </form>
