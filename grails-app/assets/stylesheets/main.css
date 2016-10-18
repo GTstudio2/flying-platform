@@ -15,7 +15,8 @@ li {
 
 body {
   font-family: '微软雅黑',arial;
-  font-size: 14px; }
+  font-size: 14px;
+  color: #5e5e5e; }
 
 .percent {
   width: 85.71429%; }
@@ -248,6 +249,25 @@ table.dataTable tbody tr.selected {
 
 .comment-area {
   resize: none; }
+
+.panel-body > .title {
+  margin-top: 0; }
+
+.interactive-panel {
+  padding: 10px 15px;
+  border: 1px solid #ddd; }
+
+.interactive-body {
+  height: 50px;
+  line-height: 50px; }
+  .interactive-body img {
+    float: left;
+    height: 50px; }
+  .interactive-body .brief-text {
+    margin-left: 10px; }
+  .interactive-body .opt-btn {
+    float: right;
+    margin-top: 8px; }
 
 .text-left {
   text-align: left; }

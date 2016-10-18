@@ -44,7 +44,7 @@
         <th width="120">名称</th>
         <th>描述</th>
         <th width="80">发布时间</th>
-        <th>状态</th>
+        <th width="40">状态</th>
         <th width="100">操作</th>
     </tr>
     </thead>

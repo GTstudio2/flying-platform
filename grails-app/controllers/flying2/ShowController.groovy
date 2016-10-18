@@ -32,6 +32,8 @@ class ShowController {
     }
     def photoDetail() {
         def product = Product.get(params.id)
+        product.viewer = product.viewer+1
+        product.save()
         def userId = session.user?.id
         def user
         if (userId) {
@@ -42,6 +44,7 @@ class ShowController {
 
     def videoDetail() {
         def videoProduct = Product.findById(params.id)
+        videoProduct.viewer = videoProduct.viewer+1
         [videoProduct: videoProduct]
     }
 

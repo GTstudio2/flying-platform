@@ -6,6 +6,7 @@ class Product {
     String name
     String intro
     String type
+    Integer viewer = 0
     Integer status = 0 //1为已发布|2为提交审核|3为发布失败
     Integer homeShow = 0 //1为我的空间首页展示|0为不展示
 

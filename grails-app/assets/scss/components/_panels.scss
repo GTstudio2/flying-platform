@@ -1,0 +1,23 @@
+.panel-body>.title{
+  margin-top: 0;
+}
+
+.interactive-panel{
+  padding: 10px 15px;
+  border: 1px solid #ddd;
+}
+.interactive-body{
+  height: 50px;
+  line-height:50px;
+  img{
+    float: left;
+    height: 50px;
+  }
+  .brief-text{
+    margin-left: 10px;
+  }
+  .opt-btn{
+    float: right;
+    margin-top: 8px;
+  }
+}

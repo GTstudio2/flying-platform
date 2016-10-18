@@ -20,41 +20,38 @@
     <div class="container">
         <div class="row">
             <div class="col-md-offset-2 col-md-8">
-                <h3>${product.name}</h3>
-                <p>${product.intro}</p>
-                <div class="img-content" id="imgContent">
-                    <div class="my-gallery" itemscope itemtype="http://schema.org/ImageGallery">
-                        <g:each var="img" in="${product.photo.images}">
-                            <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-                                <a href="/show/showImg?img=${product.folder+"/large_"+img.img}" data-size="${img.largeWidth+"x"+img.largeHeight}" itemprop="contentUrl">
-                                    <img src="/show/showImg?img=${product.folder+"/medium_"+img.img}" itemprop="thumbnail" alt="Image description" />
-                                </a>
-                            </figure>
-                        </g:each>
-                    %{--<figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">--}%
-                    %{--<a href="../images/pic/detail/d2.jpg" itemprop="contentUrl">--}%
-                    %{--<img src="../images/pic/detail/d2.jpg" itemprop="thumbnail" alt="Image description" />--}%
-                    %{--</a>--}%
-                    %{--<!--<figcaption itemprop="caption description">Image caption</figcaption>-->--}%
-                    %{--</figure>--}%
-                    %{--<figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">--}%
-                    %{--<a href="../images/pic/detail/d3.jpg" itemprop="contentUrl">--}%
-                    %{--<img src="../images/pic/detail/d3.jpg" itemprop="thumbnail" alt="Image description" />--}%
-                    %{--</a>--}%
-                    %{--<!--<figcaption itemprop="caption description">Image caption</figcaption>-->--}%
-                    %{--</figure>--}%
-                    %{--<figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">--}%
-                    %{--<a href="../images/pic/detail/d4.jpg" itemprop="contentUrl">--}%
-                    %{--<img src="../images/pic/detail/d4.jpg" itemprop="thumbnail" alt="Image description" />--}%
-                    %{--</a>--}%
-                    %{--<!--<figcaption itemprop="caption description">Image caption</figcaption>-->--}%
-                    %{--</figure>--}%
-                    %{--<figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">--}%
-                    %{--<a href="../images/pic/detail/d5.jpg" itemprop="contentUrl">--}%
-                    %{--<img src="../images/pic/detail/d5.jpg" itemprop="thumbnail" alt="Image description" />--}%
-                    %{--</a>--}%
-                    %{--<!--<figcaption itemprop="caption description">Image caption</figcaption>-->--}%
-                    %{--</figure>--}%
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="pull-right" title="浏览${product.viewer}次"><span class="glyphicon glyphicon-eye-open"></span> ${product.viewer}</div>
+                        <h3 class="title">${product.name}</h3>
+                        <p>${product.intro}</p>
+                        <div class="img-content" id="imgContent">
+                            <div class="my-gallery" itemscope itemtype="http://schema.org/ImageGallery">
+                                <g:each var="img" in="${product.photo.images}">
+                                    <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+                                        <a href="/show/showImg?img=${product.folder+"/large_"+img.img}" data-size="${img.largeWidth+"x"+img.largeHeight}" itemprop="contentUrl">
+                                            <img src="/show/showImg?img=${product.folder+"/medium_"+img.img}" itemprop="thumbnail" alt="Image description" />
+                                        </a>
+                                    </figure>
+                                </g:each>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="interactive-panel margin-bottom">
+                    <div class="interactive-body">
+                        <g:link controller="mySpace" action="home" id="${product.user.id}">
+                            <g:if test="${product.user?.headImg}">
+                                <img class="middle-thumb"
+                                     src="/show/headImg?img=${product.user.folder}/${product.user.headImg}"/>
+                            </g:if>
+                            <g:else>
+                                <asset:image class="middle-thumb" id="userHead" src="header.jpg"/>
+                            </g:else>
+                        </g:link>
+                        <span class="brief-text">${product.user.username}</span>
+                        <button class="btn btn-primary opt-btn"><span class="glyphicon glyphicon-plus"></span> 关注</button>
                     </div>
                 </div>
 
@@ -85,43 +82,19 @@
                             </div>
                         </div>
                         <div class="comment-list" id="commentList">
-                            <div class="media">
-                                <div class="media-left">
-                                    <a href="#">
-                                        <asset:image class="middle-thumb" src="header.jpg"/>
-                                    </a>
-                                </div>
-                                <div class="media-body">
-                                    <a class="pull-right" href="#">回复</a>
-                                    <h4 class="media-heading">nick</h4>
-                                    fasdfasdfsdf
-                                </div>
-                            </div>
 
-                            <div class="media">
-                                <div class="media-left">
-                                    <a href="#">
-                                        <asset:image class="middle-thumb" src="header.jpg"/>
-                                    </a>
-                                </div>
-                                <div class="media-body">
-                                    <a class="pull-right" href="#">回复</a>
-                                    <h4 class="media-heading">nick</h4>
-                                    fasdfasdfsdf
-                                </div>
-                            </div>
-                            <div class="media">
-                                <div class="media-left">
-                                    <a href="#">
-                                        <asset:image class="middle-thumb" src="header.jpg"/>
-                                    </a>
-                                </div>
-                                <div class="media-body">
-                                    <a class="pull-right" href="#">回复</a>
-                                    <h4 class="media-heading">nick</h4>
-                                    fasdfasdfsdf
-                                </div>
-                            </div>
+                            %{--<div class="media">--}%
+                                %{--<div class="media-left">--}%
+                                    %{--<a href="#">--}%
+                                        %{--<asset:image class="middle-thumb" src="header.jpg"/>--}%
+                                    %{--</a>--}%
+                                %{--</div>--}%
+                                %{--<div class="media-body">--}%
+                                    %{--<a class="pull-right" href="#">回复</a>--}%
+                                    %{--<h4 class="media-heading">nick</h4>--}%
+                                    %{--fasdfasdfsdf--}%
+                                %{--</div>--}%
+                            %{--</div>--}%
                         </div>
                         <nav class="text-center">
                             <ul class="pagination" id="pagination"></ul>
@@ -189,7 +162,7 @@
                 </a>
             </div>
             <div class="media-body">
-                <a class="pull-right" href="#">回复</a>
+                %{--<a class="pull-right" href="#">回复</a>--}%
                 <h4 class="media-heading"><%= '${username}' %></h4>
                 <%= '${comment}' %>
             </div>
