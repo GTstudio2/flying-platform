@@ -1,8 +1,10 @@
 var gulp = require('gulp'),
     sass = require('gulp-sass'),
+    bSync = require('browser-sync').create();
     //miniCss = require('gulp-minify-css'),
     //concat = require('gulp-concat'),
-    rename = require('gulp-rename')
+    //rename = require('gulp-rename')
+    var reload      = bSync.reload;
     //del = require('del');
 
 gulp.task('sass', function() {
@@ -25,3 +27,30 @@ gulp.task('watch', function () {
         console.log('File ' + event.path + ' was ' + event.type + ', running tasks...');
     });
 })
+
+gulp.task('js-watch', function (done) {
+    bSync.reload();
+    done();
+});
+
+// use default task to launch bSync and watch JS files
+gulp.task('serve', function () {
+
+    // Serve files from the root of this project
+    bSync.init({
+        proxy: "localhost:9001"
+    });
+
+    //bSync.files = [
+    //    '*'
+    //    //assets + '/css/*.css',
+    //    //assets + '/js/*.js',
+    //    //assets + '/images/**',
+    //    //assets + '/fonts/*'
+    //]
+    //gulp.watch("*").on("change", reload);
+
+    // add bSync.reload to the tasks array to make
+    // all browsers reload after tasks are complete.
+    //gulp.watch("js/*.js", ['js-watch']);
+});

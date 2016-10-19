@@ -4,12 +4,11 @@
         <asset:stylesheet src="swiper/css/swiper.min.css"/>
         <asset:stylesheet src="main.css"/>
         <meta name="layout" content="main"/>
-        <title></title>
+        <title>首页</title>
         %{--<link href="css/index.css"/>--}%
         %{--<link type="text/css" href="${resource(dir: 'css', file: 'index.css')}" />--}%
     </head>
     <body>
-
     <!-- Swiper -->
     %{--<div class="banner-box">--}%
         %{--<div class="swiper-container">--}%
