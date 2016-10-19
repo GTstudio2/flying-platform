@@ -51,7 +51,7 @@
                             </g:else>
                         </g:link>
                         <h4 class="brief-text">${product.user.username}</h4>
-                        <button class="btn btn-primary opt-btn ${isAttention?"active":""}" id="attentionTo">
+                        <button class="attention-btn opt-btn ${isAttention?"active":""}" id="attentionTo">
                             <span class="not-attention"><span class="glyphicon glyphicon-plus"></span> <span class="text">关注</span></span>
                             <span class="attention"><span class="glyphicon glyphicon-ok"></span> <span class="text">已关注</span></span>
                         </button>
