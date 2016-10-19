@@ -51,7 +51,10 @@
                             </g:else>
                         </g:link>
                         <h4 class="brief-text">${product.user.username}</h4>
-                        <button class="btn btn-primary opt-btn" id="attentionTo"><span class="glyphicon glyphicon-plus"></span> <span class="text">关注</span></button>
+                        <button class="btn btn-primary opt-btn ${isAttention?"active":""}" id="attentionTo">
+                            <span class="not-attention"><span class="glyphicon glyphicon-plus"></span> <span class="text">关注</span></span>
+                            <span class="attention"><span class="glyphicon glyphicon-ok"></span> <span class="text">已关注</span></span>
+                        </button>
                     </div>
                 </div>
 
@@ -362,9 +365,9 @@
                         function (d) {
                             if(d.status=='success') {
                                 if(d.action=='add'){
-                                    $('#attentionTo').addClass('active').find('.text').text('已关注')
+                                    $('#attentionTo').addClass('active')
                                 }else{
-                                    $('#attentionTo').removeClass('active').find('.text').text('关注')
+                                    $('#attentionTo').removeClass('active')
                                 }
                             }
                         }
@@ -378,25 +381,29 @@
 
             $('#release').click(function () {
                 var comment = $('#comment').val()
-                $.post(
-                        '/comment/addComment',
-                        {productId: productId, comment: comment},
-                        function (d) {
-                            if(d.status=='success'){
-                                var content = [{
-                                    id: d.id,
-                                    username: $('#userName').text(),
-                                    userHeadUrl: $('#userHead').attr('src'),
-                                    comment: comment
-                                }]
-                                $('#commentTmpl').tmpl({comments: content}).prependTo('#commentList')
-                                $('#comment').val('')
-                                $('#releaseCounter').text(commentMaxCount)
-                            }else{
-                                alert(d.tips)
+                if(comment.length>0){
+                    $.post(
+                            '/comment/addComment',
+                            {productId: productId, comment: comment},
+                            function (d) {
+                                if(d.status=='success'){
+                                    var content = [{
+                                        id: d.id,
+                                        username: $('#userName').text(),
+                                        userHeadUrl: $('#userHead').attr('src'),
+                                        comment: comment
+                                    }]
+                                    $('#commentTmpl').tmpl({comments: content}).prependTo('#commentList')
+                                    $('#comment').val('')
+                                    $('#releaseCounter').text(commentMaxCount)
+                                }else{
+                                    alert(d.tips)
+                                }
                             }
-                        }
-                )
+                    )
+                }else{
+                    layer.msg('请输入评论')
+                }
 //                var $comments = $("#comments")
 //                publishComment($("#commentBox"), $comments)
             })

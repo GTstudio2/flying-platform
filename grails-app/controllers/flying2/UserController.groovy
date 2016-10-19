@@ -13,10 +13,10 @@ class UserController {
         }else{
             User attentionUser = User.get(params.attentionId)
             if (attentionUser) {
-                def attention =  user.attentions.findAll{
+                def attention =  user.attentions.find{
                     it.id as String == params.attentionId
                 }
-                if (attention.size()>0) {
+                if (attention) {
                     user.attentions.remove(user.get(params.attentionId))
                     m.action = 'remove'
                 }else{

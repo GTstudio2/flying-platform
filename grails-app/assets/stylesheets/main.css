@@ -156,6 +156,15 @@ body {
 .classify-videos .pro-box > a:hover .play-mask {
   display: block; }
 
+.attention {
+  display: none; }
+
+.active .not-attention {
+  display: none; }
+
+.active .attention {
+  display: inline-block; }
+
 .navbar-default + .banner-box {
   margin-top: -20px; }
 

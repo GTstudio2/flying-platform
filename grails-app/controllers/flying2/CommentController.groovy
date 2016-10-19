@@ -18,20 +18,25 @@ class CommentController {
     }
     def addComment() {
         def m = [:]
-        def user = User.get(session.user.id)
-        def product = Product.findByUserAndId(user, params.productId)
+        Product product = Product.findById(params.productId)
         if (product) {
-            def comment = new Comment(content: params.comment, user: user, product: product).save()
-            if (comment) {
-                m.status = "success"
-                m.id = comment.id
+            User user = User.get(session.user.id)
+            if (user) {
+                def comment = new Comment(content: params.comment, user: user, product: product).save()
+                if (comment) {
+                    m.status = "success"
+                    m.id = comment.id
+                }else{
+                    m.status = "failed"
+                    m.tips = "添加评论失败"
+                }
             }else{
                 m.status = "failed"
-                m.tips = "添加评论失败"
+                m.tips = "请先登录"
             }
         }else{
             m.status = "failed"
-            m.tips = "添加评论失败"
+            m.tips = "添加评论失败，目标产品未找到"
         }
         render m as JSON
     }

@@ -31,15 +31,25 @@ class ShowController {
         [products: products, productsCount: productsCount]
     }
     def photoDetail() {
+        def m = [:]
         Product product = Product.get(params.id)
         product.viewer = product.viewer+1
         product.save()
+        m.product = product
         def userId = session.user?.id
         User user
         if (userId) {
             user = User.get(userId)
         }
-        [product: product, user: user]
+        m.user = user
+
+        def attention =  user.attentions.find{
+            it.id == product.user.id
+        }
+        if (attention) {
+            m.isAttention = true
+        }
+        m
     }
 
     def videoDetail() {
