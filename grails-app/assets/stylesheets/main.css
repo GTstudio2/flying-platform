@@ -260,6 +260,8 @@ table.dataTable tbody tr.selected {
 .interactive-body {
   height: 50px;
   line-height: 50px; }
+  .interactive-body h4 {
+    display: inline-block; }
   .interactive-body img {
     float: left;
     height: 50px; }

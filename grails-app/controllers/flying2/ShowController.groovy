@@ -31,11 +31,11 @@ class ShowController {
         [products: products, productsCount: productsCount]
     }
     def photoDetail() {
-        def product = Product.get(params.id)
+        Product product = Product.get(params.id)
         product.viewer = product.viewer+1
         product.save()
         def userId = session.user?.id
-        def user
+        User user
         if (userId) {
             user = User.get(userId)
         }

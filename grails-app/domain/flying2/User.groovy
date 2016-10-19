@@ -11,7 +11,7 @@ class User {
     String headImg
     Date birthday
     String witchUser
-    static hasMany = [productions: Product, audits: Audit]
+    static hasMany = [productions: Product, audits: Audit, fans: User, attentions: User]
     static constraints = {
         username unique: true
         sex nullable:true

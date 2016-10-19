@@ -42,7 +42,7 @@
                 <div class="interactive-panel margin-bottom">
                     <div class="interactive-body">
                         <g:link controller="mySpace" action="home" id="${product.user.id}">
-                            <g:if test="${product.user?.headImg}">
+                            <g:if test="${product.user.headImg}">
                                 <img class="middle-thumb"
                                      src="/show/headImg?img=${product.user.folder}/${product.user.headImg}"/>
                             </g:if>
@@ -50,8 +50,8 @@
                                 <asset:image class="middle-thumb" id="userHead" src="header.jpg"/>
                             </g:else>
                         </g:link>
-                        <span class="brief-text">${product.user.username}</span>
-                        <button class="btn btn-primary opt-btn"><span class="glyphicon glyphicon-plus"></span> 关注</button>
+                        <h4 class="brief-text">${product.user.username}</h4>
+                        <button class="btn btn-primary opt-btn" id="attentionTo"><span class="glyphicon glyphicon-plus"></span> <span class="text">关注</span></button>
                     </div>
                 </div>
 
@@ -180,6 +180,7 @@
     <asset:javascript src="main.js"/>
     <script>
     var productId = "${product.id}"
+    var attentionId = "${product.user.id}"
     var commentMaxCount = 300
         $(function () {
             var initPhotoSwipeFromDOM = function(gallerySelector) {
@@ -353,7 +354,23 @@
 
 
             loadFirstImgHeight()
-            $("#comment").simplyCountable({
+
+            $('#attentionTo').click(function () {
+                $.post(
+                        '/user/attentionTo',
+                        {attentionId: attentionId},
+                        function (d) {
+                            if(d.status=='success') {
+                                if(d.action=='add'){
+                                    $('#attentionTo').addClass('active').find('.text').text('已关注')
+                                }else{
+                                    $('#attentionTo').removeClass('active').find('.text').text('关注')
+                                }
+                            }
+                        }
+                )
+            })
+            $('#comment').simplyCountable({
                 counter: '#releaseCounter',
                 maxCount:commentMaxCount,
                 strictMax: true
