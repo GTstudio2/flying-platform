@@ -9,7 +9,7 @@ class UserController {
         def m = [:]
         if(!user){
             m.status = "failed"
-            m.msg = "noUser"
+            m.tip = "noUser"
         }else{
             User attentionUser = User.get(params.attentionId)
             if (attentionUser) {
@@ -17,12 +17,19 @@ class UserController {
                     it.id as String == params.attentionId
                 }
                 if (attention) {
-                    user.attentions.remove(user.get(params.attentionId))
+                    user.attentions.remove(attention)
+                    attention.removeFromFans(user)
                     m.action = 'remove'
                 }else{
-                    user.attentions.add(attentionUser)
+                    user.addToAttentions(attentionUser)
+//                    user.attentions.add(attentionUser)
+                    attentionUser.addToFans(user)
+//                    attentionUser.fans.add(user)
                     m.action = 'add'
                 }
+//                println 'fans count:'+attentionUser.fans.size()
+                attentionUser.fansCount = attentionUser.fans.size()
+                user.attentionsCount = user.attentions.size()
                 user.save()
                 m.status = "success"
             }else{

@@ -36,19 +36,19 @@ class ShowController {
         product.viewer = product.viewer+1
         product.save()
         m.product = product
-        def userId = session.user?.id
-        User user
-        if (userId) {
-            user = User.get(userId)
+        User user = User.get(session.user?.id)
+        if (user) {
+            def attention =  user.attentions.find{
+                it.id == product.user.id
+            }
+            if (product.user.id == user.id) {
+                m.isAttention = 'manage'
+            }else if (attention) {
+                m.isAttention = 'attention'
+            }
         }
         m.user = user
 
-        def attention =  user.attentions.find{
-            it.id == product.user.id
-        }
-        if (attention) {
-            m.isAttention = true
-        }
         m
     }
 

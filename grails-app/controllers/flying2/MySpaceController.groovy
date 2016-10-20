@@ -5,8 +5,8 @@ class MySpaceController {
     def home() {
 //        def u = User.get(session.user?.id)
         def u
-        if (params.userId) {
-            u = User.get(params.userId)
+        if (params.id) {
+            u = User.get(params.id)
         }else if (session.user) {
             u = User.get(session.user.id)
         }
@@ -20,8 +20,8 @@ class MySpaceController {
 
     def products() {
         def u
-        if (params.userId) {
-            u = User.get(params.userId)
+        if (params.id) {
+            u = User.get(params.id)
         }else if (session.user) {
             u = User.get(session.user.id)
         }
@@ -35,6 +35,21 @@ class MySpaceController {
         }else{
             redirect(view: "404")
         }
+    }
+
+    def attentions() {
+        User user
+        if (params.id) {
+            user = User.get(params.id)
+        }else if (session.user) {
+            user = User.get(session.user.id)
+        }
+//        user.attentions.each{
+//            println it.attentionsCount
+//        }
+        def m = [:]
+        m.user = user
+        m
     }
 
     def manageProducts() {

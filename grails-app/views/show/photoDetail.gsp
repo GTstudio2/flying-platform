@@ -51,10 +51,26 @@
                             </g:else>
                         </g:link>
                         <h4 class="brief-text">${product.user.username}</h4>
-                        <button class="attention-btn opt-btn ${isAttention?"active":""}" id="attentionTo">
-                            <span class="not-attention"><span class="glyphicon glyphicon-plus"></span> <span class="text">关注</span></span>
-                            <span class="attention"><span class="glyphicon glyphicon-ok"></span> <span class="text">已关注</span></span>
-                        </button>
+                        <g:if test="${isAttention=="attention"||isAttention==""}">
+                            <button class="attention-btn opt-btn ${isAttention?"active":""}" id="attentionTo">
+                                <span class="not-attention"><span class="glyphicon glyphicon-plus"></span> <span class="text">关注</span></span>
+                                <span class="attention"><span class="glyphicon glyphicon-ok"></span> <span class="text">已关注</span></span>
+                            </button>
+                        </g:if>
+                        <g:elseif test="${isAttention=="manage"}">
+                            %{--<button class="attention-btn opt-btn active">--}%
+                                <g:link controller="manageProducts" action="allProducts" class="attention attention-btn opt-btn active"><span class="glyphicon glyphicon-inbox"></span> <span class="text">创作中心</span></g:link>
+                            %{--</button>--}%
+                        </g:elseif>
+                        %{--<button class="attention-btn opt-btn ${isAttention?"active":""}" id="attentionTo" data-attention="${isAttention}">--}%
+                            %{--<span class="not-attention"><span class="glyphicon glyphicon-plus"></span> <span class="text">关注</span></span>--}%
+                            %{--<g:if test="${isAttention=="attention"}">--}%
+                                %{--<span class="attention"><span class="glyphicon glyphicon-ok"></span> <span class="text">已关注</span></span>--}%
+                            %{--</g:if>--}%
+                            %{--<g:elseif test="${isAttention=="manage"}">--}%
+                                %{--<g:link controller="manageProducts" action="allProducts" class="attention"><span class="glyphicon glyphicon-inbox"></span> <span class="text">创作中心</span></g:link>--}%
+                            %{--</g:elseif>--}%
+                        %{--</button>--}%
                     </div>
                 </div>
 
@@ -75,7 +91,7 @@
                             </div>
                             <div class="media-body">
                                 <span class="comment-limit">可输入<span id="releaseCounter"></span>个字符</span>
-                                <h4 class="media-heading" id="userName">nick</h4>
+                                <h4 class="media-heading" id="userName">${user?.username}</h4>
                                 <textarea class="form-control comment-area" name="comment" id="comment" rows="3" placeholder="发表评论" maxlength="300"></textarea>
                                 <div class="row margin-top5">
                                     <div class="col-md-offset-10 col-md-2">
@@ -368,6 +384,10 @@
                                     $('#attentionTo').addClass('active')
                                 }else{
                                     $('#attentionTo').removeClass('active')
+                                }
+                            }else{
+                                if(d.tip=='noUser') {
+                                    layer.msg('请先登录')
                                 }
                             }
                         }

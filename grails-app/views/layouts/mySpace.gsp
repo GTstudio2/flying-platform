@@ -105,11 +105,13 @@
                 </div>
                 <ul class="nav nav-tabs bottom-nav margin-bottom">
                     <li role="presentation" ${params.action == "home" ? "class=active" : ""}><g:link
-                            controller="mySpace" action="home">个人主页</g:link></li>
+                            controller="mySpace" action="home" id="${user?.id}">个人主页</g:link></li>
                     <li role="presentation" ${params.classify == "photo" ? "class=active" : ""}><g:link
-                            controller="mySpace" action="products" params="[classify: 'photo']">照片</g:link></li>
+                            controller="mySpace" action="products" id="${user?.id}" params="[classify: 'photo']">照片</g:link></li>
                     <li role="presentation" ${params.classify == "video" ? "class=active" : ""}><g:link
-                            controller="mySpace" action="products" params="[classify: 'video']">视频</g:link></li>
+                            controller="mySpace" action="products" id="${user?.id}" params="[classify: 'video']">视频</g:link></li>
+                    <li role="presentation" ${params.action == "attentions" ? "class=active" : ""}><g:link
+                            controller="mySpace" action="attentions" id="${user?.id}">关注</g:link></li>
                     %{--<li role="presentation"><a href="#" data-toggle="tab">讨论区</a></li>--}%
                     %{--<li role="presentation"><a href="#" data-toggle="tab">讨论区</a></li>--}%
                 </ul>
