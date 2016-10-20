@@ -51,26 +51,15 @@
                             </g:else>
                         </g:link>
                         <h4 class="brief-text">${product.user.username}</h4>
-                        <g:if test="${isAttention=="attention"||isAttention==""}">
+                        <g:if test="${isAttention=="attention"||!isAttention}">
                             <button class="attention-btn opt-btn ${isAttention?"active":""}" id="attentionTo">
                                 <span class="not-attention"><span class="glyphicon glyphicon-plus"></span> <span class="text">关注</span></span>
                                 <span class="attention"><span class="glyphicon glyphicon-ok"></span> <span class="text">已关注</span></span>
                             </button>
                         </g:if>
                         <g:elseif test="${isAttention=="manage"}">
-                            %{--<button class="attention-btn opt-btn active">--}%
                                 <g:link controller="manageProducts" action="allProducts" class="attention attention-btn opt-btn active"><span class="glyphicon glyphicon-inbox"></span> <span class="text">创作中心</span></g:link>
-                            %{--</button>--}%
                         </g:elseif>
-                        %{--<button class="attention-btn opt-btn ${isAttention?"active":""}" id="attentionTo" data-attention="${isAttention}">--}%
-                            %{--<span class="not-attention"><span class="glyphicon glyphicon-plus"></span> <span class="text">关注</span></span>--}%
-                            %{--<g:if test="${isAttention=="attention"}">--}%
-                                %{--<span class="attention"><span class="glyphicon glyphicon-ok"></span> <span class="text">已关注</span></span>--}%
-                            %{--</g:if>--}%
-                            %{--<g:elseif test="${isAttention=="manage"}">--}%
-                                %{--<g:link controller="manageProducts" action="allProducts" class="attention"><span class="glyphicon glyphicon-inbox"></span> <span class="text">创作中心</span></g:link>--}%
-                            %{--</g:elseif>--}%
-                        %{--</button>--}%
                     </div>
                 </div>
 
@@ -176,7 +165,7 @@
         {%each(i,comment) comments%}
         <div class="media">
             <div class="media-left">
-                <a href="#">
+                <a href="/mySpace/home/<%= '${userId}' %>">
                     <img class="middle-thumb" src="<%='${userHeadUrl}'%>">
                 </a>
             </div>
@@ -452,6 +441,7 @@
                         $.each(d.comments, function (i, item) {
                             var comment = {
                                 id: d.id,
+                                userId: item.user.id,
                                 username: $('#userName').text(),
                                 userHeadUrl: $('#userHead').attr('src'),
                                 comment: item.content

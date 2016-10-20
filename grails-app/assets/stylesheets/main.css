@@ -230,11 +230,17 @@ table.dataTable tbody tr.selected {
 /*sizes*/
 .big-thumb {
   width: 100px;
-  height: 100px; }
+  height: 100px;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%; }
 
 .middle-thumb {
   width: 50px;
-  height: 50px; }
+  height: 50px;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%; }
 
 /*images*/
 .img-content img {
@@ -262,9 +268,14 @@ table.dataTable tbody tr.selected {
 .panel-body > .title {
   margin-top: 0; }
 
+.panel-default,
 .interactive-panel {
-  padding: 10px 15px;
-  border: 1px solid #ddd; }
+  border: 1px solid #ddd;
+  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05); }
+
+.interactive-panel {
+  padding: 10px 15px; }
 
 .interactive-body {
   height: 50px;
@@ -279,6 +290,16 @@ table.dataTable tbody tr.selected {
   .interactive-body .opt-btn {
     float: right;
     margin-top: 8px; }
+
+.user-panel {
+  background-color: #EFEFEF;
+  padding: 20px;
+  text-align: center;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px; }
+  .user-panel .brief-text {
+    font-size: 12px; }
 
 .attention-btn {
   display: inline-block;
@@ -302,6 +323,9 @@ table.dataTable tbody tr.selected {
 
 .attention-btn.active {
   background-color: #ddd; }
+
+.divider {
+  margin: 0 10px; }
 
 .text-left {
   text-align: left; }

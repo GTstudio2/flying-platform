@@ -51,6 +51,20 @@ class MySpaceController {
         m.user = user
         m
     }
+    def fans() {
+        User user
+        if (params.id) {
+            user = User.get(params.id)
+        }else if (session.user) {
+            user = User.get(session.user.id)
+        }
+//        user.attentions.each{
+//            println it.attentionsCount
+//        }
+        def m = [:]
+        m.user = user
+        m
+    }
 
     def manageProducts() {
 

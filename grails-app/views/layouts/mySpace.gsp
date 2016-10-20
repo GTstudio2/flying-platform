@@ -93,7 +93,7 @@
                             该用户还没有任何介绍
                         </g:else>
                     </div>
-                    <g:if test="${session.user}">
+                    <g:if test="${session.user?.id==user.id}">
                         <div class="media-right text-right">
                             <g:link class="btn btn-default btn-sm margin-bottom-xs" controller="accountSettings" action="basicInfo" title="个人设置"><span class="glyphicon glyphicon-cog"></span> 个人设置</g:link>
                         %{--<a class="btn btn-default btn-sm margin-bottom-xs" href="http://www.baidu.com" title="个人设置"></a>--}%
@@ -112,6 +112,8 @@
                             controller="mySpace" action="products" id="${user?.id}" params="[classify: 'video']">视频</g:link></li>
                     <li role="presentation" ${params.action == "attentions" ? "class=active" : ""}><g:link
                             controller="mySpace" action="attentions" id="${user?.id}">关注</g:link></li>
+                    <li role="presentation" ${params.action == "fans" ? "class=active" : ""}><g:link
+                            controller="mySpace" action="fans" id="${user?.id}">粉丝</g:link></li>
                     %{--<li role="presentation"><a href="#" data-toggle="tab">讨论区</a></li>--}%
                     %{--<li role="presentation"><a href="#" data-toggle="tab">讨论区</a></li>--}%
                 </ul>

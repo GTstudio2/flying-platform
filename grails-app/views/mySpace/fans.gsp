@@ -10,33 +10,33 @@
 <head>
     <meta name="layout" content="mySpace">
     <asset:stylesheet src="main.css"/>
-    <title>TTG的关注</title>
+    <title>TTG的粉丝</title>
 </head>
 
 <body>
 <div class="container match-height-mask">
     <div class="panel panel-default">
-        <div class="panel-heading">我关注的</div>
+        <div class="panel-heading">TTG的粉丝</div>
 
         <div class="panel-body">
-            <g:if test="${user.attentions.size() > 0}">
+            <g:if test="${user.fans.size() > 0}">
                 <div class="row">
-                    <g:each var="attention" in="${user.attentions}">
+                    <g:each var="fan" in="${user.fans}">
                         <div class="col-md-3 col-sm-4 col-xs-6">
                             <div class="user-panel">
                                 <div>
-                                    <g:link action="home" id="${attention.id}">
-                                        <g:if test="${attention.headImg}">
-                                            <img class="big-thumb" src="/show/headImg?img=${attention.folder}/${attention.headImg}"/>
+                                    <g:link action="home" id="${fan.id}">
+                                        <g:if test="${fan.headImg}">
+                                            <img class="big-thumb" src="/show/headImg?img=${fan.folder}/${fan.headImg}"/>
                                         </g:if>
                                         <g:else>
                                             <asset:image class="big-thumb" id="userHead" src="header.jpg"/>
                                         </g:else>
                                     </g:link>
                                 </div>
-                                <p><g:link action="home" id="${attention.id}">${attention.username}</g:link></p>
+                                <p><g:link action="home" id="${fan.id}">${fan.username}</g:link></p>
                                 <div class="brief-text">
-                                    ${attention.fansCount}个粉丝<span class="divider">|</span>${attention.productCount}个作品
+                                    ${fan.fansCount}个粉丝<span class="divider">|</span>${fan.productCount}个作品
                                 </div>
                             </div>
                         </div>

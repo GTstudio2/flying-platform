@@ -83,7 +83,13 @@
                 <div class="col-md-2">
                     <div class="list-group box-shadow">
                         <g:link action="allProducts" class="list-group-item ${params.action=="allProducts"?"active":""}">所有作品</g:link>
-                        %{--<g:link action="resetPwd" class="list-group-item ${params.action=="security"?"active":""}">统计</g:link>--}%
+                    </div>
+                    <div class="panel panel-default box-shadow">
+                        <div class="panel-heading">创建新作品</div>
+                        <div class="list-group">
+                            <g:link controller="creation" action="createProduct" params="[type: 'photo']" class="list-group-item ${params.action=="security"?"active":""}"><span class="glyphicon glyphicon-picture"></span> 创建图片</g:link>
+                            <g:link controller="creation" action="createProduct" params="[type: 'video']" class="list-group-item ${params.action=="security"?"active":""}"><span class="glyphicon glyphicon-film"></span> 创建视频</g:link>
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-10">
