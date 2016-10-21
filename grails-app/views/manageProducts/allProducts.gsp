@@ -52,6 +52,7 @@
 <content tag="footer">
     <asset:javascript src="jquery-dataTables/jquery.dataTables.min.js"/>
     <asset:javascript src="jquery-dataTables/dataTables.bootstrap.js"/>
+    <asset:javascript src="jquery-dataTables/table.js"/>
     <script>
         var productTable
         $(function () {
@@ -86,14 +87,6 @@
                     "data": function ( d ) {
                         var p = {p: JSON.stringify(d)}
                         return p
-                    }
-                },
-                language: {
-                    paginate: {
-                        previous: "上一页",
-                        next: "下一页",
-                        first: "第一页",
-                        last: "最后"
                     }
                 },
                 "columns": [

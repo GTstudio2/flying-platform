@@ -27,6 +27,10 @@
                     <input class="form-control" name="birthday" id="birthday" readonly value="<g:formatDate format="yyyy-MM-dd" date="${user.birthday}"/>">
                 </div>
                 <div class="form-group">
+                    <label for="birthday">简介</label>
+                    <textarea class="form-control" name="intro" placeholder="请输入简介" maxlength="255">${user?.intro}</textarea>
+                </div>
+                <div class="form-group">
                     <label class="radio-inline">
                         <input type="radio" name="sex" id="inlineRadio1" value="1" ${user.sex==1?"checked":""}> 男
                     </label>
@@ -53,12 +57,12 @@
                 autoclose: 1,
                 minView:2
             });
-            $('input:text').keydown(function () {
+            $('input:text,textarea').keydown(function () {
                 $('#updateBtn').prop('disabled', false)
             })
-            $('input').change(function () {
-                $('#updateBtn').prop('disabled', false)
-            })
+//            $('input').change(function () {
+//                $('#updateBtn').prop('disabled', false)
+//            })
         </script>
     </content>
 </body>

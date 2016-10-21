@@ -100,6 +100,9 @@ body {
         font-size: 16px;
         line-height: 45px; }
 
+.nav-sm > li > a {
+  padding: 10px; }
+
 .match-height-mask {
   opacity: 0;
   transition: ease-in .2s; }

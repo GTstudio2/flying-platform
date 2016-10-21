@@ -34,6 +34,7 @@ class AccountSettingsController {
         }
         user.username = params.username
         user.birthday = birthday
+        user.intro = params.intro
         user.sex = Integer.parseInt(params.sex)
         user.save()
         if (user) {

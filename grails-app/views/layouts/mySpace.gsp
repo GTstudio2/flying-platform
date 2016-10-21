@@ -86,12 +86,14 @@
                     </div>
                     <div class="media-body">
                         <h4 class="media-heading">${user?.username}</h4>
-                        <g:if test="${user?.intro}">
-                            ${user?.intro}
-                        </g:if>
-                        <g:else>
-                            该用户还没有任何介绍
-                        </g:else>
+                        <p style="max-width: 250px;">
+                            <g:if test="${user?.intro}">
+                                ${user?.intro}
+                            </g:if>
+                            <g:else>
+                                该用户还没有任何介绍
+                            </g:else>
+                        </p>
                     </div>
                     <g:if test="${session.user?.id==user.id}">
                         <div class="media-right text-right">

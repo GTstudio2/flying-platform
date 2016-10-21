@@ -13,6 +13,8 @@ class UrlMappings {
 //        "/registerNow"(controller: "account", action: "registerNow")
         "/login"(controller: "account", action: "login")
 
+        "/showImg/$img**"(controller: "show", action: "showImg")
+
         "500"(view:'/error')
         "404"(view:'/notFound')
     }

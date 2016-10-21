@@ -26,12 +26,13 @@
                         <h3 class="title">${product.name}</h3>
                         <p>${product.intro}</p>
                         <div class="img-content" id="imgContent">
-                            <div class="my-gallery" itemscope itemtype="http://schema.org/ImageGallery">
+                            <div class="my-gallery" itemscope>
                                 <g:each var="img" in="${product.photo.images}">
                                     <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
                                         <a href="/show/showImg?img=${product.folder+"/large_"+img.img}" data-size="${img.largeWidth+"x"+img.largeHeight}" itemprop="contentUrl">
                                             <img src="/show/showImg?img=${product.folder+"/medium_"+img.img}" itemprop="thumbnail" alt="Image description" />
                                         </a>
+                                        %{--<a href="/showImg/${product.folder + "/large_" + img.img}">下载原图</a>--}%
                                     </figure>
                                 </g:each>
                             </div>

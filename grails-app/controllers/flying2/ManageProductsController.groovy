@@ -19,8 +19,10 @@ class ManageProductsController {
         }
         def sort = tableParams.order[0].dir
         def orderIndex = tableParams.order[0].column
-        def products = Product.list([offset: tableParams.start, max: tableParams.length, sort: sorts[orderIndex].data, order: sort])
-        def recordsTotal = Product.count()
+        User user = User.get(session.user.id)
+        def products = Product.findAllByUser(user, [offset: tableParams.start, max: tableParams.length, sort: sorts[orderIndex].data, order: sort])
+//        def products = Product.list([offset: tableParams.start, max: tableParams.length, sort: sorts[orderIndex].data, order: sort])
+        def recordsTotal = Product.countByUser(user)
         def m = [:]
         m.recordsTotal = recordsTotal
         m.recordsFiltered = recordsTotal
