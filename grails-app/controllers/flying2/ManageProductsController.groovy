@@ -33,11 +33,33 @@ class ManageProductsController {
     def delProduct() {
 //        session.user.id
         def product = Product.findByUserAndId(User.get(session.user.id), params.pId)
+        def m = [:]
         if (product) {
             product.delete()
-            render 'success'
+            m.status = 'success'
         }else{
-            render 'failed'
+            m.status = 'failed'
+            m.tip = '未找到产品'
         }
+        render m as JSON
+    }
+
+    def appealNow() {
+        Product product = Product.get(params.pId)
+        product.status = 5
+        def m = [:]
+        if (product.save()) {
+            def audit = new Audit(product: product, reason: params.reason, status: 5)
+            if (audit.save()) {
+                m.status = 'success'
+            }else{
+                m.status = 'failed'
+                m.tip = '审核未保存'
+            }
+        }else{
+            m.status = 'failed'
+            m.tip = '未找到作品'
+        }
+        render m as JSON
     }
 }

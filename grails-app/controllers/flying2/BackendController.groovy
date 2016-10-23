@@ -137,6 +137,23 @@ class BackendController {
     def getAllProducts() {
         params.max = 8
         def tableParams = JSON.parse(params.p)
+        def status
+        switch (params.status){
+            case 'notAudit': status = 0
+                break
+            case 'auditLater': status = 4
+                break
+            case 'appeal': status = 5
+                break
+            case 'auditProhibit': status = 6
+                break
+            case 'auditFailed': status = 3
+                break
+            case 'auditSuccess': status = 1
+                break
+            default: status = 'all'
+        }
+
         def createDateSort = "asc"
         def sorts = []
         tableParams.columns.each { col ->
@@ -144,13 +161,57 @@ class BackendController {
         }
         def sort = tableParams.order[0].dir
         def orderIndex = tableParams.order[0].column
-        def products = Product.findAll([offset: tableParams.start, max: tableParams.length, sort: sorts[orderIndex].data, order: sort])
-//        def products = Product.list([offset: tableParams.start, max: tableParams.length, sort: sorts[orderIndex].data, order: sort])
-        def recordsTotal = Product.count()
+        def products = Product.createCriteria().list([offset: tableParams.start, max: tableParams.length]){
+            if(status!="all"){
+                eq("status", status)
+            }
+            order(sorts[orderIndex].data, sort)
+        }
+//        def products = Product.findAllByStatus(status ,[offset: tableParams.start, max: tableParams.length, sort: sorts[orderIndex].data, order: sort])
+//        def recordsTotal = Product.countByStatus(status)
+        def recordsTotal = Product.createCriteria().get{
+            projections {
+                count('id')
+            }
+            if(status!="all"){
+                eq("status", status)
+            }
+        }
         def m = [:]
         m.recordsTotal = recordsTotal
         m.recordsFiltered = recordsTotal
         m.data = products
         render m as JSON
+    }
+    def getProduct() {
+        def m = [:]
+        Product productTmp = Product.get(params.id)
+        def product = productTmp.collect{ product->
+            [
+                user: product.user,
+                type: product.type,
+                folder: product.folder,
+                name: product.name,
+                intro: product.intro,
+                photo: product.photo?.images,
+                audits: product.audits
+            ]
+        }
+//        def audits = product[0].audits
+//        audits.sort{ x, y->
+//            x.createDate<=>y.createDate
+//        }
+//        println '-----------'
+//        audits.each{
+//            println it.createDate
+//        }
+        def audits = Audit.findAllByProduct(productTmp, [sort: 'createDate', order: 'desc'])
+        m.product = product[0]
+        m.audits = audits
+        if(params.isAjax=='1'){
+            render m as JSON
+        }else{
+            return m
+        }
     }
 }

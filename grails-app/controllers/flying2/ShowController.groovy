@@ -26,8 +26,8 @@ class ShowController {
     def productList() {
         params.max = 12
         params.type!="photo"&&params.type!="video"?params.type="photo":""
-        def products = Product.findAllByType(params.type, [max: params.max, offset: params.offset])
-        def productsCount = Product.countByType(params.type)
+        def products = Product.findAllByTypeAndStatus(params.type, 1, [max: params.max, offset: params.offset])
+        def productsCount = Product.countByTypeAndStatus(params.type, 1)
         [products: products, productsCount: productsCount]
     }
     def photoDetail() {
@@ -49,6 +49,15 @@ class ShowController {
         }
         m.user = user
 
+        m
+    }
+    def photoDetailPreview() {
+        def m = [:]
+        Product product = Product.get(params.id)
+        product.save()
+        m.product = product
+        User user = User.get(session.user?.id)
+        m.user = user
         m
     }
 

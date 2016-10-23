@@ -1,7 +1,10 @@
 package flying2
 
 
-class BackendInterceptor {
+class BackendAccountInterceptor {
+    BackendAccountInterceptor() {
+        match(controller: "audit")
+    }
 
     boolean before() {
         if (!session.backUser) {
@@ -16,5 +19,4 @@ class BackendInterceptor {
     void afterView() {
         // no-op
     }
-
 }

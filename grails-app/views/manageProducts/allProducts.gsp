@@ -49,21 +49,67 @@
     </tr>
     </thead>
 </table>
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">审核 <small class="text-success" id="auditUsername"></small></h4>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <textarea class="form-control" name="reason" id="reason" rows="3" placeholder="请输入申述原因" maxlength="225"></textarea>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" id="appealNow">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
 <content tag="footer">
     <asset:javascript src="jquery-dataTables/jquery.dataTables.min.js"/>
     <asset:javascript src="jquery-dataTables/dataTables.bootstrap.js"/>
+    <asset:javascript src="layer/layer.js"/>
     <asset:javascript src="jquery-dataTables/table.js"/>
     <script>
-        var productTable
+        var productTable,
+                pId
         $(function () {
             $('#allProductsTable').delegate('.del', 'click', function () {
                 if(confirm('确认删除吗？')){
-                    var pId = $(this).parents('tr').find('.pId').val()
+                    pId = $(this).parents('tr').find('.pId').val()
                     $.post(
                             '/manageProducts/delProduct',
                             {pId: pId},
                             function (d) {
-                                productTable.draw()
+                                if(d.status=='success') {
+                                    productTable.draw()
+                                }else{
+                                    layer.msg(d.tip)
+                                }
+                            }
+                    )
+                }
+            }).delegate('.appeal', 'click', function () {
+                pId = $(this).parents('tr').find('.pId').val()
+                $('#myModal').modal()
+            })
+
+            $('#appealNow').click(function () {
+                var reason = $.trim($('#reason').val())
+                if(!reason) {
+                    layer.msg('请输入申述原因')
+                }else{
+                    $.post(
+                            '/manageProducts/appealNow',
+                            {pId: pId, reason: reason},
+                            function (d) {
+                                if(d.status=='success') {
+                                    productTable.draw()
+                                    $('#myModal').modal('hide')
+                                }else{
+                                    alert(d.tip)
+                                }
                             }
                     )
                 }
@@ -128,6 +174,29 @@
                     {
                         "data": "status",
                         "render": function (data, type, full, meta) {
+                            switch (data){
+                                case 0:
+                                        data = '待审核'
+                                    break
+                                case 1:
+                                    data = '<span class="text-success">已发布</span>'
+                                    break
+                                case 2:
+                                    data = '待审核'
+                                    break
+                                case 3:
+                                    data = '<span class="text-danger">发布失败</span>'
+                                    break
+                                case 4:
+                                    data = '待审核'
+                                    break
+                                case 5:
+                                    data = '申述中'
+                                    break
+                                case 6:
+                                    data = '<span class="text-danger">已屏蔽</span>'
+                                    break
+                            }
                             return data
                         }
                     },
@@ -138,6 +207,10 @@
                             var str = ''
                             str +=
                                     '<button type="button" class="btn btn-danger btn-xs btn-xs del">删除</button>'
+                            if(data.status==3) {
+                                str+=
+                                    ' <button type="button" class="btn btn-info btn-xs btn-xs appeal">申述</button>'
+                            }
                             return str
                         }
                     }
