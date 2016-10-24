@@ -95,15 +95,21 @@
                             </g:else>
                         </p>
                     </div>
-                    <g:if test="${session.user?.id==user.id}">
-                        <div class="media-right text-right">
-                            <g:link class="btn btn-default btn-sm margin-bottom-xs" controller="accountSettings" action="basicInfo" title="个人设置"><span class="glyphicon glyphicon-cog"></span> 个人设置</g:link>
-                        %{--<a class="btn btn-default btn-sm margin-bottom-xs" href="http://www.baidu.com" title="个人设置"></a>--}%
-                            %{--<a class="btn btn-default btn-sm" href="http://www.baidu.com">--}%
-                            %{--</a>--}%
-                            <g:link class="btn btn-default btn-sm" controller="manageProducts" action="allProducts"><span class="glyphicon glyphicon-inbox"></span> 作品管理</g:link>
-                        </div>
-                    </g:if>
+                    <div class="media-right text-right">
+                        <g:if test="${session.user?.id==user.id}">
+                                <g:link class="btn btn-default btn-sm margin-bottom-xs" controller="accountSettings" action="basicInfo" title="个人设置"><span class="glyphicon glyphicon-cog"></span> 个人设置</g:link>
+                            %{--<a class="btn btn-default btn-sm margin-bottom-xs" href="http://www.baidu.com" title="个人设置"></a>--}%
+                                %{--<a class="btn btn-default btn-sm" href="http://www.baidu.com">--}%
+                                %{--</a>--}%
+                                <g:link class="btn btn-default btn-sm" controller="manageProducts" action="allProducts"><span class="glyphicon glyphicon-inbox"></span> 作品管理</g:link>
+                        </g:if>
+                        <g:else>
+                            <button class="attention-btn opt-btn ${isAttention?"active":""}" id="attentionTo">
+                                <span class="not-attention"><span class="glyphicon glyphicon-plus"></span> <span class="text">关注</span></span>
+                                <span class="attention"><span class="glyphicon glyphicon-ok"></span> <span class="text">已关注</span></span>
+                            </button>
+                        </g:else>
+                    </div>
                 </div>
                 <ul class="nav nav-tabs bottom-nav margin-bottom">
                     <li role="presentation" ${params.action == "home" ? "class=active" : ""}><g:link
@@ -145,11 +151,15 @@
     </g:if>
 </div>
 <asset:javascript src="application.js"/>
+<asset:javascript src="app/mySpace.js"/>
 <asset:javascript src="jquery-validate-1.13.1/jquery.validate.js"/>
 <g:if test="${!session.user && params.action != "login"}">
     <asset:javascript src="app/show/login.js"/>
 </g:if>
 <g:applyLayout name="footerLayout">
+    <script>
+        var attentionId = "${user.id}"
+    </script>
     <g:pageProperty name="page.footer"/>
 </g:applyLayout>
 </body>
