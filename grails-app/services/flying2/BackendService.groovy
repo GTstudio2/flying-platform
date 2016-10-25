@@ -2,8 +2,10 @@ package flying2
 
 import file.FileUtil
 import flying2.Recommend
+import grails.converters.JSON
 import grails.transaction.Transactional
 import img.ImageOperation
+import net.minidev.json.JSONArray
 
 @Transactional
 class BackendService {
@@ -15,7 +17,11 @@ class BackendService {
         }.size()
         int status = 1
         if (count >= 8) status = 0
-        new Recommend(product: p, reason: params.reason, orderId: count, status: status).save()
+        def modifiedDate = [status: 1,date: new Date()]
+        def recommend = new Recommend(product: p, reason: params.reason, orderId: count, status: status, modifiedDate: modifiedDate)
+        if (!recommend.save()) {
+            status = 2
+        }
         status
     }
 }

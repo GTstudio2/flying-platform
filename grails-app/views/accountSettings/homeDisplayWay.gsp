@@ -29,9 +29,9 @@
         <label class="btn btn-success" data-toggle="tab" href="#tab1">
             <input type="radio" name="options" id="option1" checked> 时间展示
         </label>
-        <label class="btn btn-success" data-toggle="tab" href="#tab2">
-            <input type="radio" name="options" id="option2"> 自定义展示
-        </label>
+        %{--<label class="btn btn-success" data-toggle="tab" href="#tab2">--}%
+            %{--<input type="radio" name="options" id="option2"> 自定义展示--}%
+        %{--</label>--}%
     </div>
     <div class="tab-content margin-top">
         <div class="tab-pane active" id="tab1">

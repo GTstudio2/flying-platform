@@ -22,7 +22,7 @@
             <div class="col-md-2">
                 <div class="list-group">
                     <a href="homeManage?type=banner" class="list-group-item ${params.type=="banner"?"active":""}">banner显示</a>
-                    <a href="homeManage?type=recommend" class="list-group-item ${params.type=="recommend"?"active":""}">首页内容</a>
+                    <a href="homeManage?type=recommend" class="list-group-item ${params.type=="recommend"?"active":""}">首页内容推荐</a>
                 </div>
             </div>
             <div class="col-md-10">

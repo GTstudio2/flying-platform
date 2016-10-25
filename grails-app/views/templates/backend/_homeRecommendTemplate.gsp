@@ -20,7 +20,7 @@
                 </td>
                 <td>${r.orderId}</td>
                 <td class="text-right">
-                    <button class="btn btn-danger del" rId="${r.id}">删除</button>
+                    <button class="btn btn-danger btn-xs del" rId="${r.id}">删除</button>
                 </td>
             </tr>
         </g:each>
