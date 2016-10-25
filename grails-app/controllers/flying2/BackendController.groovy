@@ -194,6 +194,7 @@ class BackendController {
                 name: product.name,
                 intro: product.intro,
                 photo: product.photo?.images,
+                video: product.video,
                 audits: product.audits
             ]
         }

@@ -142,9 +142,9 @@
                     status
             $(function () {
                 allProductsInit()
-                $('#allProductsTable').delegate('.productLink', 'click', function () {
-                    pId = $(this).parent().find('.pId').val()
-                    status = $(this).parent().find('.status').val()
+                $('#allProductsTable').delegate('.auditOpt', 'click', function () {
+                    pId = $(this).data('pid')
+                    status = $(this).parents('tr').find('.status').val()
                     $('#myModal').modal()
                 })
                 $('#myModal').on('shown.bs.modal', function () {
@@ -257,7 +257,7 @@
                                 }else if(data.type=='video'){
                                     str += '<span class="label label-danger">video</span> '
                                 }
-                                str = str+ '<a class="productLink" href="#">'+data.name+'</a>'
+                                str = str+ '<a class="auditOpt" data-pid='+data.id+' href="#">'+data.name+'</a>'
                                 return str
                             }
                         },
@@ -308,7 +308,7 @@
                             "render": function (data, type, full, meta) {
                                 var str = ''
                                 str +=
-                                        '<button type="button" class="btn btn-danger btn-xs btn-xs del">删除</button>'
+                                        '<button type="button" class="btn btn-danger btn-xs btn-xs auditOpt" data-pid='+data.id+'>审核</button>'
                                 return str
                             }
                         }
