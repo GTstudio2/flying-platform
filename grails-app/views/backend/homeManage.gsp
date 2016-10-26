@@ -8,6 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
+    <asset:stylesheet src="jquery-dataTables/dataTables.bootstrap.css"/>
     <asset:stylesheet src="webuploader-0.1.5/webuploader.css"/>
     <asset:stylesheet src="Jcrop/css/jquery.Jcrop.min.css"/>
     <asset:stylesheet src="layer/skin/layer.css"/>
@@ -157,7 +158,132 @@
             </script>
         </g:if>
         <g:elseif test="${params.type=="recommend"}">
+            <asset:javascript src="jquery-dataTables/jquery.dataTables.min.js"/>
+            <asset:javascript src="jquery-dataTables/dataTables.bootstrap.js"/>
             <script>
+                var recommendTable
+                $(function () {
+                    allRecommendsInit()
+                })
+
+                function allRecommendsInit() {
+                    recommendTable = $('#recommendTable').DataTable({
+                        responsive: true,
+                        "lengthChange": false,
+                        "searching": false,
+                        "order": [[ 1, 'desc' ]],
+                        //                    "paging": true,
+                        //                    "pageLength": 10,
+                        "processing": true,
+                        "serverSide": true,
+                        "ajax": {
+                            "url": "/recommend/getRecommends",
+                            "type": "POST",
+                            "data": function ( d ) {
+                                var p = {p: JSON.stringify(d)}
+                                p.type = $('#classifyFilter li.active a').data('classify')
+                                return p
+                            }
+                        },
+                        "columns": [
+                            {
+                                "orderable": false,
+                                "data": null,
+                                "render": function ( data, type, full, meta ) {
+                                    var str =
+                                            '<input class="pId" type="hidden" value="'+data.id+'">'+
+                                            '<input class="type" type="hidden" value="'+data.type+'">'
+                                    if(data.type=='photo'){
+                                        str += '<span class="label label-success">photo</span> '
+                                    }else if(data.type=='video'){
+                                        str += '<span class="label label-danger">video</span> '
+                                    }
+                                    str = str+ '<a class="auditOpt" data-pid='+data.id+' href="#">'+data.product.name+'</a>'
+                                    return str
+                                }
+                            },
+//                            {
+//                                "orderable": false,
+//                                "data": "type"
+//                            }
+                            {
+                                "data": "createDate",
+                                "render": function (data, type, full, meta) {
+                                    var date = new Date(data)
+                                    return date.getFullYear()+'-'+date.getMonth()+'-'+date.getDate()
+                                }
+                            },
+                            {
+                                "orderable": false,
+                                "data": "reason"
+                            },
+                            {
+                                "orderable": false,
+                                "data": "modifiedLog",
+                                "render": function (data, type, full, meta) {
+                                    var str = ''
+                                    $.each(data, function (i, item) {
+                                        str += '<li>动作：'+item.status+'  日期'+item.date+'</li>'
+                                    })
+                                    return '<ul>'+str+'</ul>'
+                                }
+                            }
+//                            {
+//                                "data": "status",
+//                                "visible": false,
+//                                "render": function (data, type, full, meta) {
+//                                    switch (data){
+//                                        case 0:
+//                                            data = '待审核'
+//                                            break
+//                                        case 1:
+//                                            data = '<span class="text-success">已发布</span>'
+//                                            break
+//                                        case 2:
+//                                            data = '待审核'
+//                                            break
+//                                        case 3:
+//                                            data = '<span class="text-danger">发布失败</span>'
+//                                            break
+//                                        case 4:
+//                                            data = '待审核'
+//                                            break
+//                                        case 5:
+//                                            data = '申述中'
+//                                            break
+//                                        case 6:
+//                                            data = '<span class="text-danger">已屏蔽</span>'
+//                                            break
+//                                    }
+//                                    return data
+//                                }
+//                            },
+//                            {
+//                                "data": null,
+//                                "orderable": false,
+//                                "render": function (data, type, full, meta) {
+//                                    var str = ''
+//                                    str +=
+//                                            '<button type="button" class="btn btn-danger btn-xs btn-xs auditOpt" data-pid='+data.id+'>审核</button>'
+//                                    return str
+//                                }
+//                            }
+                        ]
+                    })
+                    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+//                        var classify = $(e.target).data('classify')
+//                        var col
+//                        if(classify=='all') {
+//                            col = 3
+//                            var column = recommendTable.column(col);
+//                            column.visible(true);
+//                        }else{
+//                            var column = recommendTable.column(3);
+//                            column.visible(false);
+//                        }
+                        recommendTable.draw()
+                    })
+                }
                 $("#recommend").delegate(".productStatus", "click", function() {
                     var thisObj = $(this)
                     var rId = $(this).attr("rId")

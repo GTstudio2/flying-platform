@@ -157,7 +157,6 @@ class BackendController {
             default: status = 'all'
         }
 
-        def createDateSort = "asc"
         def sorts = []
         tableParams.columns.each { col ->
             sorts << col

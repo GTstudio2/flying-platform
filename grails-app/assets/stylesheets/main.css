@@ -103,6 +103,10 @@ body {
 .nav-sm > li > a {
   padding: 10px; }
 
+.nav-xs > li > a {
+  padding: 3px 8px;
+  font-size: 12px; }
+
 .match-height-mask {
   opacity: 0;
   transition: ease-in .2s; }
