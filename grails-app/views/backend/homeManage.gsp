@@ -158,8 +158,10 @@
             </script>
         </g:if>
         <g:elseif test="${params.type=="recommend"}">
+            <asset:javascript src="moment.js"/>
             <asset:javascript src="jquery-dataTables/jquery.dataTables.min.js"/>
             <asset:javascript src="jquery-dataTables/dataTables.bootstrap.js"/>
+            <asset:javascript src="jquery-dataTables/table.js"/>
             <script>
                 var recommendTable
                 $(function () {
@@ -171,7 +173,7 @@
                         responsive: true,
                         "lengthChange": false,
                         "searching": false,
-                        "order": [[ 1, 'desc' ]],
+                        "order": [[ 2, 'desc' ]],
                         //                    "paging": true,
                         //                    "pageLength": 10,
                         "processing": true,
@@ -202,10 +204,14 @@
                                     return str
                                 }
                             },
-//                            {
-//                                "orderable": false,
-//                                "data": "type"
-//                            }
+                            {
+                                "visible": false,
+                                "orderable": false,
+                                "data": "product.type",
+//                                "render": function (data, type, full, meta) {
+//                                    return data.product.type
+//                                }
+                            },
                             {
                                 "data": "createDate",
                                 "render": function (data, type, full, meta) {
@@ -221,13 +227,18 @@
                                 "orderable": false,
                                 "data": "modifiedLog",
                                 "render": function (data, type, full, meta) {
-                                    var str = ''
+                                    var str = []
                                     $.each(data, function (i, item) {
-                                        str += '<li>动作：'+item.status+'  日期'+item.date+'</li>'
+                                        var action = '<span class="text-danger">待推荐</span>'
+                                        if(item.status==1) {
+                                            action = '<span class="text-success">推荐中</span>'
+                                        }
+                                        str.push('<li>动作：'+action+'  日期：'+moment(item.date).format('YYYY-MM-DD HH:mm')+'</li>')
                                     })
-                                    return '<ul>'+str+'</ul>'
+                                    str.reverse()
+                                    return '<ul>'+str.join('')+'</ul>'
                                 }
-                            }
+                            },
 //                            {
 //                                "data": "status",
 //                                "visible": false,
@@ -258,33 +269,40 @@
 //                                    return data
 //                                }
 //                            },
-//                            {
-//                                "data": null,
-//                                "orderable": false,
-//                                "render": function (data, type, full, meta) {
-//                                    var str = ''
-//                                    str +=
-//                                            '<button type="button" class="btn btn-danger btn-xs btn-xs auditOpt" data-pid='+data.id+'>审核</button>'
-//                                    return str
-//                                }
-//                            }
+                            {
+                                "data": null,
+                                "orderable": false,
+                                "render": function (data, type, full, meta) {
+                                    var str = '',
+                                            btnStatus = 'success',
+                                            btnStr = '推荐中'
+
+                                    if(data.status==0) {
+                                        btnStatus = 'danger'
+                                        btnStr = '待推荐'
+                                    }
+                                    str +=
+                                            '<button class="productStatus btn btn-xs btn-'+btnStatus+'" rid="'+data.id+'">'+btnStr+'</button>'
+                                    return str
+                                }
+                            }
                         ]
                     })
                     $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-//                        var classify = $(e.target).data('classify')
-//                        var col
-//                        if(classify=='all') {
-//                            col = 3
-//                            var column = recommendTable.column(col);
-//                            column.visible(true);
-//                        }else{
-//                            var column = recommendTable.column(3);
-//                            column.visible(false);
-//                        }
+                        var classify = $(e.target).data('classify')
+                        var col
+                        if(classify=='all') {
+                            col = 1
+                            var column = recommendTable.column(col);
+                            column.visible(true);
+                        }else{
+                            var column = recommendTable.column(1);
+                            column.visible(false);
+                        }
                         recommendTable.draw()
                     })
                 }
-                $("#recommend").delegate(".productStatus", "click", function() {
+                $("#recommendTable").delegate(".productStatus", "click", function() {
                     var thisObj = $(this)
                     var rId = $(this).attr("rId")
                     var isRecommend = $(this).hasClass("btn-success") //有btn-success表示推进中
@@ -308,6 +326,7 @@
                                             .text(str)
                                 }
                                 layer.msg("已设置为"+str)
+                                recommendTable.draw()
                             }else{
                                 alert("错误")
                             }
@@ -329,6 +348,7 @@
                                     }else{
                                         layer.msg("删除失败")
                                     }
+                                    recommendTable.draw()
                                 }
                         )
                     }

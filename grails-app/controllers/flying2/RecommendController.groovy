@@ -30,6 +30,8 @@ class RecommendController {
         def m = [:]
         def recommends = recommendTemp.collect{ recommend->
             return [
+                    id: recommend.id,
+                    status: recommend.status,
                     createDate: recommend.createDate,
                     product: recommend.product,
                     reason: recommend.reason,

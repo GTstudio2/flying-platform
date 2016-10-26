@@ -10,5 +10,6 @@ class Recommend {
     static constraints = {
         product nullable: true
         reason nullable: true
+        modifiedLog maxSize: 1000
     }
 }
