@@ -11,7 +11,7 @@ class MySpaceController {
             u = User.get(session.user.id)
         }
         if (u) {
-            def products = Product.findAllByUser(u, [max: 10])
+            def products = Product.findAllByUser(u, [max: 8, sort: "createDate", order: "desc"])
             [products: products, user: u]
         }else{
             redirect(view: "404")
@@ -28,8 +28,8 @@ class MySpaceController {
         if (u) {
             def products
             def productCount
-            params.max = 8
-            products = Product.findAllByTypeAndUser(params.classify, u, params+[])
+            params.max = 16
+            products = Product.findAllByTypeAndUser(params.classify, u, params+[sort: "createDate", order: "desc"])
             productCount = Product.countByTypeAndUser(params.classify, u)
             [products: products, productCount: productCount, user: u]
         }else{
