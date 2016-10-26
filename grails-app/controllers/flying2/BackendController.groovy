@@ -55,7 +55,7 @@ class BackendController {
             if (params.isRecommend=="true") {
                 status = 0
             }
-            def recommend = Recommend.get(params.rId)
+            Recommend recommend = Recommend.get(params.rId)
             String type = recommend.product.type
             def typeRecommend = Recommend.findAll{
                 product.type == type&&status == 1
@@ -63,6 +63,9 @@ class BackendController {
             if (status==0||typeRecommend.size() < 8) {
                 if (recommend) {
                     recommend.status = status
+                    def modifiedLogMap = JSON.parse(recommend.modifiedLog as String)
+                    modifiedLogMap << [status: status,date: new Date()]
+                    recommend.modifiedLog = new JSON(modifiedLogMap)
                     recommend.save()
                 }
                 m = [status: "ok", recommendStatus: status]

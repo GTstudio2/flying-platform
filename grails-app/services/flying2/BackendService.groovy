@@ -17,8 +17,8 @@ class BackendService {
         }.size()
         int status = 1
         if (count >= 8) status = 0
-        def modifiedDate = [status: 1,date: new Date()]
-        def recommend = new Recommend(product: p, reason: params.reason, orderId: count, status: status, modifiedDate: modifiedDate)
+        def modifiedLog = new JSON([[status: 1,date: new Date()]])
+        def recommend = new Recommend(product: p, reason: params.reason, orderId: count, status: status, modifiedLog: modifiedLog as String)
         if (!recommend.save()) {
             status = 2
         }

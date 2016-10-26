@@ -1,7 +1,5 @@
 package flying2
 
-import java.lang.reflect.Array
-
 class Recommend {
     Date createDate = new Date()
     String modifiedLog
