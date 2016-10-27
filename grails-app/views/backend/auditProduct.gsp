@@ -38,6 +38,7 @@
             <li><a href="#" data-toggle="tab" data-classify="auditLater">稍后审核</a></li>
             <li><a href="#" data-toggle="tab" data-classify="auditFailed">审核失败</a></li>
             <li><a href="#" data-toggle="tab" data-classify="auditProhibit">已屏蔽</a></li>
+            <li><a href="#" data-toggle="tab" data-classify="userDeleted">用户删除</a></li>
             <li><a href="#" data-toggle="tab" data-classify="auditSuccess">审核成功(已发布)</a></li>
         </ul>
         <table class="table table-bordered" id="allProductsTable">
@@ -156,14 +157,18 @@
                                     $('#auditUsername').text(d.product.user.username)
                                     var images = []
                                     if(d.product.type=='photo') {
-                                        $.each(d.product.photo, function (i, item) {
-                                            var img = '/show/showImg?img='+d.product.folder+'/medium_'+item.img
-                                            images.push(img)
-                                        })
-                                        $.each(d.audits, function (i, item) {
-                                            item.createDate = moment(item.createDate).format('YYYY-MM-DD HH:mm')
-                                        })
-                                        d.images = images
+                                        if(d.product.photo) {
+                                            $.each(d.product.photo, function (i, item) {
+                                                var img = '/show/showImg?img='+d.product.folder+'/medium_'+item.img
+                                                images.push(img)
+                                            })
+                                            $.each(d.audits, function (i, item) {
+                                                item.createDate = moment(item.createDate).format('YYYY-MM-DD HH:mm')
+                                            })
+                                            d.images = images
+                                        }else{
+                                            layer.msg('没有图片！')
+                                        }
                                     }
                                     $('#modalBody').html($('#productPreviewTmpl').tmpl(d))
                                 }else{
@@ -257,7 +262,11 @@
                                 }else if(data.type=='video'){
                                     str += '<span class="label label-danger">video</span> '
                                 }
-                                str = str+ '<a class="auditOpt" data-pid='+data.id+' href="#">'+data.name+'</a>'
+                                if(data.status!=6&&data.status!=7) {
+                                    str = str+ '<a class="auditOpt" data-pid='+data.id+' href="#">'+data.name+'</a>'
+                                }else{
+                                    str = str + data.name
+                                }
                                 return str
                             }
                         },
@@ -298,17 +307,23 @@
                                     case 6:
                                         data = '<span class="text-danger">已屏蔽</span>'
                                         break
+                                    case 7:
+                                        data = '<span class="text-danger">用户删除</span>'
+                                        break
                                 }
                                 return data
                             }
                         },
                         {
                             "data": null,
+                            "visible": false,
                             "orderable": false,
                             "render": function (data, type, full, meta) {
                                 var str = ''
-                                str +=
-                                        '<button type="button" class="btn btn-danger btn-xs btn-xs auditOpt" data-pid='+data.id+'>审核</button>'
+                                if(data.status!=6&&data.status!=7) {
+                                    str +=
+                                            '<button type="button" class="btn btn-danger btn-xs btn-xs auditOpt" data-pid='+data.id+'>审核</button>'
+                                }
                                 return str
                             }
                         }
@@ -316,14 +331,16 @@
                 })
                 $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
                     var classify = $(e.target).data('classify')
-                    var col
                     if(classify=='all') {
-                        col = 3
-                        var column = productTable.column(col);
-                        column.visible(true);
+                        productTable.column(3).visible(true);
+                        productTable.column(4).visible(true);
                     }else{
-                        var column = productTable.column(3);
-                        column.visible(false);
+                        productTable.column(3).visible(false);
+                    }
+                    if(classify=='auditProhibit'||classify=='userDeleted') {
+                        productTable.column(4).visible(false);
+                    }else {
+                        productTable.column(4).visible(true);
                     }
                     productTable.draw()
                 })
