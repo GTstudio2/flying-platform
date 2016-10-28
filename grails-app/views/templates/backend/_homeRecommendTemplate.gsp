@@ -18,12 +18,13 @@
         <thead>
         <tr>
             <th>名称</th>
+            <th>类型</th>
             <th>推荐创建日期</th>
             <th width="30%">推荐理由</th>
             <th width="30%">日志</th>
             %{--<th>状态</th>--}%
             %{--<th>排序</th>--}%
-            %{--<th class="text-right">操作</th>--}%
+            <th class="text-right">操作</th>
         </tr>
         </thead>
         %{--<g:each var="r" in="${recommends}">--}%

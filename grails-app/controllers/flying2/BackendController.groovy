@@ -150,6 +150,8 @@ class BackendController {
                 break
             case 'auditProhibit': status = 6
                 break
+            case 'userDeleted': status = 7
+                break
             case 'auditFailed': status = 3
                 break
             case 'auditSuccess': status = 1

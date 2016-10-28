@@ -40,8 +40,11 @@ class CreationService {
         }
     }
 
-    def createVideo(params, imgPath) {
-        Product p = new Product(params)
+    def createVideo(params, userId, imgPath) {
+        println params
+        def user = User.get(userId)
+        String folder = params.folder
+        Product p = new Product(user: user, type: "photo",coverImg: params.coverImg,folder: folder, name: params.name, intro: params.intro)
         Video v = new Video(params)
         p.video = v
         p.save()

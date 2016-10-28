@@ -20,9 +20,10 @@ class ManageProductsController {
         def sort = tableParams.order[0].dir
         def orderIndex = tableParams.order[0].column
         User user = User.get(session.user.id)
-        def products = Product.findAllByUser(user, [offset: tableParams.start, max: tableParams.length, sort: sorts[orderIndex].data, order: sort])
+        final REMOVE_STATUS = 7
+        def products = Product.findAllByUserAndStatusNotEqual(user, REMOVE_STATUS, [offset: tableParams.start, max: tableParams.length, sort: sorts[orderIndex].data, order: sort])
 //        def products = Product.list([offset: tableParams.start, max: tableParams.length, sort: sorts[orderIndex].data, order: sort])
-        def recordsTotal = Product.countByUser(user)
+        def recordsTotal = Product.countByUserAndStatusNotEqual(user, REMOVE_STATUS)
         def m = [:]
         m.recordsTotal = recordsTotal
         m.recordsFiltered = recordsTotal
@@ -35,8 +36,14 @@ class ManageProductsController {
         def product = Product.findByUserAndId(User.get(session.user.id), params.pId)
         def m = [:]
         if (product) {
-            product.delete()
-            m.status = 'success'
+            product.status = 7
+            product.removeDate = new Date()
+            if (product.save()) {
+                m.status = 'success'
+            } else {
+                m.status = 'failed'
+                m.tip = '删除失败'
+            }
         }else{
             m.status = 'failed'
             m.tip = '未找到产品'
