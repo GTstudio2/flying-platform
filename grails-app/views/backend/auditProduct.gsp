@@ -107,6 +107,10 @@
                 <img src="<%='${images[$index]}'%>">
             {%/each%}
         </div>
+    {%elseif product.type=='video'%}
+        <h3 class="title"><%= '${product.name}' %></h3>
+        <p><%= '${product.intro}' %></p>
+        <iframe id='videoFrame' height='498' width='100%' src='<%= '${product.video.url}' %>' frameborder=0 'allowfullscreen'></iframe>
     {%/if%}
     <div class="text-center margin-top agreementOptBox">
         <div class="form-group">
@@ -169,6 +173,8 @@
                                         }else{
                                             layer.msg('没有图片！')
                                         }
+                                    }else{
+                                        $('#videoFrame').attr('src', d.product.video.url)
                                     }
                                     $('#modalBody').html($('#productPreviewTmpl').tmpl(d))
                                 }else{
@@ -211,6 +217,7 @@
                                 if(d.status=='success') {
                                    $('#myModal').modal('hide')
                                     productTable.draw()
+                                    layer.msg('修改成功')
                                 }else{
                                     alert(d.tip)
                                 }
@@ -316,7 +323,6 @@
                         },
                         {
                             "data": null,
-                            "visible": false,
                             "orderable": false,
                             "render": function (data, type, full, meta) {
                                 var str = ''

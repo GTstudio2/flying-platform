@@ -6,34 +6,35 @@
     <asset:stylesheet src="webuploader-0.1.5/webuploader.css"/>
     <asset:stylesheet src="Jcrop/css/jquery.Jcrop.min.css"/>
     <asset:stylesheet src="main.css"/>
-    <title>创建作品-</title>
+    <title>修改作品-</title>
 </head>
 
 <body>
 <div class="container">
-    <h3>创建${params.type == "photo" ? "图片" : "视频"}</h3>
+    <h3>修改${product.type == "photo" ? "图片" : "视频"}</h3>
     <hr>
 
-    <form id="${params.type == "photo" ? "photoForm" : "videoForm"}" action="doCreate">
+    <form id="${product.type == "photo" ? "photoForm" : "videoForm"}" action="/creation/doChange">
+        <input type="hidden" name="pId" value="${product.id}">
         <h4>封面图</h4>
 
         <div class="cover-img-box">
-            <input type="hidden" name="coverImg"/>
-            <asset:image class="cover-img" id="coverImg" src="pic/p1.jpg"/>
+            <input type="hidden" name="coverImg" value="${product.coverImg}"/>
+            <img class="cover-img" id="coverImg" src="/show/showImg?img=${product.folder+"/"+product.coverImg}"/>
             <p class="uploadStatus"></p>
-
             <div class="cover-file-picker" id="coverFilePicker">选择封面图片</div>
         </div>
         <hr>
-        <input type="hidden" id="folder" name="folder" value="${folder}">
-        <input type="hidden" name="type" value="${params.type}">
-        <g:if test="${params.type == "photo"}">
-            <g:render template="/templates.creation/photoTemplate"/>
+        <input type="hidden" id="folder" value="${product.folder}">
+        <input type="hidden" name="type" value="${product.type}">
+        <g:if test="${product.type == "photo"}">
+            <g:render template="/templates.creation/changePhotoTemplate"/>
         </g:if>
-        <g:elseif test="${params.type == "video"}">
-            <g:render template="/templates.creation/videoTemplate"/>
+        <g:elseif test="${product.type == "video"}">
+            <g:render template="/templates.creation/changeVideoTemplate"/>
         </g:elseif>
-        <button type="submit" class="btn btn-success btn-lg">提交作品</button>
+
+        <button type="submit" class="btn btn-success btn-lg">修改作品</button>
     </form>
 </div>
 <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
@@ -71,7 +72,7 @@
     <asset:javascript src="webuploader-0.1.5/webuploader.js"/>
     <asset:javascript src="Jcrop/js/jquery.Jcrop.min.js"/>
     <asset:javascript src="jquery-validate-1.13.1/jquery.validate.js"/>
-    <g:if test="${params.type == "photo"}">
+    <g:if test="${product.type == "photo"}">
         <asset:javascript src="app/createProductPhotos.js"/>
     </g:if>
     <script>

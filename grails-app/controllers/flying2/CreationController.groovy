@@ -24,6 +24,19 @@ class CreationController {
 //        println tempFile.substring(2, tempFile.length())
 //        println "tempImgPath is:"+tempImgPath
     }
+    def changeProduct() {
+        Product product = Product.findByIdAndUserAndStatus(params.id, User.get(session.user.id), 3)
+        if (!product) {
+            redirect(view: "404")
+            return
+        }
+//        String user = session.user.username
+//        String tempFolderName = System.currentTimeMillis()
+//        String folder = user+"_"+params.type+"_"+tempFolderName
+//        String newTempFolder = showImgPath+File.separator+folder
+//        new File(newTempFolder).mkdir()
+        [product: product]
+    }
 
     def uploadImg() {
         String info
@@ -100,12 +113,47 @@ class CreationController {
                 creationService.createVideo(params, userId, imgPath)
             }
             tip.status = "success"
-            tip.content = "成功啦！"
+            tip.content = "创建成功，请等待审核！"
         } catch (Exception e) {
             e.printStackTrace()
             tip.status = "failed"
-            tip.content = "保存失败！"
+            tip.content = "创建失败！"
         }
         render(view: "/creation/statusTips", model: [tip: tip])
+    }
+
+    def doChange() {
+        def m = [:]
+        try {
+            Product product = Product.findByIdAndUserAndStatus(params.pId, User.get(session.user.id), 3)
+            println product
+            if (product) {
+                String type = product.type
+                def imgPath = [showImgPath: showImgPath, showImgPath: showImgPath]
+                if (type == "photo") {
+                    creationService.changePhoto(params, product, imgPath)
+                }else if (type == "video") {
+                    creationService.changeVideo(params, product, imgPath)
+                }
+                product.status = 5
+                def audit = new Audit(product: product, reason: '用户修改作品', status: 5)
+                if (audit.save()) {
+                    m.status = 'success'
+                }else{
+                    m.status = 'failed'
+                    m.content = '审核未保存'
+                }
+                m.status = "success"
+                m.content = "修改成功，请等待审核！"
+            }else{
+                redirect(view: "404")
+                return
+            }
+        } catch (Exception e) {
+            e.printStackTrace()
+            m.status = "failed"
+            m.content = "修改失败！"
+        }
+        render(view: "/creation/statusTips", model: [tip: m])
     }
 }

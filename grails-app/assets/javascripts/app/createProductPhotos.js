@@ -24,6 +24,9 @@ $(function () {
             }
         }
     });
+    $('#imgBox').delegate('.btn-remove', 'click', function () {
+        $(this).parents('.file-item').remove()
+    })
     var uploader2 = WebUploader.create({
         auto: true,
         duplicate: true,
@@ -50,7 +53,7 @@ $(function () {
             '<p class="uploadStatus"></p>' +
             '</div>'
         )
-        $("#thumb").append( $li );
+        $("#imgBox").append( $li );
     });
     uploader2.on( 'uploadProgress', function( file, percentage ) {
 
@@ -76,6 +79,9 @@ $(function () {
         }
         var imgUrl = '/show/showImg?img='+folder+'/medium_'+response._raw
         var $li = $(
+            '<div class="opt-box">'+
+            '<button type="button" class="btn btn-danger btn-xs btn-remove"><span class="glyphicon glyphicon-remove"></span></button>'+
+            '</div>' +
             '<input type="hidden" name="stepImg" value="'+response._raw+'">' +
             '<img src="'+imgUrl+'">' +
             '<div class="info">' + file.name + '</div>'

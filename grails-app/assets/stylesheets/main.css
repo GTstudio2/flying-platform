@@ -172,6 +172,9 @@ body {
 .active .attention {
   display: inline-block; }
 
+.img-box .opt-box {
+  float: right; }
+
 .navbar-default + .banner-box {
   margin-top: -20px; }
 

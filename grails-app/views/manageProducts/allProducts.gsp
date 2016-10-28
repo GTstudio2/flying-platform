@@ -45,7 +45,7 @@
         <th>描述</th>
         <th width="80">发布时间</th>
         <th width="40">状态</th>
-        <th width="100">操作</th>
+        <th width="120">操作</th>
     </tr>
     </thead>
 </table>
@@ -209,7 +209,8 @@
                                     '<button type="button" class="btn btn-danger btn-xs btn-xs del">删除</button>'
                             if(data.status==3) {
                                 str+=
-                                    ' <button type="button" class="btn btn-info btn-xs btn-xs appeal">申述</button>'
+                                    ' <button type="button" class="btn btn-info btn-xs btn-xs appeal">申述</button>'+
+                                    ' <a class="btn btn-success btn-xs btn-xs" href="/creation/changeProduct/'+data.id+'">修改</a>'
                             }
                             return str
                         }
