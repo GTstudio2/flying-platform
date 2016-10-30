@@ -74,31 +74,12 @@
     <g:if test="${params.type == "photo"}">
         <asset:javascript src="app/createProductPhotos.js"/>
     </g:if>
+    <g:else>
+        <asset:javascript src="app/createProductVideo.js"/>
+    </g:else>
     <script>
         var folder = $("#folder").val()
         $(function () {
-            $("#videoForm").validate({
-                rules: {
-                    name: "required",
-                    url: "required"
-                },
-                messages: {
-                    name: {
-                        required: "请输入名称"
-                    },
-                    url: {
-                        required: "请输入视频地址"
-                    }
-                },
-                submitHandler: function () {
-                    if ($("[name='coverImg']").val().length > 0) {
-                        return true
-                    } else {
-                        alert("请上传封面图")
-                        return false
-                    }
-                }
-            });
 //                    $("#coverFilePicker, #filePicker").click(function() {
 //                        curFilePicker = $(this).attr("id")
 //                    })

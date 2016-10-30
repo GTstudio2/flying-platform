@@ -48,7 +48,6 @@ class ShowController {
             }
         }
         m.user = user
-
         m
     }
     def photoDetailPreview() {
@@ -62,9 +61,24 @@ class ShowController {
     }
 
     def videoDetail() {
-        def videoProduct = Product.findById(params.id)
-        videoProduct.viewer = videoProduct.viewer+1
-        [videoProduct: videoProduct]
+        def m = [:]
+        def product = Product.findById(params.id)
+        product.viewer = product.viewer+1
+        product.save()
+        m.product = product
+        User user = User.get(session.user?.id)
+        if (user) {
+            def attention =  user.attentions.find{
+                it.id == product.user.id
+            }
+            if (product.user.id == user.id) {
+                m.isAttention = 'manage'
+            }else if (attention) {
+                m.isAttention = 'attention'
+            }
+        }
+        m.user = user
+        m
     }
 
     def contactUs() {

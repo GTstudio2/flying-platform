@@ -17,3 +17,13 @@ function dropdownOpen() {
         $(this).removeClass('open');
     });
 }
+function getVideoUrl(videoUrl) {
+    var reg = /[\'|\"]http(\w*):\/\/[^\s]+[\'|\"]/
+    var result = reg.exec(videoUrl)
+    if(result) {
+        result = result[0]
+        return result.substring(1, result.length-1)
+    }else{
+        return false
+    }
+}

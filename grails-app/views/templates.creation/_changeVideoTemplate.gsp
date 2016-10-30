@@ -14,7 +14,7 @@
         <textarea class="form-control" name="intro" id="videoIntro" placeholder="输入视频介绍" maxlength="255">${product.intro}</textarea>
     </div>
     <div class="form-group">
-        <label for="videoUrl">视频地址</label>
-        <input type="text" class="form-control" name="url" id="videoUrl" value="${product.video.url}" placeholder="输入视频地址" required maxlength="255">
+        <label for="videoUrl">视频地址 <small class="text-info">(视频地址请复制优酷视频播放页面，点开分享下拉，点击复制“通用代码”)</small> <button type="button" class="btn btn-success btn-xs previewVideo hide">预览</button></label>
+        <input type="text" class="form-control videoUrl" name="url" id="videoUrl" value="${product.video.url}" placeholder="输入视频地址" required maxlength="255">
     </div>
 </div>
