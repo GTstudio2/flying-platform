@@ -104,13 +104,12 @@ class CreationController {
         def tip = [:]
         try {
             String type = params.type
-//            new Video(params).save()
             def imgPath = [showImgPath: showImgPath, showImgPath: showImgPath]
-            def userId = session.user.id
+            def user = User.get(session.user.id)
             if (type == "photo") {
-                creationService.createPhoto(params, userId, imgPath)
+                creationService.createPhoto(params, user, imgPath)
             }else if (type == "video") {
-                creationService.createVideo(params, userId, imgPath)
+                creationService.createVideo(params, user, imgPath)
             }
             tip.status = "success"
             tip.content = "创建成功，请等待审核！"
@@ -126,7 +125,6 @@ class CreationController {
         def m = [:]
         try {
             Product product = Product.findByIdAndUserAndStatus(params.pId, User.get(session.user.id), 3)
-            println product
             if (product) {
                 String type = product.type
                 def imgPath = [showImgPath: showImgPath, showImgPath: showImgPath]

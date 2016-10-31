@@ -1,5 +1,6 @@
 var gulp = require('gulp'),
-    sass = require('gulp-sass')
+    sass = require('gulp-sass'),
+    sourcemaps = require('gulp-sourcemaps')
     //bSync = require('browser-sync').create();
     //miniCss = require('gulp-minify-css'),
     //concat = require('gulp-concat'),
@@ -9,7 +10,9 @@ var gulp = require('gulp'),
 
 gulp.task('sass', function() {
     return gulp.src('grails-app/assets/scss/*.scss')
-        .pipe(sass())
+        .pipe(sourcemaps.init())
+        .pipe(sass().on('error', sass.logError))
+        .pipe(sourcemaps.write('./maps'))
         .pipe(gulp.dest('grails-app/assets/stylesheets'))
 });
 //gulp.task('miniCss', function() {

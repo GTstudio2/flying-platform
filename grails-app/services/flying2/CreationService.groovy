@@ -6,9 +6,8 @@ import grails.transaction.Transactional
 @Transactional
 class CreationService {
 
-    def createPhoto(params, userId, imgPath) {
+    def createPhoto(params, user, imgPath) {
         String folder = params.folder
-        def user = User.get(userId)
         def stepImgList = params.stepImg
         Product p = new Product(user: user, type: "photo",coverImg: params.coverImg,folder: folder, name: params.name, intro: params.intro)
         Photo photo = new Photo(product: p)
@@ -38,7 +37,10 @@ class CreationService {
             def imgSize = img.ImageOperation.getImgSize(showImgPath+separator+params.folder+separator+"large_"+img)
             new Image(img: img, largeWidth: imgSize.width, largeHeight: imgSize.height, photo: photo).save()
         }
+        user.productCount = Product.countByUser(user)
+        user.save()
     }
+
     def changePhoto(params, product, imgPath) {
         def stepImgList = params.stepImg
         product.coverImg = params.coverImg
@@ -80,13 +82,14 @@ class CreationService {
         }
     }
 
-    def createVideo(params, userId, imgPath) {
-        def user = User.get(userId)
+    def createVideo(params, user, imgPath) {
         String folder = params.folder
         Product p = new Product(user: user, type: "video",coverImg: params.coverImg,folder: folder, name: params.name, intro: params.intro)
         Video v = new Video(params)
         p.video = v
         p.save()
+        user.productCount = Product.countByUser(user)
+        user.save()
 //        def separator = File.separator
 //        String tempImgPath = imgPath.tempImgPath
 //        String showImgPath = imgPath.showImgPath
