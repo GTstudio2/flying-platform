@@ -92,12 +92,18 @@ class AccountController {
             for (int i = 0; i < 6; i++ ){
                 verifyCode += (int)(Math.random()*10)
             }
-            accountService.sendVerifyCodeEmail(params.email, "你的邮箱验证码是" + verifyCode)
-            String timeMillis = System.currentTimeMillis();
-            String token = MD5.encode('this is'+timeMillis)
-            new Verification(type: 1, code: verifyCode, user: user, token: token).save()
-            m.token = token
-            m.status = "success"
+            try {
+                accountService.sendVerifyCodeEmail(params.email, "你的邮箱验证码是" + verifyCode)
+                String timeMillis = System.currentTimeMillis();
+                String token = MD5.encode('this is'+timeMillis)
+                new Verification(type: 1, code: verifyCode, user: user, token: token).save()
+                m.token = token
+                m.status = "success"
+            } catch (Exception e) {
+                m.staus = "failed"
+                m.type = "sendMailFailed"
+                m.tip = "发送邮件失败"
+            }
         }else{
             m.staus = "failed"
         }

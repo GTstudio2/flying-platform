@@ -39,6 +39,9 @@ $(function () {
                         $('#form1').hide()
                         $('#form2').show()
                         $('#emailText').text(email)
+                    }else if(d.type =="sendMailFailed"){
+                        alert("非常抱歉，系统发送邮件失败，我们会尽快处理")
+                        $('#form1 .nextStep').text('发送邮件失败')
                     }else{
                         $('#usernameAndEmailError').show()
                         $('#form1 .nextStep').text('下一步').prop('disabled', false)
@@ -79,8 +82,7 @@ $(function () {
                         $('#form2').hide()
                         $('#form3').show()
                     }else{
-                        alert(d.tips)
-                        $('#usernameAndEmailError').show()
+                        layer.msg(d.tips)
                         $('#form1 .nextStep').text('下一步').prop('disabled', false)
                     }
                 }

@@ -27,9 +27,9 @@ class AccountService {
         def sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
         def now = sdf.format(date)
         mailService.sendMail {
-            from "tjtj54tj@163.com"
+            from "grandimage@163.com"
             to toEmail
-            subject "你的修改密码验证码为"+now
+            subject "你的修改密码验证码为:"+textString+"  ("+now+")"
             text textString
         }
     }
