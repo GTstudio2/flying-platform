@@ -8,6 +8,7 @@
         <asset:link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
         <title><g:layoutTitle default="起飞影视传媒"/>-起飞影视传媒</title>
         <asset:stylesheet src="application.css"/>
+        <script type="text/javascript" src="http://qzonestyle.gtimg.cn/qzone/openapi/qc_loader.js" data-appid="101358221" data-redirecturi="http://www.iezhi.com/" charset="utf-8"></script>
         <g:layoutHead/>
     </head>
     <body>
@@ -55,6 +56,19 @@
                                     <g:else>
                                         <li><a href="/login">登录</a></li>
                                     </g:else>
+                                    <li>
+                                        <span id="qqLoginBtn"></span>
+                                        <script type="text/javascript">
+                                            var cbLoginFun = function(oInfo, oOpts){
+                                                alert(oInfo.nickname); // 昵称
+                                                alert(oOpts.btnId);    // 点击登录的按钮Id
+                                            };
+                                            QC.Login({
+                                                scope:"get_user_info",
+                                                btnId:"qqLoginBtn"    //插入按钮的节点id
+                                            });
+                                        </script>
+                                    </li>
                                 </g:if>
                                 <li><a href="/register">注册</a></li>
                             </g:else>
@@ -89,6 +103,10 @@
             </g:if>
     </div>
     <asset:javascript src="application.js"/>
+    %{--<script type="text/javascript" src="http://qzonestyle.gtimg.cn/qzone/openapi/qc_loader.js" charset="utf-8" data-callback="true"></script>--}%
+    <script>
+        QC.api('get_user_info', 'get_user_info')
+    </script>
     <g:if test="${!session.user&&params.action!="login"}">
         <asset:javascript src="login.js"/>
     </g:if>
