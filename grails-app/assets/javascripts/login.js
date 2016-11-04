@@ -2,7 +2,6 @@
  * Created by tarek on 2015/6/29.
  */
 $(function () {
-
     $("#loginForm").validate({
         rules: {
             username: {

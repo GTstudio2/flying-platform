@@ -6,10 +6,10 @@ import org.im4java.core.IMOperation
 import org.im4java.core.Info
 
 class ImageOperation {
-    static String imageMagickPath = "C:\\Program Files\\ImageMagick-6.9.3-Q16"
+    static String imageMagickPath = "D:\\Software\\developInstalled\\ImageMagick-6.9.0-Q8"
     static {
         if (Environment.current == Environment.PRODUCTION) {
-            imageMagickPath = "C:\\Program Files\\ImageMagick-6.9.3-Q16"
+            imageMagickPath = "C:\\Program Files (x86)\\ImageMagick-6.3.8-Q16"
 
         }
     }

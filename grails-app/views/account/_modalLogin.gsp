@@ -22,6 +22,14 @@
             <div class="form-group">
                 <span class="text-danger" id="errorBox"></span>
             </div>
+            <hr>
+            <div class="form-group">
+                <span>其它账号登录</span>
+                <a href="#" onclick='toLogin()' title="QQ登录">
+                    <asset:image src="img/qq_logo.png"/>
+                </a>
+            </div>
+
             <button type="submit" class="btn btn-success btn-block">登录</button>
         </form>
     </div>

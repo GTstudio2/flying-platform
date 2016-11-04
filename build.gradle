@@ -65,6 +65,7 @@ dependencies {
     compile 'org.grails.plugins:mail:2.0.0.RC6'
     runtime 'mysql:mysql-connector-java:5.1.22'
     compile files('lib/im4java-1.4.0-1.5.jar')
+    compile files('lib/Sdk4J.jar')
 
 }
 
