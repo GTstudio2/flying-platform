@@ -6,7 +6,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <asset:link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
-        <title><g:layoutTitle default="起飞影视传媒"/>-起飞影视传媒</title>
+        <title><g:layoutTitle default="天空视角"/>-天空视角</title>
         <asset:stylesheet src="application.css"/>
         %{--<script type="text/javascript" src="http://qzonestyle.gtimg.cn/qzone/openapi/qc_loader.js" data-appid="101358221" data-redirecturi="http://www.iezhi.com/" charset="utf-8"></script>--}%
         <g:layoutHead/>
