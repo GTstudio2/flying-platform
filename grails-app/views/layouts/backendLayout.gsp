@@ -36,6 +36,7 @@
                                 %{--</li>--}%
                                 <li ${params.action=="homeManage"?"class=active":""}><g:link controller="backend" action="homeManage">首页管理</g:link></li>
                                 <li ${params.action=="auditProduct"?"class=active":""}><g:link controller="backend" action="auditProduct">作品审批</g:link></li>
+                                <li ${params.action=="onlineStat"?"class=active":""}><g:link controller="backend" action="onlineStat">在线统计</g:link></li>
                             </ul>
                             <!--<ul class="nav navbar-nav navbar-right">-->
                             <!--<li><a href="#">视频</a></li>-->
