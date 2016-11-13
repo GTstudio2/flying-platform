@@ -107,6 +107,11 @@ body {
   padding: 3px 8px;
   font-size: 12px; }
 
+.navbar-nav .avatar {
+  float: left;
+  margin-top: -15px;
+  margin-right: 10px; }
+
 .match-height-mask {
   opacity: 0;
   transition: ease-in .2s; }
@@ -397,5 +402,3 @@ a:hover {
 
 .border {
   border: 1px solid red; }
-
-/*# sourceMappingURL=maps/main.css.map */

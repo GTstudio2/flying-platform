@@ -53,8 +53,7 @@
                     <div class="interactive-body">
                         <g:link controller="mySpace" action="home" id="${product.user.id}">
                             <g:if test="${product.user.headImg}">
-                                <img class="middle-thumb"
-                                     src="/show/headImg?img=${product.user.folder}/${product.user.headImg}"/>
+                                <img class="middle-thumb" src="/show/headImg?img=${product.user.folder}/${product.user.headImg}"/>
                             </g:if>
                             <g:else>
                                 <asset:image class="middle-thumb" id="userHead" src="header.jpg"/>

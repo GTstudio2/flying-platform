@@ -12,15 +12,15 @@ class MySpaceInterceptor {
     }
 
     boolean after() {
-        User u =  User.get(session.user.id)
-        def attention = u.attentions.find{
-            it.id == model.user.id
+        User u =  User.get(session?.user?.id)
+        if (u) {
+            def attention = u.attentions.find{
+                it.id == model.user.id
+            }
+            if (attention) {
+                model.isAttention = 'attention'
+            }
         }
-        println attention
-        if (attention) {
-            model.isAttention = 'attention'
-        }
-        println model
         true
     }
 

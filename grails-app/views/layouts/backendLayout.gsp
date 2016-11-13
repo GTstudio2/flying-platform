@@ -4,7 +4,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title><g:layoutTitle default="起飞影视后台"/>起飞影视后台</title>
+        <title><g:layoutTitle default="天空视角后台"/>天空视角后台</title>
         <asset:stylesheet src="application.css"/>
         <g:layoutHead/>
     </head>
@@ -21,7 +21,7 @@
                                 <span class="icon-bar"></span>
                                 <span class="icon-bar"></span>
                             </button>
-                            <a class="navbar-brand" href="/backend/allProductions">起飞航拍</a>
+                            <a class="navbar-brand" href="/backend/allProductions">天空视角</a>
                         </div>
                         <!-- Collect the nav links, forms, and other content for toggling -->
                         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">

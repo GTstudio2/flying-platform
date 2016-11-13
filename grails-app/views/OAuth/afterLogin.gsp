@@ -8,10 +8,16 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-    <title>afterLogin</title>
+    <meta name="layout" content="main">
+    <title>授权登录失败</title>
+    <asset:stylesheet src="main.css"/>
 </head>
 
 <body>
-afterLogin
+    <div class="container">
+        <div class="alert alert-danger">
+            ${msg}
+        </div>
+    </div>
 </body>
 </html>

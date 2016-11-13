@@ -14,6 +14,9 @@ class ShowController {
     String headImgPath
 
     def index() {
+//        def likedNames = ['nick1234', 'nick1334', 'fanick1234', 'nick']
+//        println 'nick' in likedNames
+//        println 'session.afterLoginUrl:'+session.afterLoginUrl
         def photoRecommends = Recommend.findAll{
             status == 1 && product.type == "photo"
         }
