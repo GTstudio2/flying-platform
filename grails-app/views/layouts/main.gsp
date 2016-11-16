@@ -77,11 +77,9 @@
             <div class="footer" id="footer">
                 <!--<p><strong>Footer</strong> (always at the bottom). View more <a href="http://matthewjamestaylor.com/blog/-website-layouts">website layouts</a> and <a href="http://matthewjamestaylor.com/blog/-web-design">web design articles</a>.</p>-->
                 <div class="container">
-                    Copyright © 2015,www.yizhi.com ,All rights reserved 版权所有
+                    Copyright © 2016,www.flyttg.com ,All rights reserved 版权所有
                     <div class="contact-us">
                         <a href="tencent://message/?uin=963008227">QQ：963008882</a>
-                <br>
-                        <g:link controller="show" action="contactUs">关于我们</g:link>
                     </div>
                 </div>
             </div>

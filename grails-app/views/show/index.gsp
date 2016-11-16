@@ -24,7 +24,7 @@
         %{--</div>--}%
     %{--</div>--}%
 
-    <div class="container match-height-mask">
+    <div class="container">
         <h3>图片</h3>
         <div class="row classify-pro" id="layer-images">
             <g:each var="r" in="${photoRecommends}">
@@ -62,9 +62,9 @@
                 $('.img-link').matchHeight({
                     property: 'min-height'
                 })
-                $.fn.matchHeight._afterUpdate = function(event, groups) {
-                    $('.match-height-mask').css('opacity', 1)
-                }
+//                $.fn.matchHeight._afterUpdate = function(event, groups) {
+//                    $('.match-height-mask').css('opacity', 1)
+//                }
                 var swiper = new Swiper('.swiper-container', {
                     pagination: '.swiper-pagination',
                     paginationClickable: true,

@@ -14,7 +14,7 @@
 </head>
 
 <body>
-<div class="container match-height-mask">
+<div class="container">
     <div class="panel panel-default">
         <div class="panel-heading">TTG的粉丝</div>
 
@@ -57,9 +57,9 @@
             $('.img-link').matchHeight({
                 property: 'min-height'
             })
-            $.fn.matchHeight._afterUpdate = function(event, groups) {
-                $('.match-height-mask').css('opacity', 1)
-            }
+//            $.fn.matchHeight._afterUpdate = function(event, groups) {
+//                $('.match-height-mask').css('opacity', 1)
+//            }
         })
     </script>
 </content>

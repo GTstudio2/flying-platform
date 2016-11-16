@@ -14,7 +14,7 @@
 </head>
 
 <body>
-<div class="container match-height-mask">
+<div class="container">
     <div class="panel panel-default">
         <div class="panel-heading">作品<span class="text-danger">(${productCount}个)</span></div>
 
@@ -103,9 +103,9 @@
             $('.img-link').matchHeight({
                 property: 'min-height'
             })
-            $.fn.matchHeight._afterUpdate = function(event, groups) {
-                $('.match-height-mask').css('opacity', 1)
-            }
+//            $.fn.matchHeight._afterUpdate = function(event, groups) {
+//                $('.match-height-mask').css('opacity', 1)
+//            }
         })
     </script>
 </content>
