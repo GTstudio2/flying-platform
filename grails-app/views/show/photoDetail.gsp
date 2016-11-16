@@ -41,7 +41,7 @@
                                         <a href="/show/showImg?img=${product.folder+"/large_"+img.img}" data-size="${img.largeWidth+"x"+img.largeHeight}" itemprop="contentUrl">
                                             <img src="/show/showImg?img=${product.folder+"/medium_"+img.img}" itemprop="thumbnail" alt="Image description" />
                                         </a>
-                                        <a class="download" href="/showImg/${product.folder + "/o_" + img.img}">下载原图</a>
+                                        %{--<a class="download" href="/showImg/${product.folder + "/o_" + img.img}">下载原图</a>--}%
                                     </figure>
                                 </g:each>
                             </div>
